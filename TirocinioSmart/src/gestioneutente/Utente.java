@@ -1,0 +1,148 @@
+package gestioneutente;
+
+/**
+ * Oggetto astratto Utente che contiene le informazioni comuni a tutti gli utenti.
+ * 
+ * @author  Caggiano Gianluca
+ *@version 1.0
+ */
+public abstract class Utente {
+
+	private String user;
+	private String password;
+	private String nome;
+	private String cognome;
+	
+	/**
+	 * Costruttore vuoto
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public Utente(){
+		super();
+	}
+	
+	/**
+	 * Costruttore con parametri:
+	 *  
+	 * @param user Stringa che rappresenta la user di accesso al sistema
+	 * @param password Stringa che rappresenta la password di accesso al sistema
+	 * @param nome Stringa che rappresenta il nome dell'utente
+	 * @param cognome Stringa che rappresenta il cognome dell'utente
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public Utente(String user, String password, String nome, String cognome) {
+		super();
+		this.user = user;
+		this.password = password;
+		this.nome = nome;
+		this.cognome = cognome;
+	}
+	
+	/**
+	 * Restituisce la user utilizzata dall'utente per accedere al sistema
+	 * 
+	 * @return La user di accesso dell'utente
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public String getUser() {
+		return user;
+	}
+	/**
+	 * Setta l'user dell'utente.
+	 * 
+	 * @param user	Stringa che rappresenta la user di accesso dell'utente
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public void setUser(String user) {
+		this.user = user;
+	}
+	
+	/**
+	 * Restituisce la password utilizzata dall'utente per accedere al sistema
+	 * 
+	 * @return La password dell'utente
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public String getPassword() {
+		return password;
+	}
+	/**
+	 * Setta la password dell'utente.
+	 * 
+	 * @param password Stringa che rappresenta la password dell'utente
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	/**
+	 * Restituisce il nome dell'utente.
+	 * 
+	 * @return Il nome dell'utente
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public String getNome() {
+		return nome;
+	}
+	/**
+	 * Setta il nome dell'utente
+	 * 
+	 * @param nome Stringa che rappresenta il nome dell'utente
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	
+	/**
+	 * Restituisce il cognome dell'utente
+	 * 
+	 * @return Il cognome dell'utente
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public String getCognome() {
+		return cognome;
+	}
+	/**
+	 * Setta il cognome dell'utente
+	 * 
+	 * @param cognome Stringa che rappresenta il cognome dell'utente
+	 * 
+	 * @pre cognome != null
+	 * @pre cognome.length() &#62;= 2 and nome.length() &#60;= 255
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+	
+	@Override
+	public String toString() {
+		return "Utente [user= " + user + ", password= " + password + ", nome=" + nome + ", cognome=" + cognome + "]";
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
+	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		// TODO Auto-generated method stub
+		return super.equals(arg0);
+	}
+
+}
