@@ -55,6 +55,9 @@ public abstract class Utente {
 	 * 
 	 * @param user	Stringa che rappresenta la user di accesso dell'utente
 	 * 
+	 * @pre user != null
+	 * @pre user.length() &#62;= 2 and nome.length() &#60;= 64
+	 * 
 	 * @author Caggiano Gianluca
 	 */
 	public void setUser(String user) {
@@ -76,6 +79,9 @@ public abstract class Utente {
 	 * 
 	 * @param password Stringa che rappresenta la password dell'utente
 	 * 
+	 * @pre password != null
+	 * @pre password.length() &#62;= 2 and password.length() &#60;= 32
+	 * 
 	 * @author Caggiano Gianluca
 	 */
 	public void setPassword(String password) {
@@ -96,6 +102,9 @@ public abstract class Utente {
 	 * Setta il nome dell'utente
 	 * 
 	 * @param nome Stringa che rappresenta il nome dell'utente
+	 * 
+	 * @pre nome != null
+	 * @pre nome.length() &#62;= 2 and nome.length() &#60;= 30
 	 * 
 	 * @author Caggiano Gianluca
 	 */
@@ -120,7 +129,7 @@ public abstract class Utente {
 	 * @param cognome Stringa che rappresenta il cognome dell'utente
 	 * 
 	 * @pre cognome != null
-	 * @pre cognome.length() &#62;= 2 and nome.length() &#60;= 255
+	 * @pre cognome.length() &#62;= 2 and nome.length() &#60;= 30
 	 * 
 	 * @author Caggiano Gianluca
 	 */
@@ -128,21 +137,35 @@ public abstract class Utente {
 		this.cognome = cognome;
 	}
 	
+	/**
+	* Permette di definire una stringa che può essere considerata come la 
+	* "rappresentazione testuale" dell'oggetto Utente.
+	* 
+	* @return Stringa che rappresenta una descrizione più accurata e consona dell'oggetto
+	*/
 	@Override
 	public String toString() {
-		return "Utente [user= " + user + ", password= " + password + ", nome=" + nome + ", cognome=" + cognome + "]";
+		return getClass().getName()+" [user= " + user + ", password= " + password + ", nome=" + nome + ", cognome=" + cognome + "]";
 	}
 
+	/**
+	* Determina se due oggetti rappresentano lo stesso utente confrontando gli user dei suddetti.
+	* 
+	* @return true se gli user dei due oggetti sono gli stessi, false altrimenti
+	*/
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
-		return super.clone();
-	}
-
-	@Override
-	public boolean equals(Object arg0) {
-		// TODO Auto-generated method stub
-		return super.equals(arg0);
+	public boolean equals(Object object) {
+		if (object == null) {
+		      return false;
+		}
+		    
+		if (object.getClass() != getClass()) {
+		      return false;
+		}
+		    
+		Utente utenteRegistrato = (Utente) object;
+		    
+		return user.equals(utenteRegistrato.getUser());
 	}
 
 }
