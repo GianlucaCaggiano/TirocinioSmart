@@ -7,7 +7,8 @@ package gestioneutente;
  * 
  * @version 1.0
  */
-public abstract class Utente {
+public abstract class Utente 
+{
 
 	private String user;
 	private String password;
@@ -19,7 +20,8 @@ public abstract class Utente {
 	 * 
 	 * @author Caggiano Gianluca
 	 */
-	public Utente(){
+	public Utente()
+	{
 		super();
 	}
 	
@@ -33,7 +35,8 @@ public abstract class Utente {
 	 * 
 	 * @author Caggiano Gianluca
 	 */
-	public Utente(String user, String password, String nome, String cognome) {
+	public Utente(String user, String password, String nome, String cognome) 
+	{
 		super();
 		this.user = user;
 		this.password = password;
@@ -48,7 +51,8 @@ public abstract class Utente {
 	 * 
 	 * @author Caggiano Gianluca
 	 */
-	public String getUser() {
+	public String getUser() 
+	{
 		return user;
 	}
 	/**
@@ -61,7 +65,8 @@ public abstract class Utente {
 	 * 
 	 * @author Caggiano Gianluca
 	 */
-	public void setUser(String user) {
+	public void setUser(String user) 
+	{
 		this.user = user;
 	}
 	
@@ -72,7 +77,8 @@ public abstract class Utente {
 	 * 
 	 * @author Caggiano Gianluca
 	 */
-	public String getPassword() {
+	public String getPassword() 
+	{
 		return password;
 	}
 	/**
@@ -85,7 +91,8 @@ public abstract class Utente {
 	 * 
 	 * @author Caggiano Gianluca
 	 */
-	public void setPassword(String password) {
+	public void setPassword(String password) 
+	{
 		this.password = password;
 	}
 	
@@ -96,9 +103,12 @@ public abstract class Utente {
 	 * 
 	 * @author Caggiano Gianluca
 	 */
-	public String getNome() {
+	public String getNome()
+	{
 		return nome;
 	}
+	
+	
 	/**
 	 * Setta il nome dell'utente
 	 * 
@@ -109,7 +119,8 @@ public abstract class Utente {
 	 * 
 	 * @author Caggiano Gianluca
 	 */
-	public void setNome(String nome) {
+	public void setNome(String nome) 
+	{
 		this.nome = nome;
 	}
 	
@@ -121,9 +132,11 @@ public abstract class Utente {
 	 * 
 	 * @author Caggiano Gianluca
 	 */
-	public String getCognome() {
+	public String getCognome() 
+	{
 		return cognome;
 	}
+	
 	/**
 	 * Setta il cognome dell'utente
 	 * 
@@ -134,18 +147,19 @@ public abstract class Utente {
 	 * 
 	 * @author Caggiano Gianluca
 	 */
-	public void setCognome(String cognome) {
+	public void setCognome(String cognome) 
+	{
 		this.cognome = cognome;
 	}
 	
 	/**
-	* Permette di definire una stringa che può essere considerata come la 
+	* Permette di definire una stringa che puï¿½ essere considerata come la 
 	* "rappresentazione testuale" dell'oggetto Utente.
 	* 
-	* @return Stringa che rappresenta una descrizione più accurata e consona dell'oggetto
+	* @return Stringa che rappresenta una descrizione piï¿½ accurata e consona dell'oggetto
 	*/
-	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return getClass().getName()+" [user= " + user + ", password= " + password + ", nome=" + nome + ", cognome=" + cognome + "]";
 	}
 
@@ -154,13 +168,15 @@ public abstract class Utente {
 	* 
 	* @return true se gli user dei due oggetti sono gli stessi, false altrimenti
 	*/
-	@Override
-	public boolean equals(Object object) {
-		if (object == null) {
+	public boolean equals(Object object) 
+	{
+		if (object == null) 
+		{
 		      return false;
 		}
 		    
-		if (object.getClass() != getClass()) {
+		if (object.getClass() != getClass()) 
+		{
 		      return false;
 		}
 		    
