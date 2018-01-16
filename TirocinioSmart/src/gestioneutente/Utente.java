@@ -4,7 +4,8 @@ package gestioneutente;
  * Oggetto astratto Utente che contiene le informazioni comuni a tutti gli utenti.
  * 
  * @author  Caggiano Gianluca
- *@version 1.0
+ * 
+ * @version 1.0
  */
 public abstract class Utente {
 
