@@ -1,4 +1,4 @@
-package gestioneutente;
+package gestioneUtente;
 
 /**
  * Oggetto astratto Utente che contiene le informazioni comuni a tutti gli utenti.

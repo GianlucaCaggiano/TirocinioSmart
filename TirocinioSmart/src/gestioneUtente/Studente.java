@@ -1,4 +1,4 @@
-package gestioneutente;
+package gestioneUtente;
 
 /**
  * Classe che modella uno studente che si � iscritto alla piattaforma.
@@ -59,6 +59,7 @@ public class Studente extends Utente
 	{
 		return matricola;
 	}
+	
 	/**
 	 * Setta la matricola dello studente
 	 * 

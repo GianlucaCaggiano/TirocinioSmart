@@ -1,4 +1,4 @@
-package storagelayer;
+package storageLayer;
 
 public class DatabaseGu {
 	
