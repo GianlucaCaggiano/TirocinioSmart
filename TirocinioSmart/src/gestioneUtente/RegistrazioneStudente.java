@@ -1,11 +1,15 @@
 package gestioneUtente;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import storageLayer.DatabaseGu;
 
 /**
  * Servlet implementation class RegistrazioneStudente
@@ -44,7 +48,20 @@ public class RegistrazioneStudente extends HttpServlet
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		String matricola = request.getParameter("matricola");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		String nome = request.getParameter("nome");
+		String cognome = request.getParameter("cognome");
+		String dataNascita = request.getParameter("dataNascita");
+		String luogoNascita = request.getParameter("luogoNascita");
+		Studente studente = new Studente(matricola, email, password, nome, cognome, dataNascita, luogoNascita, false);
 		
+		DatabaseGu database = new DatabaseGu();
+		database.doSafe(studente);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

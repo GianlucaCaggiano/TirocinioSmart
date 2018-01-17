@@ -1,4 +1,5 @@
 package gestioneUtente;
+import gestioneProgettoFormativo.*;
 
 /**
  * Classe che modella uno studente che si � iscritto alla piattaforma.
@@ -14,6 +15,7 @@ public class Studente extends Utente
 	private String dataNascita;
 	private String luogoNascita;
 	private boolean abilitato;
+	private RichiestaTirocinio richiestaTirocinio;
 	
 	/**
 	 * Costruttore vuoto.
@@ -142,6 +144,30 @@ public class Studente extends Utente
 	public void setAbilitato(boolean abilitato) 
 	{
 		this.abilitato = abilitato;
+	}
+	
+	/**
+	 * Ritorna la Richiesta di Tirocinio dello Studente
+	 * 
+	 * @return richiestaTirocinio
+	 * 
+	 * @author Iannuzzi Nicolà
+	 */
+	public RichiestaTirocinio getRichiestaTirocinio()
+	{
+		return richiestaTirocinio;
+	}
+	
+	/**
+	 * Setta la Richiesta di Tirocinio dello Studente
+	 * 
+	 * @return richiestaTirocinio RichiestaTirocinio che rappresenta la Richiesta di Tirocinio dello Studente
+	 * 
+	 * @author Iannuzzi Nicolà
+	 */
+	public void setRichiestaTirocinio(RichiestaTirocinio richiestaTirocinio)
+	{
+		this.richiestaTirocinio = richiestaTirocinio;
 	}
 
 	/**

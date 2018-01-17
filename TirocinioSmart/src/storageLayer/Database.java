@@ -56,7 +56,7 @@ public class Database {
 	 * @author Caggiano Gianluca
 	 */
 
-	private static synchronized Connection createDBConnection() throws SQLException {
+	public static synchronized Connection createDBConnection() throws SQLException {
 
 		Connection newConnection = null;
 		newConnection = DriverManager.getConnection(mySqlUrl, userInfo);
