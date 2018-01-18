@@ -2,7 +2,7 @@ package gestioneUtente;
 import gestioneProgettoFormativo.*;
 
 /**
- * Classe che modella uno studente che si � iscritto alla piattaforma.
+ * Classe che modella uno studente che si &egrave iscritto alla piattaforma.
  * 
  * @author Caggiano Gianluca
  *
@@ -196,4 +196,9 @@ public class Studente extends Utente
 		return super.equals(arg0);
 	}
 	
+	/** Espressione regolare che definisce il formato del campo email per lo studente. */
+	  public static final String EMAIL_PATTERN = "^[a-zA-Z0-9.]+\\@studenti\\.unisa\\.it";
+	  
+	  /** Espressione regolare che definisce il formato del campo matricola per lo studente. */
+	  public static final String MATRICOLA_PATTERN = "^[0-9]{10,11}";
 }

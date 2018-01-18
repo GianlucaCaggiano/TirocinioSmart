@@ -24,7 +24,9 @@ import storageLayer.DatabaseGu;
 public class RegistrazioneStudente extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-       
+    
+	private String errore;
+	
     /**
      * Default constructor.
      *  
@@ -49,37 +51,18 @@ public class RegistrazioneStudente extends HttpServlet
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		String matricola = request.getParameter("matricola");
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String nome = request.getParameter("nome");
-		String cognome = request.getParameter("cognome");
-		String dataNascita = request.getParameter("dataNascita");
-		String luogoNascita = request.getParameter("luogoNascita");
-		
-
-		boolean flag=false;
-		try 
+		errore = "";
+		if(controllo(request,response))
 		{
-			Studente s = DatabaseGu.getStudenteByEmail(email);
-			Studente s2= DatabaseGu.getStudenteByMatricola(matricola);
-			if(s==null && s2==null)
-			{	
-				flag=true;
-			}
-			else
-			{
-				flag=false;
-			}
-			
-			
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+			String matricola = request.getParameter("matricola");
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
+			String nome = request.getParameter("nome");
+			String cognome = request.getParameter("cognome");
+			String dataNascita = request.getParameter("dataNascita");
+			String luogoNascita = request.getParameter("luogoNascita");
 		
-		if(flag)
-		{
+		
 			try 
 			{
 				Studente studente = new Studente(matricola, email, password, nome, cognome, dataNascita, luogoNascita, false);
@@ -94,8 +77,69 @@ public class RegistrazioneStudente extends HttpServlet
 		}
 		else
 		{
-			//andrà una pagina di notifica dell'errore 
-			System.out.println("Errore registrazione");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/registrazione.jsp?errore="+errore);
+			dispatcher.forward(request, response);
+		}
+		
+	}
+	
+	private boolean controllo(HttpServletRequest request, HttpServletResponse response) 
+	{
+		String email = request.getParameter("email");
+		email = email.trim();
+		if(!email.matches(Studente.EMAIL_PATTERN))
+		{
+			errore = "Email non valida";
+		}
+		
+		String password = request.getParameter("password");
+		password = password.trim();
+		if(!password.matches(Utente.PASSWORD_PATTERN))
+		{
+			errore = "Password non valida";
+		}
+		
+		String matricola = request.getParameter("matricola");
+		matricola = matricola.trim();
+		if(!matricola.matches(Studente.MATRICOLA_PATTERN))
+		{
+			errore = "matricola non valida";
+		}
+		
+		String nome = request.getParameter("nome");
+		nome = nome.trim();
+		if(nome.length() < Utente.MIN_LUNGHEZZA_NOME || nome.length() > Utente.MAX_LUNGHEZZA_NOME)
+		{
+			errore = "nome non valido";
+		}
+		
+		String cognome = request.getParameter("cognome");
+		cognome = cognome.trim();
+		if(cognome.length() < Utente.MIN_LUNGHEZZA_NOME || cognome.length() > Utente.MAX_LUNGHEZZA_NOME)
+		{
+			errore = "cognome non valido";
+		}
+		
+		try 
+		{
+			Studente s = DatabaseGu.getStudenteByEmail(email);
+			Studente s2= DatabaseGu.getStudenteByMatricola(matricola);
+			if(s!=null && s2!=null)
+			{	
+				errore = "Utente già presente nel sistema";
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if(errore.length()!=0)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
 		}
 		
 	}
