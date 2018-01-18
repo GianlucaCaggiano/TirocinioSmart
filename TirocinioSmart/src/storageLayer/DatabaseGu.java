@@ -90,7 +90,7 @@ public class DatabaseGu
 	 * 
 	 * @author Caggiano Gianluca
 	 */
-	public synchronized static Studente getStudenteByID(String email) throws SQLException {
+	public synchronized static Studente getStudenteByEmail(String email) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -98,8 +98,55 @@ public class DatabaseGu
 
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection.prepareStatement(queryGetStudente);
+			preparedStatement = connection.prepareStatement(queryGetStudenteEmail);
 			preparedStatement.setString(1, email);
+
+			ResultSet rs = preparedStatement.executeQuery();
+			connection.commit();
+
+			while (rs.next()) {
+				studente.setUser(rs.getString("User"));
+				studente.setPassword(rs.getString("Password"));
+				studente.setNome(rs.getString("Nome"));
+				studente.setCognome(rs.getString("Cognome"));
+				studente.setMatricola(rs.getString("Matricola"));
+				studente.setDataNascita(rs.getString("DataNascita"));
+				studente.setLuogoNascita(rs.getString("LuogoNascita"));
+				studente.setAbilitato(rs.getBoolean("abilitato"));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				Database.releaseConnection(connection);
+			}
+		}
+		if (studente.getUser() == null)
+			return null;
+		else
+			return studente;
+	}
+	
+	/**
+	 * Restituisce ,se esiste, un oggetto Studente data una matricola.
+	 * 
+	 * @param matricola
+	 * @return {@code null} se l'utene non esiste, {@code Oggetto Studente } altrimenti.
+	 * @throws SQLException
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public synchronized static Studente getStudenteByMatricola(String matricola) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Studente studente = new Studente();
+
+		try {
+			connection = Database.getConnection();
+			preparedStatement = connection.prepareStatement(queryGetStudenteMatricola);
+			preparedStatement.setString(1, matricola);
 
 			ResultSet rs = preparedStatement.executeQuery();
 			connection.commit();
@@ -130,13 +177,15 @@ public class DatabaseGu
 	
 	private static String queryAddUtente;
 	private static String queryAddStudente;
-	private static String queryGetStudente;
+	private static String queryGetStudenteEmail;
+	private static String queryGetStudenteMatricola;
 	
 	static {
 		//Query universale per tutti gli utenti
 		queryAddUtente = "Insert into utente (User, Password, Nome, Cognome, Tipo) VALUES (?,?,?,?,?);";
 		queryAddStudente = "Insert into studente (Matricola, Email, DataNascita, LuogoNascita, abilitato) VALUES (?,?,?,?,?);";
 		
-		queryGetStudente = "SELECT * From utente,studente WHERE studente.Email=utente.User AND utente.User=?;";
+		queryGetStudenteEmail = "SELECT * From utente,studente WHERE studente.Email=utente.User AND utente.User=?;";
+		queryGetStudenteMatricola = "SELECT * From utente,studente WHERE studente.Email=utente.User AND studente.Matricola=?;";
 	}
 }

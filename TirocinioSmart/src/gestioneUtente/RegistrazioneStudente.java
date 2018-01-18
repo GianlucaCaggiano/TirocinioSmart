@@ -61,8 +61,9 @@ public class RegistrazioneStudente extends HttpServlet
 		boolean flag=false;
 		try 
 		{
-			Studente s = DatabaseGu.getStudenteByID(email);
-			if(s==null)
+			Studente s = DatabaseGu.getStudenteByEmail(email);
+			Studente s2= DatabaseGu.getStudenteByMatricola(matricola);
+			if(s==null && s2==null)
 			{	
 				flag=true;
 			}
@@ -93,6 +94,7 @@ public class RegistrazioneStudente extends HttpServlet
 		}
 		else
 		{
+			//andrà una pagina di notifica dell'errore 
 			System.out.println("Errore registrazione");
 		}
 		
