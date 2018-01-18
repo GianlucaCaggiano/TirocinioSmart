@@ -56,18 +56,46 @@ public class RegistrazioneStudente extends HttpServlet
 		String cognome = request.getParameter("cognome");
 		String dataNascita = request.getParameter("dataNascita");
 		String luogoNascita = request.getParameter("luogoNascita");
-		Studente studente = new Studente(matricola, email, password, nome, cognome, dataNascita, luogoNascita, false);
+		
 
-		try {
-			DatabaseGu.addUser(studente);
-		}catch(SQLException e1)
+		boolean flag=false;
+		try 
 		{
+			Studente s = DatabaseGu.getStudenteByID(email);
+			if(s==null)
+			{	
+				flag=true;
+			}
+			else
+			{
+				flag=false;
+			}
+			
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
+		if(flag)
+		{
+			try 
+			{
+				Studente studente = new Studente(matricola, email, password, nome, cognome, dataNascita, luogoNascita, false);
+				DatabaseGu.addUser(studente);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+				dispatcher.forward(request, response);
+			}
+			catch(SQLException e1)
+			{
+				e1.printStackTrace();
+			}
+		}
+		else
+		{
+			System.out.println("Errore registrazione");
+		}
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-		dispatcher.forward(request, response);
 	}
 
 }
