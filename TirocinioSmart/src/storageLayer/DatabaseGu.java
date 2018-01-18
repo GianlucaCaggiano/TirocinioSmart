@@ -2,6 +2,7 @@ package storageLayer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import gestioneUtente.*;
 
@@ -80,12 +81,62 @@ public class DatabaseGu
 		//if(utente instanceof Azienda) ...
 	}
 
+	/**
+	 * Restituisce ,se esiste, un oggetto Studente data una email.
+	 * 
+	 * @param email
+	 * @return {@code null} se l'utene non esiste, {@code Oggetto Studente } altrimenti.
+	 * @throws SQLException
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public synchronized static Studente getStudenteByID(String email) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Studente studente = new Studente();
+
+		try {
+			connection = Database.getConnection();
+			preparedStatement = connection.prepareStatement(queryGetStudente);
+			preparedStatement.setString(1, email);
+
+			ResultSet rs = preparedStatement.executeQuery();
+			connection.commit();
+
+			while (rs.next()) {
+				studente.setUser(rs.getString("User"));
+				studente.setPassword(rs.getString("Password"));
+				studente.setNome(rs.getString("Nome"));
+				studente.setCognome(rs.getString("Cognome"));
+				studente.setMatricola(rs.getString("Matricola"));
+				studente.setDataNascita(rs.getString("DataNascita"));
+				studente.setLuogoNascita(rs.getString("LuogoNascita"));
+				studente.setAbilitato(rs.getBoolean("abilitato"));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				Database.releaseConnection(connection);
+			}
+		}
+		if (studente.getUser() == null)
+			return null;
+		else
+			return studente;
+	}
+	
 	private static String queryAddUtente;
 	private static String queryAddStudente;
+	private static String queryGetStudente;
 	
 	static {
 		//Query universale per tutti gli utenti
 		queryAddUtente = "Insert into utente (User, Password, Nome, Cognome, Tipo) VALUES (?,?,?,?,?);";
 		queryAddStudente = "Insert into studente (Matricola, Email, DataNascita, LuogoNascita, abilitato) VALUES (?,?,?,?,?);";
+		
+		queryGetStudente = "SELECT * From utente,studente WHERE studente.Email=utente.User AND utente.User=?;";
 	}
 }
