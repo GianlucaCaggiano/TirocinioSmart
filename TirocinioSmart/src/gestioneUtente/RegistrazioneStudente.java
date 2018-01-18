@@ -1,6 +1,7 @@
 package gestioneUtente;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +16,7 @@ import storageLayer.DatabaseGu;
  * Servlet implementation class RegistrazioneStudente
  * Gestisce la registrazione dello Studente
  * 
- * @author Caggiano Gianluca
+ * @author Caggiano Gianluca, Iannuzzi Nicola'
  * 
  * @version 1.0
  */
@@ -56,9 +57,14 @@ public class RegistrazioneStudente extends HttpServlet
 		String dataNascita = request.getParameter("dataNascita");
 		String luogoNascita = request.getParameter("luogoNascita");
 		Studente studente = new Studente(matricola, email, password, nome, cognome, dataNascita, luogoNascita, false);
+
+		try {
+			DatabaseGu.addUser(studente);
+		}catch(SQLException e1)
+		{
+			e1.printStackTrace();
+		}
 		
-		DatabaseGu database = new DatabaseGu();
-		database.doSafe(studente);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 		dispatcher.forward(request, response);
