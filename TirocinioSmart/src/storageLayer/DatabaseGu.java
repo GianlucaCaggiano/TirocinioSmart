@@ -78,7 +78,60 @@ public class DatabaseGu
 				}
 			}
 		}
-		//if(utente instanceof Azienda) ...
+		if(utente instanceof Azienda)
+		{
+			PreparedStatement psAddUtente = null;
+			PreparedStatement psAddAzienda = null;
+			try {
+				connection = Database.getConnection();
+				psAddUtente = connection.prepareStatement(queryAddUtente);
+
+				psAddUtente.setString(1, utente.getUser());
+				psAddUtente.setString(2, utente.getPassword());
+				psAddUtente.setString(3, utente.getNome());
+				psAddUtente.setString(4, utente.getCognome());
+				psAddUtente.setString(5, "AZ");//ST sta ad indicare il tipo "Studente" nel database
+				//AZ=Azienda, SR=Segreteria, PR=Professore
+				psAddUtente.executeUpdate();
+
+				connection.commit();
+
+				Azienda azienda = (Azienda) utente;
+				
+				psAddAzienda = connection.prepareStatement(queryAddAzienda);
+
+				psAddAzienda.setString(1, azienda.getUser());
+				psAddAzienda.setString(2, azienda.getLuogoNascita());
+				psAddAzienda.setString(3, azienda.getDataNascita());
+				psAddAzienda.setString(4, azienda.getDenominazione());
+				psAddAzienda.setString(5, azienda.getCitta());
+				psAddAzienda.setString(6, azienda.getCAP());
+				psAddAzienda.setString(7, azienda.getVia());
+				psAddAzienda.setInt(5, 0);
+				psAddAzienda.executeUpdate();
+				System.out.println(azienda);
+				connection.commit();
+			}
+			finally 
+			{
+				try 
+				{
+					if (psAddUtente != null)
+					{
+						psAddUtente.close();
+					}
+					
+					if (psAddAzienda != null)
+					{
+						psAddAzienda.close();
+					}
+				} 
+				finally 
+				{
+					Database.releaseConnection(connection);
+				}
+			}
+		}
 	}
 
 	/**
@@ -129,7 +182,7 @@ public class DatabaseGu
 	}
 	
 	/**
-	 * Restituisce ,se esiste, un oggetto Studente data una matricola.
+	 * Restituisce, se esiste, un oggetto Studente data una matricola.
 	 * 
 	 * @param matricola
 	 * @return {@code null} se l'utene non esiste, {@code Oggetto Studente } altrimenti.
@@ -177,6 +230,7 @@ public class DatabaseGu
 	
 	private static String queryAddUtente;
 	private static String queryAddStudente;
+	private static String queryAddAzienda;
 	private static String queryGetStudenteEmail;
 	private static String queryGetStudenteMatricola;
 	
@@ -184,6 +238,7 @@ public class DatabaseGu
 		//Query universale per tutti gli utenti
 		queryAddUtente = "Insert into utente (User, Password, Nome, Cognome, Tipo) VALUES (?,?,?,?,?);";
 		queryAddStudente = "Insert into studente (Matricola, Email, DataNascita, LuogoNascita, abilitato) VALUES (?,?,?,?,?);";
+		queryAddAzienda = "Insert into azienda (Email, LuogoNascita, DataNascita, Denominazione, Citta, CAP, Via, abilitato) VALUES (?,?,?,?,?,?,?,?);";
 		
 		queryGetStudenteEmail = "SELECT * From utente,studente WHERE studente.Email=utente.User AND utente.User=?;";
 		queryGetStudenteMatricola = "SELECT * From utente,studente WHERE studente.Email=utente.User AND studente.Matricola=?;";
