@@ -38,8 +38,13 @@ public class RegistrazioneStudente extends HttpServlet
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+	 * Richiama il metodo doPost per la registrazione di un Utente nel Database, Studente
+	 * 
+	 * @param request, response
+	 * @throws ServletException, IOException
+	 * 
+	 * @author Caggiano Gianluca, Iannuzzi Nicola'
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
@@ -47,7 +52,12 @@ public class RegistrazioneStudente extends HttpServlet
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Registra un utente nel database, Studente
+	 * 
+	 * @param request, response
+	 * @throws ServletException, IOException
+	 * 
+	 * @author Caggiano Gianluca, Iannuzzi Nicola'
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
@@ -83,6 +93,13 @@ public class RegistrazioneStudente extends HttpServlet
 		
 	}
 	
+	/**
+	 * Controllo parametri formato lato Server
+	 * 
+	 * @param request, response
+	 * 
+	 * @author Caggiano Gianluca
+	 */
 	private boolean controllo(HttpServletRequest request, HttpServletResponse response) 
 	{
 		String email = request.getParameter("email");
@@ -126,7 +143,7 @@ public class RegistrazioneStudente extends HttpServlet
 			Studente s2= DatabaseGu.getStudenteByMatricola(matricola);
 			if(s!=null && s2!=null)
 			{	
-				errore = "Utente già presente nel sistema";
+				errore = "Utente giï¿½ presente nel sistema";
 			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
