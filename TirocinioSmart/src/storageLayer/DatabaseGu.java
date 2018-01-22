@@ -186,6 +186,55 @@ public class DatabaseGu
 		}
 	}
 
+	public synchronized static Utente getUtenteById(String user) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		Utente u = null; 
+		
+		try {
+			connection = Database.getConnection();
+			preparedStatement = connection.prepareStatement(queryGetUtenteById);
+			preparedStatement.setString(1, user);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			connection.commit();
+
+			if (rs.next()) {
+				String tipo = rs.getString("Tipo");
+				if(tipo.equals("ST"))
+				{
+					u = new Studente();
+					u.setUser(rs.getString("User"));
+					u.setPassword(rs.getString("Password"));
+				}
+				if(tipo.equals("AZ"))
+				{
+					u = new Azienda();
+					u.setUser(rs.getString("User"));
+					u.setPassword(rs.getString("Password"));
+				}
+				if(tipo.equals("PR"))
+				{
+					u = new Professore();
+					u.setUser(rs.getString("User"));
+					u.setPassword(rs.getString("Password"));
+				}
+			}
+		}
+		finally 
+		{
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				Database.releaseConnection(connection);
+			}
+		}
+		return u;
+	}
+	
 	/**
 	 * Restituisce ,se esiste, un oggetto Studente data una email.
 	 * 
@@ -342,6 +391,7 @@ public class DatabaseGu
 	private static String queryAddAzienda;
 	private static String queryAddProfessore;
 	private static String queryAddSegreteria;
+	private static String queryGetUtenteById;
 	private static String queryGetStudenteEmail;
 	private static String queryGetStudenteMatricola;
 	private static String queryGetAziendaEmail;
@@ -355,6 +405,7 @@ public class DatabaseGu
 		queryAddProfessore = "Insert into professore (Email, Autorizzato, Materia) VALUES (?,?,?);";
 		queryAddSegreteria = "Insert into segreteria (Username, Email) VALUES (?,?);";
 		
+		queryGetUtenteById = "SELECT * From utente WHERE utente.User=?;";
 		queryGetStudenteEmail = "SELECT * From utente,studente WHERE studente.Email=utente.User AND utente.User=?;";
 		queryGetStudenteMatricola = "SELECT * From utente,studente WHERE studente.Email=utente.User AND studente.Matricola=?;";
 		queryGetAziendaEmail = "SELECT * From utente,azienda WHERE azienda.Email=utente.User AND azienda.Email=?;";

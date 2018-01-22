@@ -27,7 +27,7 @@
 		<br/>
 		<h4>Benvenuto nella sezione dedicata al login</h4>
 		<br/>
-		<form id="ajax-login-form" action="#" method="post" role="form" autocomplete="off" style="width: 50%; margin:0 auto;">
+		<form id="ajax-login-form" action="Login" method="post" role="form" autocomplete="off" style="width: 50%; margin:0 auto;">
         	<fieldset class="form-group">
         		<legend>Dati di accesso</legend>
         		<div class="form-group">
