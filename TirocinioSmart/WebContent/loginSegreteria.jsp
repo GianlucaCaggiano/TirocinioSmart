@@ -9,10 +9,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Pagina di login admin">
+    <meta name="description" content="Pagina di login della segreteria">
     <meta name="author" content="Caggiano Gianluca">
 
-    <title>Login Admin</title>
+    <title>Login Segreteria</title>
 
 	<%@ include file="headImport.html" %>
 	
@@ -23,9 +23,9 @@
 	<%@ include file="navigation.html" %>
 	<br/><br/>
 	<div class="container text-center">
-		<h1>Login <span class="text-danger">Admin</span></h1>
+		<h1>Login <span class="text-danger">Segreteria</span></h1>
 		<br/>
-		<h4>Benvenuto nella sezione dedicata al login <span class="text-danger">Admin</span></h4>
+		<h4>Benvenuto nella sezione dedicata al login della <span class="text-danger">Segreteria</span></h4>
 		<br/>
 		<form action="#" method="post" role="form" autocomplete="off" style="width: 50%; margin:0 auto;">
         	<fieldset class="form-group">
