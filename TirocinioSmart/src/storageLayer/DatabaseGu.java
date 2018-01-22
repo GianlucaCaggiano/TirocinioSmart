@@ -184,56 +184,6 @@ public class DatabaseGu
 			}
 			
 		}
-		
-		if(utente instanceof Segreteria)
-		{
-			PreparedStatement psAddUtente = null;
-			PreparedStatement psAddSegreteria = null;
-			try {
-				connection = Database.getConnection();
-				psAddSegreteria = connection.prepareStatement(queryAddSegreteria);
-
-				psAddUtente.setString(1, utente.getUser());
-				psAddUtente.setString(2, utente.getPassword());
-				psAddUtente.setString(3, utente.getNome());
-				psAddUtente.setString(4, utente.getCognome());
-				psAddUtente.setString(5, "SR");//ST sta ad indicare il tipo "Studente" nel database
-				//AZ=Azienda, SR=Segreteria, PR=Professore
-				psAddUtente.executeUpdate();
-
-				connection.commit();
-
-				Segreteria segreteria = (Segreteria) utente;
-				
-				psAddSegreteria = connection.prepareStatement(queryAddSegreteria);
-
-				psAddSegreteria.setString(1, segreteria.getUser());
-				psAddSegreteria.setString(2, segreteria.getEmail());
-				psAddSegreteria.executeUpdate();
-				System.out.println(segreteria);
-				connection.commit();
-			}
-			finally 
-			{
-				try 
-				{
-					if (psAddUtente != null)
-					{
-						psAddUtente.close();
-					}
-					
-					if (psAddSegreteria != null)
-					{
-						psAddSegreteria.close();
-					}
-				} 
-				finally 
-				{
-					Database.releaseConnection(connection);
-				}
-			}
-			
-		}
 	}
 
 	/**
