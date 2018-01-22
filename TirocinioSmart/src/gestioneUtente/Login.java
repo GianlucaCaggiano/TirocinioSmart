@@ -61,7 +61,7 @@ public class Login extends HttpServlet {
 						Studente s = DatabaseGu.getStudenteByEmail(email);
 						HttpSession session = request.getSession();
 						session.setAttribute("studente", s);
-						request.getRequestDispatcher("registrazione.jsp").forward(request, response);
+						request.getRequestDispatcher("index.jsp").forward(request, response);
 					}
 					if(u instanceof Azienda)
 					{

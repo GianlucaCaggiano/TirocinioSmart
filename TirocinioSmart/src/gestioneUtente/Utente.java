@@ -14,6 +14,7 @@ public abstract class Utente
 	private String password;
 	private String nome;
 	private String cognome;
+	private boolean autenticato;
 	
 	/**
 	 * Costruttore vuoto
@@ -152,8 +153,31 @@ public abstract class Utente
 		this.cognome = cognome;
 	}
 	
+
+	 /**
+	  * Verifica se un utente e' autenticato alla piattaforma
+	  * 
+	 * @return {@code true} se e' autenticato, {@code false} altrimenti.
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public boolean isAutenticato() {
+		return autenticato;
+	}
+
 	/**
-	* Permette di definire una stringa che pu� essere considerata come la 
+	 * Setta il parametro per autenticazione o logout di un utente.
+	 * 
+	 * @param autenticato the autenticato to set
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public void setAutenticato(boolean autenticato) {
+		this.autenticato = autenticato;
+	}
+	
+	/**
+	* Permette di definire una stringa che puo' essere considerata come la 
 	* "rappresentazione testuale" dell'oggetto Utente.
 	* 
 	* @return Stringa che rappresenta una descrizione pi� accurata e consona dell'oggetto
@@ -184,8 +208,8 @@ public abstract class Utente
 		    
 		return user.equals(utenteRegistrato.getUser());
 	}
-	
-	 /** Espressione regolare che definisce il formato del campo password. */
+
+	/** Espressione regolare che definisce il formato del campo password. */
 	  public static final String PASSWORD_PATTERN = "^[0-9a-zA-Z._-]{6,32}$";
 	  
 	  /** Costante che definisce la minima lunghezza dei campi nome e cognome. */
