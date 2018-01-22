@@ -342,7 +342,7 @@ $('#ajax-registerProfessore-form').bootstrapValidator({
 });
 
 $('#ajax-login-form').bootstrapValidator({
-	live: 'disabled',
+	//live: 'disabled',
 	message : 'This value is not valid',
 	feedbackIcons : {
 		valid : 'glyphicon glyphicon-ok',
