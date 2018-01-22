@@ -140,7 +140,7 @@ public class DatabaseGu
 			PreparedStatement psAddProfessore = null;
 			try {
 				connection = Database.getConnection();
-				psAddProfessore = connection.prepareStatement(queryAddProfessore);
+				psAddUtente = connection.prepareStatement(queryAddProfessore);
 
 				psAddUtente.setString(1, utente.getUser());
 				psAddUtente.setString(2, utente.getPassword());
