@@ -342,7 +342,7 @@ $('#ajax-registerProfessore-form').bootstrapValidator({
 });
 
 $('#ajax-login-form').bootstrapValidator({
-	//        live: 'disabled',
+	live: 'disabled',
 	message : 'This value is not valid',
 	feedbackIcons : {
 		valid : 'glyphicon glyphicon-ok',
@@ -350,18 +350,18 @@ $('#ajax-login-form').bootstrapValidator({
 		validating : 'glyphicon glyphicon-refresh'
 	},
 	fields : {
-		emailLogin : {
+		email : {
 			validators : {
 				notEmpty : {
 					message : 'Inserisci l\'email'
 				},
 				regexp : {
-					regexp : '^[a-zA-Z0-9.]+\@studenti\.unisa\.it',
+					regexp :  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
 					message : 'Email non valida'
 				}
 			}
 		},
-		passwordLogin : {
+		password : {
 			validators : {
 				notEmpty : {
 					message : 'Inserisci la password'
