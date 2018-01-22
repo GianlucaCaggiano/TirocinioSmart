@@ -186,6 +186,14 @@ public class DatabaseGu
 		}
 	}
 
+	/**
+	 * Restituisce ,se esiste, un oggetto Utente data la user di accesso.
+	 * @param user
+	 * @return {@code null} se l'utente non esiste, {@code Oggetto Utente } altrimenti.
+	 * @throws SQLException
+	 * 
+	 * @author Caggiano Gianluca
+	 */
 	public synchronized static Utente getUtenteById(String user) throws SQLException
 	{
 		Connection connection = null;
@@ -239,7 +247,7 @@ public class DatabaseGu
 	 * Restituisce ,se esiste, un oggetto Studente data una email.
 	 * 
 	 * @param email
-	 * @return {@code null} se l'utene non esiste, {@code Oggetto Studente } altrimenti.
+	 * @return {@code null} se l'utente non esiste, {@code Oggetto Studente } altrimenti.
 	 * @throws SQLException
 	 * 
 	 * @author Caggiano Gianluca
@@ -286,7 +294,7 @@ public class DatabaseGu
 	 * Restituisce, se esiste, un oggetto Studente data una matricola.
 	 * 
 	 * @param matricola
-	 * @return {@code null} se l'utene non esiste, {@code Oggetto Studente } altrimenti.
+	 * @return {@code null} se l'utente non esiste, {@code Oggetto Studente } altrimenti.
 	 * @throws SQLException
 	 * 
 	 * @author Caggiano Gianluca
@@ -333,7 +341,7 @@ public class DatabaseGu
 	 * Restituisce ,se esiste, un oggetto Azienda data una email.
 	 * 
 	 * @param email
-	 * @return {@code null} se l'utene non esiste, {@code Oggetto Studente } altrimenti.
+	 * @return {@code null} se l'utente non esiste, {@code Oggetto Azienda } altrimenti.
 	 * @throws SQLException
 	 * 
 	 * @author Iannuzzi Nicolà
@@ -390,7 +398,6 @@ public class DatabaseGu
 	private static String queryAddStudente;
 	private static String queryAddAzienda;
 	private static String queryAddProfessore;
-	private static String queryAddSegreteria;
 	private static String queryGetUtenteById;
 	private static String queryGetStudenteEmail;
 	private static String queryGetStudenteMatricola;
@@ -403,7 +410,6 @@ public class DatabaseGu
 		queryAddStudente = "Insert into studente (Matricola, Email, DataNascita, LuogoNascita, abilitato) VALUES (?,?,?,?,?);";
 		queryAddAzienda = "Insert into azienda (Email, LuogoNascita, DataNascita, Denominazione, Citta, CAP, Via, abilitato) VALUES (?,?,?,?,?,?,?,?);";
 		queryAddProfessore = "Insert into professore (Email, Autorizzato, Materia) VALUES (?,?,?);";
-		queryAddSegreteria = "Insert into segreteria (Username, Email) VALUES (?,?);";
 		
 		queryGetUtenteById = "SELECT * From utente WHERE utente.User=?;";
 		queryGetStudenteEmail = "SELECT * From utente,studente WHERE studente.Email=utente.User AND utente.User=?;";
