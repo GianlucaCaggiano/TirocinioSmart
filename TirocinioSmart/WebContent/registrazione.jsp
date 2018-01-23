@@ -87,7 +87,7 @@
           				<button type="button" class="close" data-dismiss="modal">&times;</button>
           				<h4 class="modal-title">Registrazione Azienda</h4>
         			</div>
-        			<form id="ajax-registerAzienda-form" action="#" method="post" role="form" autocomplete="off" style="margin: 0px 10px 0px 10px">
+        			<form id="ajax-registerAzienda-form" action="RegistrazioneAzienda" method="post" role="form" autocomplete="off" style="margin: 0px 10px 0px 10px">
         				<div class="form-group">
                 			<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="" required>
               			</div>
@@ -148,7 +148,7 @@
           				<button type="button" class="close" data-dismiss="modal">&times;</button>
           				<h4 class="modal-title">Registrazione Professore</h4>
         			</div>
-        			<form id="ajax-registerProfessore-form" action="#" method="post" role="form" autocomplete="off" style="margin: 0px 10px 0px 10px">
+        			<form id="ajax-registerProfessore-form" action="RegistrazioneProfessore" method="post" role="form" autocomplete="off" style="margin: 0px 10px 0px 10px">
         				<div class="form-group">
                 			<input type="email" name="email" id="email" tabindex="2" class="form-control" placeholder="Email di ateneo" value="" required>
               			</div>

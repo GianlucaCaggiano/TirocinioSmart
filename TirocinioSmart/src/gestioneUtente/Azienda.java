@@ -45,16 +45,11 @@ public class Azienda extends Utente
 	 * @param Citta: String che rappresenta la città dell'Azienda.
 	 * @param CAP: String che rappresenta il CAP dell'Azienda.
 	 * @param via: String che rappresenta la via dell'Azienda.
-	 * @param tipo: String che rappresenta il tipo di Azienda.
-	 * @param telefono: String che rappresenta il numero di telefono dell'Azienda.
-	 * @param chiSiamo: String che rappresenta la descrizione dell'Azienda.
-	 * @param sitoWeb: String che rappresenta il sito web dell'Azienda.
-	 * @raram convenzione: Convenzione che rappresenta la convenzione con l'università
 	 * @param abilitato: boolean che rappresenta l'abilitazione dell'Azienda per il Tirocinio.
 	 * 
 	 * @author Iannuzzi Nicolà
 	 */
-	public Azienda(String email, String password, String Nome, String Cognome, String LuogoNascita, String dataNascita, String Denominazione, String Citta, String CAP, String Via, String Tipo, String Telefono, String SitoWeb, String ChiSiamo, Convenzione Convenzione, boolean abilitato)
+	public Azienda(String email, String password, String Nome, String Cognome, String LuogoNascita, String dataNascita, String Denominazione, String Citta, String CAP, String Via, boolean abilitato)
 	{
 		super(email, password, Nome, Cognome);
 		this.luogoNascita = LuogoNascita;
@@ -63,11 +58,6 @@ public class Azienda extends Utente
 		this.citta = Citta;
 		this.CAP = CAP;
 		this.via = Via;
-		this.tipo = Tipo;
-		this.telefono = Telefono;
-		this.chiSiamo = ChiSiamo;
-		this.sitoWeb = SitoWeb;
-		this.convenzione = Convenzione;
 		this.abilitato = abilitato;
 	}
 

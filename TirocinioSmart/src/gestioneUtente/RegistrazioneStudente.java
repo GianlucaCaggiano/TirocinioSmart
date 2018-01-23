@@ -35,7 +35,6 @@ public class RegistrazioneStudente extends HttpServlet
     public RegistrazioneStudente()
     {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -143,7 +142,7 @@ public class RegistrazioneStudente extends HttpServlet
 			Studente s2= DatabaseGu.getStudenteByMatricola(matricola);
 			if(s!=null && s2!=null)
 			{	
-				errore = "Utente gi� presente nel sistema";
+				errore = "Utente gia' presente nel sistema";
 			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block

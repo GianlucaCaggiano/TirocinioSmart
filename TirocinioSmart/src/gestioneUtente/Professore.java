@@ -114,4 +114,7 @@ public class Professore extends Utente
 		return super.equals(arg0);
 	}
 	
+	/** Espressione regolare che definisce il formato del campo email per lo studente. */
+	  public static final String EMAIL_PATTERN = "^[a-zA-Z0-9.]+\\@unisa\\.it";
+	
 }

@@ -108,7 +108,7 @@ public class DatabaseGu
 				psAddAzienda.setString(5, azienda.getCitta());
 				psAddAzienda.setString(6, azienda.getCAP());
 				psAddAzienda.setString(7, azienda.getVia());
-				psAddAzienda.setInt(5, 0);
+				psAddAzienda.setInt(8, 0);
 				psAddAzienda.executeUpdate();
 				System.out.println(azienda);
 				connection.commit();
@@ -140,7 +140,7 @@ public class DatabaseGu
 			PreparedStatement psAddProfessore = null;
 			try {
 				connection = Database.getConnection();
-				psAddUtente = connection.prepareStatement(queryAddProfessore);
+				psAddUtente = connection.prepareStatement(queryAddUtente);
 
 				psAddUtente.setString(1, utente.getUser());
 				psAddUtente.setString(2, utente.getPassword());
@@ -394,6 +394,58 @@ public class DatabaseGu
 			return azienda;
 	}
 	
+	/**
+	 * Restituisce, se esiste, un oggetto Professore data una email.
+	 * 
+	 * @param email
+	 * @return {@code null} se l'utente non esiste, {@code Oggetto Professore } altrimenti.
+	 * @throws SQLException
+	 * 
+	 * @author Iannuzzi Nicolà
+	 */
+	public synchronized static Professore getProfessoreByEmail(String email) throws SQLException 
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Professore professore = new Professore();
+
+		try 
+		{
+			connection = Database.getConnection();
+			preparedStatement = connection.prepareStatement(queryGetProfessoreEmail);
+			preparedStatement.setString(1, email);
+
+			ResultSet rs = preparedStatement.executeQuery();
+			connection.commit();
+
+			while (rs.next())
+			{
+				professore.setUser(rs.getString("User"));
+				professore.setPassword(rs.getString("Password"));
+				professore.setNome(rs.getString("Nome"));
+				professore.setCognome(rs.getString("Cognome"));
+				professore.setMateria(rs.getString("Materia"));
+				professore.setAutorizzo(rs.getBoolean("Autorizzato"));
+			}
+		} finally 
+		{
+			try 
+			{
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		if (professore.getUser() == null)
+			return null;
+		else
+			return professore;
+	}
+	
 	private static String queryAddUtente;
 	private static String queryAddStudente;
 	private static String queryAddAzienda;
@@ -402,6 +454,7 @@ public class DatabaseGu
 	private static String queryGetStudenteEmail;
 	private static String queryGetStudenteMatricola;
 	private static String queryGetAziendaEmail;
+	private static String queryGetProfessoreEmail;
 	
 	static 
 	{
@@ -415,5 +468,6 @@ public class DatabaseGu
 		queryGetStudenteEmail = "SELECT * From utente,studente WHERE studente.Email=utente.User AND utente.User=?;";
 		queryGetStudenteMatricola = "SELECT * From utente,studente WHERE studente.Email=utente.User AND studente.Matricola=?;";
 		queryGetAziendaEmail = "SELECT * From utente,azienda WHERE azienda.Email=utente.User AND azienda.Email=?;";
+		queryGetProfessoreEmail = "SELECT * From utente, professore WHERE utente.User = professore.Email AND professore.Email=?";
 	}
 }
