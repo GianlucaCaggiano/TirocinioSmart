@@ -75,7 +75,26 @@ public class RegistrazioneAzienda extends HttpServlet
 			try 
 			{
 				Azienda azienda = new Azienda(email, password, nome, cognome, luogoNascita, dataNascita, denominazione, citta, cap, via, false);
+				String telefono = request.getParameter("telefono");
+				String sitoweb = request.getParameter("sitoWeb");
+				String chiSiamo = request.getParameter("chiSiamo");
+				String specifica = request.getParameter("specifiche");
+				if(telefono!=null)
+				{
+					azienda.setTelefono(telefono);
+				}
+				if(sitoweb!=null)
+				{
+					azienda.setSitoWeb(sitoweb);
+				}
+				if(chiSiamo!=null)
+				{
+					azienda.setChiSiamo(chiSiamo);
+				}
+				Convenzione convenzione = new Convenzione();
+				convenzione.setSpecifica(specifica);
 				DatabaseGu.addUser(azienda);
+				DatabaseGu.addConvenzione(convenzione);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 				dispatcher.forward(request, response);
 			}

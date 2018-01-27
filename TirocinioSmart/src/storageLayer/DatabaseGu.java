@@ -1,9 +1,13 @@
 package storageLayer;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.util.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.GregorianCalendar;
+
 import gestioneUtente.*;
 
 /**
@@ -109,6 +113,18 @@ public class DatabaseGu
 				psAddAzienda.setString(6, azienda.getCAP());
 				psAddAzienda.setString(7, azienda.getVia());
 				psAddAzienda.setInt(8, 0);
+				if(azienda.getTelefono()!=null)
+				{
+					psAddAzienda.setString(9, azienda.getTelefono());
+				}
+				if(azienda.getSitoWeb()!=null)
+				{
+					psAddAzienda.setString(10, azienda.getSitoWeb());
+				}
+				if(azienda.getChiSiamo()!=null)
+				{
+					psAddAzienda.setString(11, azienda.getChiSiamo());
+				}
 				psAddAzienda.executeUpdate();
 				System.out.println(azienda);
 				connection.commit();
@@ -183,6 +199,49 @@ public class DatabaseGu
 				}
 			}
 			
+		}
+	}
+	
+	/**
+	 * Registra una convenzione nel database.
+	 * 
+	 * @param convenzione
+	 * @throws SQLException
+	 * 
+	 * @author Iannuzzi Nicola'
+	 */
+	public synchronized static void addConvenzione(Convenzione convenzione) throws SQLException
+	{
+		PreparedStatement psAddConvenzione = null;
+		Connection connection = null;
+		try {
+			connection = Database.getConnection();
+			psAddConvenzione = connection.prepareStatement(queryAddConvenzione);
+			
+			psAddConvenzione.setDate(1, new Date(Calendar.getInstance().getTime().getTime()));
+			psAddConvenzione.setString(2, convenzione.getSpecifica());
+			psAddConvenzione.executeUpdate();
+
+			connection.commit();
+		}
+		finally 
+		{
+			try 
+			{
+				if (psAddConvenzione != null)
+				{
+					psAddConvenzione.close();
+				}
+				
+				if (psAddConvenzione != null)
+				{
+					psAddConvenzione.close();
+				}
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
 		}
 	}
 
@@ -504,6 +563,7 @@ public class DatabaseGu
 	private static String queryAddStudente;
 	private static String queryAddAzienda;
 	private static String queryAddProfessore;
+	private static String queryAddConvenzione;
 	private static String queryGetUtenteById;
 	private static String queryGetStudenteEmail;
 	private static String queryGetStudenteMatricola;
@@ -516,8 +576,9 @@ public class DatabaseGu
 		//Query universale per tutti gli utenti
 		queryAddUtente = "Insert into utente (User, Password, Nome, Cognome, Tipo) VALUES (?,?,?,?,?);";
 		queryAddStudente = "Insert into studente (Matricola, Email, DataNascita, LuogoNascita, abilitato) VALUES (?,?,?,?,?);";
-		queryAddAzienda = "Insert into azienda (Email, LuogoNascita, DataNascita, Denominazione, Citta, CAP, Via, abilitato) VALUES (?,?,?,?,?,?,?,?);";
+		queryAddAzienda = "Insert into azienda (Email, LuogoNascita, DataNascita, Denominazione, Citta, CAP, Via, abilitato, Telefono, SitoWeb, ChiSiamo) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 		queryAddProfessore = "Insert into professore (Email, Autorizzato, Materia) VALUES (?,?,?);";
+		queryAddConvenzione = "Insert into convenzione (Data, Specifiche) VALUES (?,?);";
 		
 		queryGetUtenteById = "SELECT * From utente WHERE utente.User=?;";
 		queryGetStudenteEmail = "SELECT * From utente,studente WHERE studente.Email=utente.User AND utente.User=?;";

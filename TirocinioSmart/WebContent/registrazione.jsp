@@ -55,28 +55,28 @@
         			</div>
         			<form id="ajax-registerStudente-form" action="RegistrazioneStudente" method="post" role="form" autocomplete="off" style="margin: 0px 10px 0px 10px">
         				<div class="form-group">
-                			<input type="text" name="matricola" id="matricola" tabindex="1" class="form-control" placeholder="Matricola" value="" required>
+                			<input type="text" name="matricola" id="matricola" tabindex="1" class="form-control" placeholder="Matricola*" value="" required>
               			</div>
         				<div class="form-group">
-                			<input type="email" name="email" id="email" tabindex="2" class="form-control" placeholder="Email di ateneo" value="" required>
+                			<input type="email" name="email" id="email" tabindex="2" class="form-control" placeholder="Email di ateneo*" value="" required>
               			</div>
               			<div class="form-group">
-                			<input type="password" name="password" id="password" tabindex="3" class="form-control" placeholder="Password" required>
+                			<input type="password" name="password" id="password" tabindex="3" class="form-control" placeholder="Password*" required>
               			</div>
               			<div class="form-group">
-                			<input type="password" name="confirmpassword" id="confirmpassword" tabindex="4" class="form-control" placeholder="Conferma Password" required>
+                			<input type="password" name="confirmpassword" id="confirmpassword" tabindex="4" class="form-control" placeholder="Conferma Password*" required>
               			</div>
               			<div class="form-group">
-                			<input type="text" name="nome" id="nome" tabindex="5" class="form-control" placeholder="Nome" value="" required>
+                			<input type="text" name="nome" id="nome" tabindex="5" class="form-control" placeholder="Nome*" value="" required>
               			</div>
               			<div class="form-group">
-                			<input type="text" name="cognome" id="cognome" tabindex="6" class="form-control" placeholder="Cognome" value="" required>
+                			<input type="text" name="cognome" id="cognome" tabindex="6" class="form-control" placeholder="Cognome*" value="" required>
               			</div>
               			<div class="form-group">
-                			<input type="text" name="dataNascita" id="dataNascita" tabindex="7" class="form-control" placeholder="Data di nascita: YYYY/MM/GG" value="" required>
+                			<input type="text" name="dataNascita" id="dataNascita" tabindex="7" class="form-control" placeholder="Data di nascita: YYYY/MM/GG*" value="" required>
               			</div>
               			<div class="form-group">
-                			<input type="text" name="luogoNascita" id="luogoNascita" tabindex="8" class="form-control" placeholder="Comune di nascita" value="" required>
+                			<input type="text" name="luogoNascita" id="luogoNascita" tabindex="8" class="form-control" placeholder="Comune di nascita*" value="" required>
               			</div>
         				<div class="modal-footer">
                 			<input type="submit" name="register-submit" id="register-submit" tabindex="9" class="btn btn-primary" value="Registra">
@@ -101,46 +101,59 @@
         			</div>
         			<form id="ajax-registerAzienda-form" action="RegistrazioneAzienda" method="post" role="form" autocomplete="off" style="margin: 0px 10px 0px 10px">
         				<div class="form-group">
-                			<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="" required>
+                			<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email*" value="" required>
               			</div>
               			<div class="form-group">
-                			<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required>
+                			<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password*" required>
               			</div>
               			<div class="form-group">
-                			<input type="password" name="confirmpassword" id="confirmpassword" tabindex="3" class="form-control" placeholder="Conferma Password" required>
+                			<input type="password" name="confirmpassword" id="confirmpassword" tabindex="3" class="form-control" placeholder="Conferma Password*" required>
               			</div>
               			<fieldset class="form-group">
         				<legend>Dati azienda</legend>
         				<div class="form-group">
-                			<input type="text" name="denominazione" id="denominazione" tabindex="4" class="form-control" placeholder="Ragione sociale" value="" required>
+                			<input type="text" name="denominazione" id="denominazione" tabindex="4" class="form-control" placeholder="Ragione sociale*" value="" required>
               			</div>
               			<div class="form-group">
-                			<input type="text" name="citta" id="citta" tabindex="5" class="form-control" placeholder="Citt&agrave in cui è presente la sede" value="" required>
+                			<input type="text" name="citta" id="citta" tabindex="5" class="form-control" placeholder="Citt&agrave in cui è presente la sede*" value="" required>
               			</div>
               			<div class="form-group">
-                			<input type="text" name="cap" id="cap" tabindex="6" class="form-control" placeholder="CAP" value="" required>
+                			<input type="text" name="cap" id="cap" tabindex="6" class="form-control" placeholder="CAP*" value="" required>
               			</div>
               			<div class="form-group">
-                			<input type="text" name="via" id="via" tabindex="7" class="form-control" placeholder="Via" value="" required>
+                			<input type="text" name="via" id="via" tabindex="7" class="form-control" placeholder="Via*" value="" required>
+              			</div>
+              			<div class="form-group">
+                			<input type="text" name="telefono" id="telefono" tabindex="8" class="form-control" placeholder="Telefono" value="">
+              			</div>
+              			<div class="form-group">
+                			<input type="text" name="sitoWeb" id="sitoWeb" tabindex="9" class="form-control" placeholder="Sito Web" value="">
+              			</div>
+              			<div class="form-group">
+                			<input type="text" name="chiSiamo" id="chiSiamo" tabindex="10" class="form-control" placeholder="Info Azienda" maxlength="255" value="">
               			</div>
               			</fieldset>
               			<fieldset class="form-group">
         				<legend>Dati tutor aziendale</legend>
               			<div class="form-group">
-                			<input type="text" name="nome" id="nome" tabindex="8" class="form-control" placeholder="Nome" value="" required>
+                			<input type="text" name="nome" id="nome" tabindex="11" class="form-control" placeholder="Nome*" value="" required>
               			</div>
               			<div class="form-group">
-                			<input type="text" name="cognome" id="nome" tabindex="9" class="form-control" placeholder="Cognome" value="" required>
+                			<input type="text" name="cognome" id="nome" tabindex="12" class="form-control" placeholder="Cognome*" value="" required>
               			</div>
               			<div class="form-group">
-                			<input type="text" name="dataNascita" id="dataNascita" tabindex="10" class="form-control" placeholder="Data di nascita: YYYY/MM/GG" value="" required>
+                			<input type="text" name="dataNascita" id="dataNascita" tabindex="13" class="form-control" placeholder="Data di nascita: YYYY/MM/GG*" value="" required>
               			</div>
               			<div class="form-group">
-                			<input type="text" name="luogoNascita" id="luogoNascita" tabindex="11" class="form-control" placeholder="Comune di nascita" value="" required>
+                			<input type="text" name="luogoNascita" id="luogoNascita" tabindex="14" class="form-control" placeholder="Comune di nascita*" value="" required>
+              			</div>
+              		<legend>Convenzione</legend>
+              			<div class="form-group">
+                			<input type="text" name="specifiche" id="specifiche" tabindex="15" class="form-control" placeholder="Specifica Convenzione*" value="" required>
               			</div>
               			</fieldset>
         				<div class="modal-footer">
-                			<input type="submit" name="register-submit" id="register-submit" tabindex="12" class="btn btn-primary" value="Registra">
+                			<input type="submit" name="register-submit" id="register-submit" tabindex="16" class="btn btn-primary" value="Registra">
           					<input type="reset" class="btn btn-default" value="Reset">
         				</div>
         			</form>
