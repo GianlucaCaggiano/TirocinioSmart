@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<jsp:useBean id="studente" class="gestioneUtente.Studente" scope="session"/>
-<jsp:useBean id="azienda" class="gestioneUtente.Azienda" scope="session"/>
-<jsp:useBean id="professore" class="gestioneUtente.Professore" scope="session"/>
-<jsp:useBean id="segreteria" class="gestioneUtente.Segreteria" scope="session"/>
+<%@ include file="sessionImport.txt" %>
     
 <!DOCTYPE html>
 <html lang="it">
