@@ -24,6 +24,7 @@ public abstract class Utente
 	public Utente()
 	{
 		super();
+		autenticato = false;
 	}
 	
 	/**
@@ -43,6 +44,7 @@ public abstract class Utente
 		this.password = password;
 		this.nome = nome;
 		this.cognome = cognome;
+		autenticato = false;
 	}
 	
 	/**

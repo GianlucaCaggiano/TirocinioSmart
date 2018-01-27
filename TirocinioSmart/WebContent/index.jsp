@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<jsp:useBean id="studente" class="gestioneUtente.Studente" scope="session"/>
+<jsp:useBean id="azienda" class="gestioneUtente.Azienda" scope="session"/>
+<jsp:useBean id="professore" class="gestioneUtente.Professore" scope="session"/>
+<jsp:useBean id="segreteria" class="gestioneUtente.Segreteria" scope="session"/>
     
 <!DOCTYPE html>
 <html lang="it">
@@ -20,7 +24,12 @@
 
 <body>
 
-	<%@ include file="navigation.html" %>
+	<%if(studente.isAutenticato() || azienda.isAutenticato() || professore.isAutenticato() || segreteria.isAutenticato())
+	  {%>
+			<%@ include file="navigationAutenticate.html" %>
+	<%}else{ %>
+			<%@ include file="navigation.html" %>
+	<%} %>
 	
     <!-- Full Width Image Header with Logo -->
     <!-- Image backgrounds are set within the full-width-pics.css file. -->

@@ -53,7 +53,7 @@
 			</fieldset>
 		</form>
 		<br/><br/>
-		<h4>Sei un admin? Clicca <a href="loginAdmin.jsp"> qui </a> per accedere</h4>
+		<h4>Sei un admin? Clicca <a href="loginSegreteria.jsp"> qui </a> per accedere</h4>
   	</div>
 	
 

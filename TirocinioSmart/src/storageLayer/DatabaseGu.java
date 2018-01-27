@@ -53,7 +53,7 @@ public class DatabaseGu
 				psAddStudente.setString(2, studente.getUser());
 				psAddStudente.setString(3, studente.getDataNascita());
 				psAddStudente.setString(4, studente.getLuogoNascita());
-				psAddStudente.setInt(5, 0);
+				psAddStudente.setInt(5, 1);
 				psAddStudente.executeUpdate();
 				System.out.println(studente);
 				connection.commit();
@@ -209,7 +209,8 @@ public class DatabaseGu
 			ResultSet rs = preparedStatement.executeQuery();
 			connection.commit();
 
-			if (rs.next()) {
+			if (rs.next())
+			{
 				String tipo = rs.getString("Tipo");
 				if(tipo.equals("ST"))
 				{
@@ -233,10 +234,12 @@ public class DatabaseGu
 		}
 		finally 
 		{
-			try {
+			try 
+			{
 				if (preparedStatement != null)
 					preparedStatement.close();
-			} finally {
+			} finally 
+			{
 				Database.releaseConnection(connection);
 			}
 		}
@@ -446,6 +449,57 @@ public class DatabaseGu
 			return professore;
 	}
 	
+	/**
+	 * Restituisce, se esiste, un oggetto Segreteria dato uno username.
+	 * 
+	 * @param email
+	 * @return {@code null} se l'utente non esiste, {@code Oggetto Segreteria} altrimenti.
+	 * @throws SQLException
+	 * 
+	 * @author Iannuzzi Nicolà
+	 */
+	public synchronized static Segreteria getSegreteriaByUser(String username) throws SQLException 
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Segreteria segreteria = new Segreteria();
+
+		try 
+		{
+			connection = Database.getConnection();
+			preparedStatement = connection.prepareStatement(queryGetSegreteriaUsername);
+			preparedStatement.setString(1, username);
+
+			ResultSet rs = preparedStatement.executeQuery();
+			connection.commit();
+
+			while (rs.next())
+			{
+				segreteria.setUser(rs.getString("User"));
+				segreteria.setPassword(rs.getString("Password"));
+				segreteria.setNome(rs.getString("Nome"));
+				segreteria.setCognome(rs.getString("Cognome"));
+				segreteria.setEmail(rs.getString("Email"));
+			}
+		} finally 
+		{
+			try 
+			{
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		if (segreteria.getUser() == null)
+			return null;
+		else
+			return segreteria;
+	}
+	
 	private static String queryAddUtente;
 	private static String queryAddStudente;
 	private static String queryAddAzienda;
@@ -455,6 +509,7 @@ public class DatabaseGu
 	private static String queryGetStudenteMatricola;
 	private static String queryGetAziendaEmail;
 	private static String queryGetProfessoreEmail;
+	private static String queryGetSegreteriaUsername;
 	
 	static 
 	{
@@ -469,5 +524,6 @@ public class DatabaseGu
 		queryGetStudenteMatricola = "SELECT * From utente,studente WHERE studente.Email=utente.User AND studente.Matricola=?;";
 		queryGetAziendaEmail = "SELECT * From utente,azienda WHERE azienda.Email=utente.User AND azienda.Email=?;";
 		queryGetProfessoreEmail = "SELECT * From utente, professore WHERE utente.User = professore.Email AND professore.Email=?";
+		queryGetSegreteriaUsername = "SELECT * From utente, segreteria WHERE utente.User = segreteria.Username AND segreteria.Username=?";
 	}
 }

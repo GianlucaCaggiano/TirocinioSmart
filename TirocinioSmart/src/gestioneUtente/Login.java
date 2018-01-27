@@ -16,62 +16,73 @@ import storageLayer.DatabaseGu;
  * Servlet implementation class Login.
  * Gestisce il login di tutti gli utenti tranne Segreteria.
  * 
- * @author Caggiano Gianluca
+ * @author Caggiano Gianluca, Iannuzzi Nicola'
  * 
  * @version 1.0
  */
 @WebServlet("/Login")
-public class Login extends HttpServlet {
+public class Login extends HttpServlet 
+{
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public Login()
+    {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
 		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		String errore="Email o password errati";
 		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		try {
+		try 
+		{
 			Utente u = DatabaseGu.getUtenteById(email);
 			
 			if(u!=null)
 			{
 				if(u.getPassword().equals(password))
 				{
-					//E' solo una prova.
 					if(u instanceof Studente)
 					{
 						Studente s = DatabaseGu.getStudenteByEmail(email);
+						s.setAutenticato(true);
 						HttpSession session = request.getSession();
 						session.setAttribute("studente", s);
 						request.getRequestDispatcher("index.jsp").forward(request, response);
 					}
 					if(u instanceof Azienda)
 					{
+						Azienda a = DatabaseGu.getAziendaByEmail(email);
+						a.setAutenticato(true);
+						HttpSession session = request.getSession();
+						session.setAttribute("azienda", a);
 						request.getRequestDispatcher("index.jsp").forward(request, response);
 					}
 					if(u instanceof Professore)
 					{
-						request.getRequestDispatcher("loginAdmin.jsp").forward(request, response);
-					}
-					
+						Professore p = DatabaseGu.getProfessoreByEmail(email);
+						p.setAutenticato(true);
+						HttpSession session = request.getSession();
+						session.setAttribute("professore", p);
+						request.getRequestDispatcher("index.jsp").forward(request, response);
+					}					
 				}
 				else
 				{
@@ -82,7 +93,9 @@ public class Login extends HttpServlet {
 			{
 				request.getRequestDispatcher("login.jsp?errore="+errore).forward(request, response);
 			}
-		}catch (SQLException e) {
+		}
+		catch (SQLException e) 
+		{
 			e.printStackTrace();
 		}
 	}
