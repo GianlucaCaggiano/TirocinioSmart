@@ -27,15 +27,15 @@
 	<%}else{ %>
 			<%@ include file="navigation.html" %>
 	<%} %>
-	</br> </br>
+	<br/><br/>
 	<div class="container text-center">
 		<h1>Area Personale Segreteria</h1>
 		
-		</br>
+		<br/>
 		<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Richiesta Registrazione</button>
-		</br>
+		<br/>
 		<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Conferma Progetto Formativo</button>
-		</br>
+		<br/>
 		<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Visualizza Lista Utente</button>
 		
 	</div>

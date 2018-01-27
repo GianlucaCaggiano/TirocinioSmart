@@ -27,13 +27,13 @@
 	<%}else{ %>
 			<%@ include file="navigation.html" %>
 	<%} %>
-	</br> </br>
+	<br/><br/>
 	<div class="container text-center">
 		<h1>Area Personale Studente</h1>
 		
-		</br>
+		<br/>
 		<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Scelta Azienda e Professore</button>
-		</br>
+		<br/>
 		<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Sottoscrivi Progetto Formativo</button>
 		
 	</div>
