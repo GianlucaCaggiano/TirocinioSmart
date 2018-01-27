@@ -65,7 +65,7 @@ public class Login extends HttpServlet
 						s.setAutenticato(true);
 						HttpSession session = request.getSession();
 						session.setAttribute("studente", s);
-						request.getRequestDispatcher("index.jsp").forward(request, response);
+						request.getRequestDispatcher("areaPersonaleStudente.jsp").forward(request, response);
 					}
 					if(u instanceof Azienda)
 					{
@@ -73,7 +73,7 @@ public class Login extends HttpServlet
 						a.setAutenticato(true);
 						HttpSession session = request.getSession();
 						session.setAttribute("azienda", a);
-						request.getRequestDispatcher("index.jsp").forward(request, response);
+						request.getRequestDispatcher("areaPersonaleAzienda.jsp").forward(request, response);
 					}
 					if(u instanceof Professore)
 					{
@@ -81,7 +81,7 @@ public class Login extends HttpServlet
 						p.setAutenticato(true);
 						HttpSession session = request.getSession();
 						session.setAttribute("professore", p);
-						request.getRequestDispatcher("index.jsp").forward(request, response);
+						request.getRequestDispatcher("areaPersonaleProfessore.jsp").forward(request, response);
 					}					
 				}
 				else

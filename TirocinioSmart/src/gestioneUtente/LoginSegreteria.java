@@ -62,7 +62,7 @@ public class LoginSegreteria extends HttpServlet
 					segr.setAutenticato(true);
 					HttpSession session = request.getSession();
 					session.setAttribute("segreteria", segr);
-					request.getRequestDispatcher("index.jsp").forward(request, response);
+					request.getRequestDispatcher("areaPersonaleSegreteria.jsp").forward(request, response);
 				}
 				else
 				{
