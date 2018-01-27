@@ -28,7 +28,18 @@
 	<br/>
 	<h4>Benvenuto nella sezione dedicata alla registrazione</h4>
 		<br/>
+		<% 	
+			if(request.getParameter("errore") != null)
+			{
+				String err="Errore : "+request.getParameter("errore");
+		%>
 		
+		<h4 class="text-danger"><%= err %></h4>
+		
+		<% 
+			}
+		%>
+		<br/>
   		<h2>Cosa sei?</h2>
   		<br/>
   		<!-- Trigger the modal with a button -->
