@@ -564,6 +564,61 @@ public class DatabaseGu
 			return segreteria;
 	}
 	
+	public synchronized static ArrayList<Azienda> doRetriveAllAziende() throws SQLException
+	{
+		Connection connection = null;
+		java.sql.Statement statement = null;
+		
+		String sql = "SELECT * FROM utente, azienda WHERE utente.User=azienda.Email AND azienda.ConvenzioneID IS NOT NULL";
+		ArrayList<Azienda> arrayList = new ArrayList<Azienda>();
+		Azienda azienda = new Azienda();	
+		
+		try
+		{
+			connection = Database.getConnection();
+			statement = connection.createStatement();
+			
+			ResultSet res = statement.executeQuery(sql);
+			
+			while(res.next())
+			{
+				azienda.setUser(res.getString("User"));
+				azienda.setNome(res.getString("Nome"));
+				azienda.setCognome(res.getString("Cognome"));
+				azienda.setDenominazione(res.getString("Denominazione"));
+				azienda.setCAP(res.getString("CAP"));
+				azienda.setCitta(res.getString("Citta"));
+				azienda.setVia(res.getString("Via"));
+				azienda.setTelefono(res.getString("Telefono"));
+				azienda.setChiSiamo(res.getString("ChiSiamo"));
+				azienda.setSitoWeb(res.getString("SitoWeb"));
+				azienda.setTelefono(res.getString("Telefono"));
+				
+				arrayList.add(azienda);
+			}
+		}
+		finally
+		{
+			try 
+			{
+				if (statement != null)
+					statement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		
+		return arrayList;
+	}
+	
+	/**
+	 * Restituisce l'ultima convenzione creata in ordine temporale.
+	 * 
+	 * @return {@code -1} non e' presente nessuna convenzione, {@code Oggetto Convenzione} altrimenti.
+	 * @throws SQLException
+	 */
 	private synchronized static int getIDMaxConvenzione() throws SQLException
 	{
 		Connection connection = null;
@@ -584,9 +639,14 @@ public class DatabaseGu
 		}
 		finally
 		{
-			if(connection != null)
+			try 
 			{
-				connection.close();
+				if (statement != null)
+					statement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
 			}
 		}
 		return id;
