@@ -31,6 +31,12 @@
 		    padding: 8px !important;
 		}
 		
+		td, th.btn-right
+		{
+		    width: 20%;
+			text-align: center;
+		}
+		
 		tr:nth-child(even) 
 		{
 		    background-color: #dddddf;
@@ -45,8 +51,14 @@
 
 <body>
 
-	<%@ include file="navigation.html" %>
+	<%if(studente.isAutenticato() || azienda.isAutenticato() || professore.isAutenticato() || segreteria.isAutenticato())
+	  {%>
+			<%@ include file="navigationAutenticate.html" %>
+	<%}else{ %>
+			<%@ include file="navigation.html" %>
+	<%} %>
 	<br/><br/>
+	
 	<%
 		ArrayList<Professore> arrayProfessore = new ArrayList<Professore>();
 		arrayProfessore = DatabaseGu.doRetriveAllProfessore();
@@ -54,15 +66,20 @@
 	<div class="container text-center">
 		<h1>Lista Professori</h1>
 		<br/>
+			<table>
+					<tr>
+					   <th>Cognome Nome</th>
+					   <th>Materia</th>
+					   <th class="btn-right"></th>
+					</tr>
 			<%
 				for(Professore p:arrayProfessore)
 				{
 					%>
-					<table>
 					  <tr>
 					    <th><%=p.getCognome()%> <%=p.getNome()%></th>
 					    <th><%=p.getMateria()%></th>
-					    <th><a>Scegli Professore</a></th>
+					    <th class="btn-right"><a href="#">Scegli Professore</a></th>
 					  </tr>
 					</table>
 					<%

@@ -21,8 +21,14 @@
 
 <body>
 
-	<%@ include file="navigation.html" %>
+	<%if(studente.isAutenticato() || azienda.isAutenticato() || professore.isAutenticato() || segreteria.isAutenticato())
+	  {%>
+			<%@ include file="navigationAutenticate.html" %>
+	<%}else{ %>
+			<%@ include file="navigation.html" %>
+	<%} %>
 	<br/><br/>
+	
 	<div class="container text-center">
 		<h1>Login</h1>
 		<br/>
