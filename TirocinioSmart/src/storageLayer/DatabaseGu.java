@@ -564,14 +564,21 @@ public class DatabaseGu
 			return segreteria;
 	}
 	
+	/**
+	 * Restituisce un ArrayList di Aziende che hanno una convenzione con l'Università
+	 * 
+	 * @return ArrayList Azienda
+	 * @throws SQLException
+	 * @author Gianluca Caggiano
+	 */
 	public synchronized static ArrayList<Azienda> doRetriveAllAziende() throws SQLException
 	{
 		Connection connection = null;
 		java.sql.Statement statement = null;
 		
-		String sql = "SELECT * FROM utente, azienda WHERE utente.User=azienda.Email AND azienda.ConvenzioneID IS NOT NULL";
+		String sql = "SELECT * FROM utente, azienda WHERE utente.User=azienda.Email AND azienda.ConvenzioneID IS NOT NULL AND abilitato=1";
 		ArrayList<Azienda> arrayList = new ArrayList<Azienda>();
-		Azienda azienda = new Azienda();	
+		Azienda azienda;	
 		
 		try
 		{
@@ -582,9 +589,14 @@ public class DatabaseGu
 			
 			while(res.next())
 			{
+				azienda = new Azienda();
 				azienda.setUser(res.getString("User"));
 				azienda.setNome(res.getString("Nome"));
 				azienda.setCognome(res.getString("Cognome"));
+				azienda.setPassword(res.getString("Password"));
+				azienda.setTipo(res.getString("Tipo"));
+				azienda.setDataNascita(res.getString("DataNascita"));
+				azienda.setLuogoNascita(res.getString("LuogoNascita"));
 				azienda.setDenominazione(res.getString("Denominazione"));
 				azienda.setCAP(res.getString("CAP"));
 				azienda.setCitta(res.getString("Citta"));
@@ -593,8 +605,61 @@ public class DatabaseGu
 				azienda.setChiSiamo(res.getString("ChiSiamo"));
 				azienda.setSitoWeb(res.getString("SitoWeb"));
 				azienda.setTelefono(res.getString("Telefono"));
+				azienda.setAbilitato(res.getBoolean("abilitato"));
 				
 				arrayList.add(azienda);
+			}
+		}
+		finally
+		{
+			try 
+			{
+				if (statement != null)
+					statement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		
+		return arrayList;
+	}
+	
+	/**
+	 * Restituisce un ArrayList di Professori.
+	 * 
+	 * @return ArrayList Professore
+	 * @throws SQLException
+	 * @author Iannuzzi Nicola'
+	 */
+	public synchronized static ArrayList<Professore> doRetriveAllProfessore() throws SQLException
+	{
+		Connection connection = null;
+		java.sql.Statement statement = null;
+		
+		String sql = "SELECT * FROM utente, professore WHERE utente.User=professore.Email AND professore.Autorizzato=1";
+		ArrayList<Professore> arrayList = new ArrayList<Professore>();
+		Professore professore;	
+		
+		try
+		{
+			connection = Database.getConnection();
+			statement = connection.createStatement();
+			
+			ResultSet res = statement.executeQuery(sql);
+			
+			while(res.next())
+			{
+				professore = new Professore();
+				professore.setUser(res.getString("User"));
+				professore.setPassword(res.getString("Password"));
+				professore.setNome(res.getString("Nome"));
+				professore.setCognome(res.getString("Cognome"));
+				professore.setMateria(res.getString("Materia"));
+				professore.setAutorizzo(res.getBoolean("Autorizzato"));
+				
+				arrayList.add(professore);
 			}
 		}
 		finally

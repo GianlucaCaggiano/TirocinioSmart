@@ -29,7 +29,7 @@
 		array = DatabaseGu.doRetriveAllAziende();
 	%>
 	<div class="container text-center">
-		<h1>Aziende convenzionate</h1>
+		<h1>Aziende Convenzionate</h1>
 		<br/>
 			<%
 				for(Azienda a:array)
