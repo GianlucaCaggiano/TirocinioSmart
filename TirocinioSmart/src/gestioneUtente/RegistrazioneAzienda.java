@@ -93,8 +93,8 @@ public class RegistrazioneAzienda extends HttpServlet
 				}
 				Convenzione convenzione = new Convenzione();
 				convenzione.setSpecifica(specifica);
-				DatabaseGu.addUser(azienda);
 				DatabaseGu.addConvenzione(convenzione);
+				DatabaseGu.addUser(azienda);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 				dispatcher.forward(request, response);
 			}

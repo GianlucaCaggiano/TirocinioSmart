@@ -124,6 +124,12 @@ public class DatabaseGu
 				{
 					psAddAzienda.setString(11, azienda.getChiSiamo());
 				}
+				int id = getIDMaxConvenzione();
+				System.out.println(id);
+				if(id >= 0)
+				{
+					psAddAzienda.setInt(12, id);
+				}
 				psAddAzienda.executeUpdate();
 				System.out.println(azienda);
 				connection.commit();
@@ -558,6 +564,34 @@ public class DatabaseGu
 			return segreteria;
 	}
 	
+	private synchronized static int getIDMaxConvenzione() throws SQLException
+	{
+		Connection connection = null;
+		java.sql.Statement statement = null;
+		
+		int id = -1;
+		try 
+		{
+			connection = Database.getConnection();
+			statement = connection.createStatement();
+			
+			ResultSet rs = statement.executeQuery(queryGetMaxConvenzione);
+			
+			if(rs.next())
+			{
+				id = rs.getInt(1);
+			}
+		}
+		finally
+		{
+			if(connection != null)
+			{
+				connection.close();
+			}
+		}
+		return id;
+	}
+	
 	private static String queryAddUtente;
 	private static String queryAddStudente;
 	private static String queryAddAzienda;
@@ -569,13 +603,14 @@ public class DatabaseGu
 	private static String queryGetAziendaEmail;
 	private static String queryGetProfessoreEmail;
 	private static String queryGetSegreteriaUsername;
+	private static String queryGetMaxConvenzione;
 	
 	static 
 	{
 		//Query universale per tutti gli utenti
 		queryAddUtente = "Insert into utente (User, Password, Nome, Cognome, Tipo) VALUES (?,?,?,?,?);";
 		queryAddStudente = "Insert into studente (Matricola, Email, DataNascita, LuogoNascita, abilitato) VALUES (?,?,?,?,?);";
-		queryAddAzienda = "Insert into azienda (Email, LuogoNascita, DataNascita, Denominazione, Citta, CAP, Via, abilitato, Telefono, SitoWeb, ChiSiamo) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+		queryAddAzienda = "Insert into azienda (Email, LuogoNascita, DataNascita, Denominazione, Citta, CAP, Via, abilitato, Telefono, SitoWeb, ChiSiamo, ConvenzioneID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
 		queryAddProfessore = "Insert into professore (Email, Autorizzato, Materia) VALUES (?,?,?);";
 		queryAddConvenzione = "Insert into convenzione (Data, Specifiche) VALUES (?,?);";
 		
@@ -585,5 +620,6 @@ public class DatabaseGu
 		queryGetAziendaEmail = "SELECT * From utente,azienda WHERE azienda.Email=utente.User AND azienda.Email=?;";
 		queryGetProfessoreEmail = "SELECT * From utente, professore WHERE utente.User = professore.Email AND professore.Email=?";
 		queryGetSegreteriaUsername = "SELECT * From utente, segreteria WHERE utente.User = segreteria.Username AND segreteria.Username=?";
+		queryGetMaxConvenzione = "SELECT MAX(ID) FROM Convenzione";
 	}
 }

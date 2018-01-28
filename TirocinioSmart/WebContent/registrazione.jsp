@@ -149,7 +149,9 @@
               			</div>
               		<legend>Convenzione</legend>
               			<div class="form-group">
-                			<input type="text" name="specifiche" id="specifiche" tabindex="15" class="form-control" placeholder="Specifica Convenzione*" value="" required>
+              				<p>La convenzione tra ente e universita' viene effettuata secondo le specifiche previste dallo stato </p>
+              				<p>Se si vogliono inserire delle specifiche di convenzione extra, queste possono essere indicate di seguito</p>
+                			<input type="text" name="specifiche" id="specifiche" tabindex="15" class="form-control" placeholder="Specifica Convenzione" value="">
               			</div>
               			</fieldset>
         				<div class="modal-footer">

@@ -256,6 +256,28 @@ $('#ajax-registerAzienda-form').bootstrapValidator({
 				}
 			}
 		},
+		telefono : {
+			validators : {
+				 regexp : {
+					 	regexp : /^[0-9]+$/,
+					 	message : 'Formato non valido'
+				 },
+				 stringLength: {
+	                    enabled: true,
+	                    min: 10,
+	                    max: 10,
+	                    message: 'Il numero telefonico &egrave composto da 10 numeri'
+	             }
+			}
+		},
+		sitoWeb : {
+			validators : {
+				 regexp : {
+					 	regexp : /^(http(s)?:\/\/)?(www\.)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,
+					 	message : 'Formato non valido'
+				 }
+			}
+		}
 	}
 });
 
