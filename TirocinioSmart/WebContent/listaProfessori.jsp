@@ -79,7 +79,8 @@
 					  <tr>
 					    <th><%=p.getCognome()%> <%=p.getNome()%></th>
 					    <th><%=p.getMateria()%></th>
-					    <th class="btn-right"><a href="#">Scegli Professore</a></th>
+					    <%String aziendaScelta = request.getParameter("azienda"); %>
+					    <th class="btn-right"><a href="Servlet?azienda=<%=aziendaScelta%>&professore=<%=p.getUser()%>">Scegli Professore</a></th>
 					  </tr>
 					</table>
 					<%
