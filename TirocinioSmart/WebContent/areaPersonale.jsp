@@ -29,7 +29,7 @@
 	<%}else if(professore.isAutenticato()){%>
 			<%response.sendRedirect("areaPersonaleProfessore.jsp"); %>
 	<%}else if(segreteria.isAutenticato()){%>
-	<		<%response.sendRedirect("areaPersonaleSegreteria.jsp"); %>
+			<%response.sendRedirect("areaPersonaleSegreteria.jsp"); %>
 	<%}%>
 </body>
 

@@ -62,27 +62,48 @@ public class Login extends HttpServlet
 					if(u instanceof Studente)
 					{
 						Studente s = DatabaseGu.getStudenteByEmail(email);
-						s.setAutenticato(true);
-						System.out.println(s);
-						HttpSession session = request.getSession();
-						session.setAttribute("studente", s);
-						request.getRequestDispatcher("areaPersonaleStudente.jsp").forward(request, response);
+						if(s.isAbilitato())
+						{
+							s.setAutenticato(true);
+							System.out.println(s);
+							HttpSession session = request.getSession();
+							session.setAttribute("studente", s);
+							request.getRequestDispatcher("areaPersonaleStudente.jsp").forward(request, response);
+						}
+						else
+						{
+							request.getRequestDispatcher("login.jsp?errore=L'account a cui si sta tentanto di accedere e' disabilitato. Contatta la segreteria per maggiori informazioni").forward(request, response);
+						}
 					}
 					if(u instanceof Azienda)
 					{
 						Azienda a = DatabaseGu.getAziendaByEmail(email);
-						a.setAutenticato(true);
-						HttpSession session = request.getSession();
-						session.setAttribute("azienda", a);
-						request.getRequestDispatcher("areaPersonaleAzienda.jsp").forward(request, response);
+						if(a.isAbilitato())
+						{
+							a.setAutenticato(true);
+							HttpSession session = request.getSession();
+							session.setAttribute("azienda", a);
+							request.getRequestDispatcher("areaPersonaleAzienda.jsp").forward(request, response);
+						}
+						else
+						{
+							request.getRequestDispatcher("login.jsp?errore=L'account a cui si sta tentanto di accedere e' disabilitato. Contatta la segreteria per maggiori informazioni").forward(request, response);
+						}
 					}
 					if(u instanceof Professore)
 					{
 						Professore p = DatabaseGu.getProfessoreByEmail(email);
-						p.setAutenticato(true);
-						HttpSession session = request.getSession();
-						session.setAttribute("professore", p);
-						request.getRequestDispatcher("areaPersonaleProfessore.jsp").forward(request, response);
+						if(p.isAutorizzo())
+						{
+							p.setAutenticato(true);
+							HttpSession session = request.getSession();
+							session.setAttribute("professore", p);
+							request.getRequestDispatcher("areaPersonaleProfessore.jsp").forward(request, response);
+						}
+						else
+						{
+							request.getRequestDispatcher("login.jsp?errore=L'account a cui si sta tentanto di accedere e' disabilitato. Contatta la segreteria per maggiori informazioni").forward(request, response);
+						}
 					}					
 				}
 				else
