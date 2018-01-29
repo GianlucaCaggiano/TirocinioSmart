@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 import gestioneProgettoFormativo.RichiestaTirocinio;
 import gestioneUtente.Studente;
-import gestioneUtente.Utente;
 
 /**
  * Classe che fornisce i metodi per le interrogazioni al database per le classi del package gestioneProgettoFormativo.
@@ -28,10 +27,11 @@ public class DatabasePf
 	 * 
 	 * @author Gianluca Caggiano, Iannuzzi Nicola'
 	 */
-	public synchronized static boolean AddRichiesta(RichiestaTirocinio rt, Studente s) throws SQLException
+	public synchronized static int AddRichiesta(RichiestaTirocinio rt, Studente s) throws SQLException
 	{
 		Connection connection = null;
 		
+		int id = -1;
 		PreparedStatement psAddRichiesta = null;
 		PreparedStatement psUpdateStudente = null;
 		try {
@@ -44,7 +44,8 @@ public class DatabasePf
 			connection.commit();
 			
 			psUpdateStudente = connection.prepareStatement(queryUpdateStudente);
-			psUpdateStudente.setInt(1, getIDMaxRichiestaTirocinio());
+			id=getIDMaxRichiestaTirocinio();
+			psUpdateStudente.setInt(1, id);
 			psUpdateStudente.setString(2, s.getUser());
 			psUpdateStudente.executeUpdate();
 			connection.commit();
@@ -68,7 +69,7 @@ public class DatabasePf
 				Database.releaseConnection(connection);
 			}
 		}
-		return true;
+		return id;
 	}
 	
 	/**

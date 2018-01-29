@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gestioneUtente.Studente;
-import gestioneUtente.Utente;
 import storageLayer.DatabaseGu;
 import storageLayer.DatabasePf;
 
@@ -54,8 +53,10 @@ public class AggiungiRichiestaTirocinio extends HttpServlet
 		{
 			richiesta.setAzienda(DatabaseGu.getAziendaByEmail(azienda));
 			richiesta.setProfessore(DatabaseGu.getProfessoreByEmail(professore));
-			DatabasePf.AddRichiesta(richiesta, studente);
-			request.getSession().setAttribute("studente", DatabaseGu.getStudenteByEmail(studente.getUser()));
+			int id=DatabasePf.AddRichiesta(richiesta, studente);
+			studente.setRichiestaTirocinio(DatabasePf.getRichiestaByID(id));
+			
+			request.getSession().setAttribute("studente", studente);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/areaPersonale.jsp");
 			dispatcher.forward(request, response);
 		} 
