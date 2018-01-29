@@ -32,7 +32,7 @@
 		<h1>Area Personale Studente</h1>
 		
 		<br/>
-		<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Scelta Azienda e Professore</button>
+		<button type="button" onclick="location.href='listaAziende.jsp'" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Scelta Azienda e Professore</button>
 		<br/>
 		<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Sottoscrivi Progetto Formativo</button>
 		

@@ -89,7 +89,7 @@
 						    <th><%=a.getCAP()%></th>
 						    <%if(studente.isAutenticato()) 
 						    {%>
-						    <th class="btn-right"><a href="#">Scegli Azienda</a></th>
+						    <th class="btn-right"><a href="listaProfessori.jsp?azienda=<%=a.getUser()%>">Scegli Azienda</a></th>
 						    <%}%>
 						 </tr>
 					 </table>
