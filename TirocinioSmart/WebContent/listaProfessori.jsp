@@ -80,7 +80,7 @@
 					    <th><%=p.getCognome()%> <%=p.getNome()%></th>
 					    <th><%=p.getMateria()%></th>
 					    <%String aziendaScelta = request.getParameter("azienda"); %>
-					    <th class="btn-right"><a href="Servlet?azienda=<%=aziendaScelta%>&professore=<%=p.getUser()%>">Scegli Professore</a></th>
+					    <th class="btn-right"><a href="AggiungiRichiestaTirocinio?azienda=<%=aziendaScelta%>&professore=<%=p.getUser()%>">Scegli Professore</a></th>
 					  </tr>
 					</table>
 					<%

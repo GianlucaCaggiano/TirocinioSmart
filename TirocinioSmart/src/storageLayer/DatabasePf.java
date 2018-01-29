@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import gestioneProgettoFormativo.RichiestaTirocinio;
+import gestioneUtente.Studente;
+import gestioneUtente.Utente;
 
 /**
  * Classe che fornisce i metodi per le interrogazioni al database per le classi del package gestioneProgettoFormativo.
@@ -15,19 +17,23 @@ import gestioneProgettoFormativo.RichiestaTirocinio;
  *
  * @version 1.0
  */
-public class DatabasePf {
+public class DatabasePf 
+{
 
 	/**
 	 * 
 	 * @param La richiesta di tirocinio da memorizzare
 	 * @return {@code true} se la aggiunta della richiesta e' ok, {@code false} altrimenti.
 	 * @throws SQLException
+	 * 
+	 * @author Gianluca Caggiano, Iannuzzi Nicola'
 	 */
-	public synchronized static boolean AddRichiesta(RichiestaTirocinio rt) throws SQLException
+	public synchronized static boolean AddRichiesta(RichiestaTirocinio rt, Studente s) throws SQLException
 	{
 		Connection connection = null;
 		
 		PreparedStatement psAddRichiesta = null;
+		PreparedStatement psUpdateStudente = null;
 		try {
 			connection = Database.getConnection();
 			psAddRichiesta = connection.prepareStatement(queryAddRichiesta);
@@ -35,6 +41,12 @@ public class DatabasePf {
 			psAddRichiesta.setString(1, rt.getAzienda().getUser());
 			psAddRichiesta.setString(2, rt.getProfessore().getUser());
 			psAddRichiesta.executeUpdate();
+			connection.commit();
+			
+			psUpdateStudente = connection.prepareStatement(queryUpdateStudente);
+			psUpdateStudente.setInt(1, getIDMaxRichiestaTirocinio());
+			psUpdateStudente.setString(2, s.getUser());
+			psUpdateStudente.executeUpdate();
 			connection.commit();
 		}
 		finally 
@@ -46,9 +58,9 @@ public class DatabasePf {
 					psAddRichiesta.close();
 				}
 				
-				if (psAddRichiesta != null)
+				if (psUpdateStudente != null)
 				{
-					psAddRichiesta.close();
+					psUpdateStudente.close();
 				}
 			} 
 			finally 
@@ -110,13 +122,57 @@ public class DatabasePf {
 			return richiesta;
 	}
 	
+	/**
+	 * Restituisce l'ultima Richiesta Tirocinio creata in ordine temporale.
+	 * 
+	 * @return {@code -1} non e' presente nessuna convenzione, {@code Oggetto Convenzione} altrimenti.
+	 * @throws SQLException
+	 */
+	private synchronized static int getIDMaxRichiestaTirocinio() throws SQLException
+	{
+		Connection connection = null;
+		java.sql.Statement statement = null;
+		
+		int id = -1;
+		try 
+		{
+			connection = Database.getConnection();
+			statement = connection.createStatement();
+			
+			ResultSet rs = statement.executeQuery(queryGetMaxRichiestaTirocinio);
+			
+			if(rs.next())
+			{
+				id = rs.getInt(1);
+			}
+		}
+		finally
+		{
+			try 
+			{
+				if (statement != null)
+					statement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		return id;
+	}
+	
 	private static String queryAddRichiesta;
 	private static String queryGetRichiestaById;
+	private static String queryUpdateStudente;
+	private static String queryGetMaxRichiestaTirocinio;
 	
 	static {
 		
 		queryAddRichiesta = "INSERT INTO richiestatirocinio (AziendaEmail, ProfessoreEmail) VALUES (?,?);";
 		
+		queryUpdateStudente= "UPDATE studente SET RichiestaTirocinioID=? WHERE studente.Email=?";
+		
 		queryGetRichiestaById = "SELECT * FROM richiestatirocinio WHERE richiestatirocinio.ID=?";
+		queryGetMaxRichiestaTirocinio = "SELECT MAX(ID) FROM richiestatirocinio";
 	}
 }
