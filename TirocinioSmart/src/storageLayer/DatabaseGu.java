@@ -394,6 +394,11 @@ public class DatabaseGu
 				studente.setMatricola(rs.getString("Matricola"));
 				studente.setDataNascita(rs.getString("DataNascita"));
 				studente.setLuogoNascita(rs.getString("LuogoNascita"));
+				String idRichiesta = rs.getString("RichiestaTirocinioID");
+				if(idRichiesta != null)
+				{
+					studente.setRichiestaTirocinio(DatabasePf.getRichiestaByID(Integer.parseInt(idRichiesta)));
+				}
 				studente.setAbilitato(rs.getBoolean("abilitato"));
 			}
 		} finally {
