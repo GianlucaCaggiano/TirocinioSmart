@@ -33,7 +33,7 @@
 		
 		<br/>
 		<%if(studente.getRichiestaTirocinio() != null) {%>
-		<button type="button" onclick="#" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Visualizza Stato Richiesta</button>
+		<button type="button" onclick="location.href='statoRichiestaStudente.jsp'" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Visualizza Stato Richiesta</button>
 		<%}else{ %>
 		<button type="button" onclick="location.href='listaAziende.jsp'" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Scelta Azienda e Professore</button>
 		<%} %>

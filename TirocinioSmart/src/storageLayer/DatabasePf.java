@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import gestioneProgettoFormativo.RichiestaTirocinio;
 import gestioneUtente.Studente;
@@ -160,6 +162,106 @@ public class DatabasePf
 			}
 		}
 		return id;
+	}
+	
+	/**
+	 * Restituisce un ArrayList di oggetti di tipo RichiestaTirocinio dato l'email dell'Azienda.
+	 * 
+	 * @param email
+	 * @return {@code ArrayList<RichiestaTirocinio>}.
+	 * @throws SQLException
+	 * 
+	 * @author Caggiano Gianluca, Iannuzzi Nicola'
+	 */
+	public synchronized static ArrayList<RichiestaTirocinio> doRetrieveRichiesteAziende(String email) throws SQLException
+	{
+		Connection connection = null;
+		Statement statement = null;
+
+		RichiestaTirocinio richiesta = null;
+		ArrayList<RichiestaTirocinio> arrayRichiesta = new ArrayList<RichiestaTirocinio>();
+		try 
+		{
+			connection = Database.getConnection();
+			statement = connection.createStatement();
+
+			ResultSet rs = statement.executeQuery("SELECT * FROM richiestatirocinio WHERE richiestatirocinio.AziendaEmail='"+email+"'");
+			connection.commit();
+
+			while (rs.next())
+			{
+				richiesta = new RichiestaTirocinio();
+				richiesta.setId(rs.getInt("ID"));
+				richiesta.setAzienda(DatabaseGu.getAziendaByEmail(rs.getString("AziendaEmail")));
+				richiesta.setProfessore(DatabaseGu.getProfessoreByEmail(rs.getString("ProfessoreEmail")));
+				richiesta.setConvalidaAzienda(rs.getBoolean("ConvalidaAzienda"));
+				richiesta.setConvalidaProf(rs.getBoolean("ConvalidaProf"));
+				
+				arrayRichiesta.add(richiesta);
+			}
+		} finally 
+		{
+			try 
+			{
+				if (statement != null)
+					statement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		return arrayRichiesta;
+	}
+	
+	/**
+	 * Restituisce un ArrayList di oggetti di tipo RichiestaTirocinio dato l'email del Professore.
+	 * 
+	 * @param email
+	 * @return {@code ArrayList<RichiestaTirocinio>}.
+	 * @throws SQLException
+	 * 
+	 * @author Caggiano Gianluca, Iannuzzi Nicola'
+	 */
+	public synchronized static ArrayList<RichiestaTirocinio> doRetrieveRichiesteProfessore(String email) throws SQLException
+	{
+		Connection connection = null;
+		Statement statement = null;
+
+		RichiestaTirocinio richiesta = null;
+		ArrayList<RichiestaTirocinio> arrayRichiesta = new ArrayList<RichiestaTirocinio>();
+		try 
+		{
+			connection = Database.getConnection();
+			statement = connection.createStatement();
+
+			ResultSet rs = statement.executeQuery("SELECT * FROM richiestatirocinio WHERE richiestatirocinio.AziendaEmail='"+email+"'");
+			connection.commit();
+
+			while (rs.next())
+			{
+				richiesta = new RichiestaTirocinio();
+				richiesta.setId(rs.getInt("ID"));
+				richiesta.setAzienda(DatabaseGu.getAziendaByEmail(rs.getString("AziendaEmail")));
+				richiesta.setProfessore(DatabaseGu.getProfessoreByEmail(rs.getString("ProfessoreEmail")));
+				richiesta.setConvalidaAzienda(rs.getBoolean("ConvalidaAzienda"));
+				richiesta.setConvalidaProf(rs.getBoolean("ConvalidaProf"));
+				
+				arrayRichiesta.add(richiesta);
+			}
+		} finally 
+		{
+			try 
+			{
+				if (statement != null)
+					statement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		return arrayRichiesta;
 	}
 	
 	private static String queryAddRichiesta;
