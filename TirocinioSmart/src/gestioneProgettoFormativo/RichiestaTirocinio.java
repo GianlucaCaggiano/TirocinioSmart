@@ -29,7 +29,7 @@ public class RichiestaTirocinio
 	/**
 	 * Costruttore con parametri:
 	 * 
-	 * @param id Idendificativo che contrassegna la richiesta di tirocinio
+	 * @param id Identificativo che contrassegna la richiesta di tirocinio
 	 * @param azienda Azienda che rappresenta l'azienda coinvolta nella Richiesta Tirocinio
 	 * @param professore Professore che rappresenta il professore coinvolto nella Richiesta Tirocinio
 	 * @param convalidaAzienda boolean che rappresenta la convalida dell'Azienda nella Richiesta Tirocinio

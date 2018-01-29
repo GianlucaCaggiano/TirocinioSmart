@@ -452,6 +452,23 @@ public class DatabaseGu
 				azienda.setCitta(rs.getString("Citta"));
 				azienda.setCAP(rs.getString("CAP"));
 				azienda.setVia(rs.getString("Via"));
+				if(rs.getString("Telefono") !=null)
+				{
+					azienda.setTelefono(rs.getString("Telefono"));
+				}
+				if(rs.getString("SitoWeb") !=null)
+				{
+					azienda.setSitoWeb(rs.getString("SitoWeb"));
+				}
+				if(rs.getString("ChiSiamo") !=null)
+				{
+					azienda.setChiSiamo(rs.getString("ChiSiamo"));
+				}
+				String idConvenzione = rs.getString("ConvenzioneID");
+				if(idConvenzione != null)
+				{
+					azienda.setConvenzione(DatabaseGu.getConvenzioneById(Integer.parseInt(idConvenzione)));
+				}
 				azienda.setAbilitato(rs.getBoolean("abilitato"));
 			}
 		} finally 
@@ -612,13 +629,25 @@ public class DatabaseGu
 				azienda.setCAP(res.getString("CAP"));
 				azienda.setCitta(res.getString("Citta"));
 				azienda.setVia(res.getString("Via"));
-				azienda.setTelefono(res.getString("Telefono"));
-				azienda.setChiSiamo(res.getString("ChiSiamo"));
-				azienda.setSitoWeb(res.getString("SitoWeb"));
-				azienda.setTelefono(res.getString("Telefono"));
-				azienda.setConvenzione(DatabaseGu.getConvenzioneById(res.getInt("ID")));
+				if(res.getString("Telefono") !=null)
+				{
+					azienda.setTelefono(res.getString("Telefono"));
+				}
+				if(res.getString("SitoWeb") !=null)
+				{
+					azienda.setSitoWeb(res.getString("SitoWeb"));
+				}
+				if(res.getString("ChiSiamo") !=null)
+				{
+					azienda.setChiSiamo(res.getString("ChiSiamo"));
+				}
+				String idConvenzione = res.getString("ConvenzioneID");
+				if(idConvenzione != null)
+				{
+					azienda.setConvenzione(DatabaseGu.getConvenzioneById(Integer.parseInt(idConvenzione)));
+				}
 				azienda.setAbilitato(res.getBoolean("abilitato"));
-				
+				System.out.println(azienda);
 				arrayList.add(azienda);
 			}
 		}
@@ -690,6 +719,15 @@ public class DatabaseGu
 		return arrayList;
 	}
 	
+	/**
+	 * Restituisce, se esiste, un oggetto di tipo convenzione con un certo id.
+	 * 
+	 * @param id
+	 * @return {@code null} se la convenzione non esiste, {@code Oggetto Convenzione } altrimenti.
+	 * @throws SQLException
+	 * 
+	 * @author Caggiano Gianluca
+	 */
 	private synchronized static Convenzione getConvenzioneById(int id) throws SQLException
 	{
 		Connection connection = null;
