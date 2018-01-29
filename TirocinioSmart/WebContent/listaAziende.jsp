@@ -92,10 +92,11 @@
 						    <th class="btn-right"><a href="listaProfessori.jsp?azienda=<%=a.getUser()%>">Scegli Azienda</a></th>
 						    <%}%>
 						 </tr>
-					 </table>
+					 
 					<%
 				}
 			%>
+			</table>
 		<br/>
   	</div>
 	

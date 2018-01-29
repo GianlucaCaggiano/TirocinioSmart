@@ -82,10 +82,11 @@
 					    <%String aziendaScelta = request.getParameter("azienda"); %>
 					    <th class="btn-right"><a href="AggiungiRichiestaTirocinio?azienda=<%=aziendaScelta%>&professore=<%=p.getUser()%>">Scegli Professore</a></th>
 					  </tr>
-					</table>
+					
 					<%
 				}
 			%>
+			</table>
 		<br/>
   	</div>
 	

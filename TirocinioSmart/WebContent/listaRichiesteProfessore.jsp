@@ -61,8 +61,7 @@
 	
 	<%
 		ArrayList<RichiestaTirocinio> arrayRichiesta = new ArrayList<RichiestaTirocinio>();
-		Professore p = (Professore) request.getSession().getAttribute("professore");
-		arrayRichiesta = DatabasePf.doRetrieveRichiesteProfessore(p.getUser());
+		arrayRichiesta = DatabasePf.doRetrieveRichiesteProfessore(professore.getUser());
 	%>
 	<div class="container text-center">
 		<h1>Lista Richieste di Tirocinio</h1>
@@ -70,6 +69,7 @@
 			<table>
 					<tr>
 					   <th>ID Richiesta</th>
+					   <th>Matricola Studente</th>
 					   <th>Studente</th>
 					   <th>Azienda</th>
 					   <th class="btn-right"></th>
@@ -80,14 +80,16 @@
 					%>
 					  <tr>
 					    <th><%=richiesta.getId()%></th>
-					    <th><%=richiesta%></th>
+					    <th><%=DatabasePf.getStudenteByIDRichiesta(richiesta.getId()).getMatricola()%></th>
+					    <th><%=DatabasePf.getStudenteByIDRichiesta(richiesta.getId()).getCognome()%> <%=DatabasePf.getStudenteByIDRichiesta(richiesta.getId()).getNome()%></th>
 					    <th><%=richiesta.getAzienda().getDenominazione()%></th>
 					    <th class="btn-right"><a href="#">Conferma</a></th>
 					  </tr>
-					</table>
+					
 					<%
 				}
 			%>
+			</table>
 		<br/>
   	</div>
 	

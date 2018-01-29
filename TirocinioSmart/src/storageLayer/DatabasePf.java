@@ -9,7 +9,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import gestioneProgettoFormativo.RichiestaTirocinio;
+import gestioneUtente.Azienda;
+import gestioneUtente.Professore;
 import gestioneUtente.Studente;
+import gestioneUtente.Utente;
 
 /**
  * Classe che fornisce i metodi per le interrogazioni al database per le classi del package gestioneProgettoFormativo.
@@ -235,7 +238,7 @@ public class DatabasePf
 			connection = Database.getConnection();
 			statement = connection.createStatement();
 
-			ResultSet rs = statement.executeQuery("SELECT * FROM richiestatirocinio WHERE richiestatirocinio.AziendaEmail='"+email+"'");
+			ResultSet rs = statement.executeQuery("SELECT * FROM richiestatirocinio WHERE richiestatirocinio.ProfessoreEmail='"+email+"'");
 			connection.commit();
 
 			while (rs.next())
@@ -264,10 +267,59 @@ public class DatabasePf
 		return arrayRichiesta;
 	}
 	
+	/**
+	 * Restituisce, se esiste, un oggetto di tipo Studente dato l'identificativo della Richiesta.
+	 * 
+	 * @param id
+	 * @return {@code Studente}.
+	 * @throws SQLException
+	 * 
+	 * @author Caggiano Gianluca, Iannuzzi Nicola'
+	 */
+	public synchronized static Studente getStudenteByIDRichiesta(int id) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		Studente s = null; 
+		
+		try {
+			connection = Database.getConnection();
+			preparedStatement = connection.prepareStatement(queryGetStudenteByIDRichiesta);
+			preparedStatement.setInt(1, id);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			connection.commit();
+
+			if (rs.next())
+			{
+				s = new Studente();
+				s.setUser(rs.getString("User"));
+				s.setPassword(rs.getString("Password"));
+				s.setNome(rs.getString("Nome"));
+				s.setCognome(rs.getString("Cognome"));
+				s.setMatricola(rs.getString("Matricola"));
+			}
+		}
+		finally 
+		{
+			try 
+			{
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		return s;
+	}
+	
 	private static String queryAddRichiesta;
 	private static String queryGetRichiestaById;
 	private static String queryUpdateStudente;
 	private static String queryGetMaxRichiestaTirocinio;
+	private static String queryGetStudenteByIDRichiesta;
 	
 	static {
 		
@@ -277,5 +329,6 @@ public class DatabasePf
 		
 		queryGetRichiestaById = "SELECT * FROM richiestatirocinio WHERE richiestatirocinio.ID=?";
 		queryGetMaxRichiestaTirocinio = "SELECT MAX(ID) FROM richiestatirocinio";
+		queryGetStudenteByIDRichiesta = "SELECT * FROM studente, utente WHERE studente.Email=utente.User AND studente.RichiestaTirocinioID=?";
 	}
 }

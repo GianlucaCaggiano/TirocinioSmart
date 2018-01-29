@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Pagina lista aziende">
+    <meta name="description" content="Pagina lista Richieste azienda">
     <meta name="author" content="Caggiano Gianluca">
 
 	<style>
@@ -44,7 +44,7 @@
 		}
 	</style>
 
-    <title>Lista azienda</title>
+    <title>Lista Richieste Azienda</title>
 
 	<%@ include file="headImport.html" %>
 	
@@ -67,11 +67,12 @@
 		array = DatabasePf.doRetrieveRichiesteAziende(az.getUser());
 	%>
 	<div class="container text-center">
-		<h1>Aziende Convenzionate</h1>
+		<h1>Lista Richieste Azienda</h1>
 		<br/>
 				<table>
 						<tr>
 						   <th>ID Richiesta</th>
+						   <th>Matricola Studente</th>
 						   <th>Studente</th>
 						   <th>Professore</th>
 						   <th class="btn-right"></th>
@@ -83,16 +84,17 @@
 					%>
 					
 						<tr>
-						    <th><%=rt.getId()%></th>
-						    <th><%=%></th>
-						    <th><%=rt.getProfessore().getCognome()%> <%=rt.getProfessore().getNome()%></th>
-						    <th class="btn-right"><a href="#">Conferma</a></th>
-
-						 </tr>
-					 </table>
+					    <th><%=rt.getId()%></th>
+					    <th><%=DatabasePf.getStudenteByIDRichiesta(rt.getId()).getMatricola()%></th>
+					    <th><%=DatabasePf.getStudenteByIDRichiesta(rt.getId()).getCognome()%> <%=DatabasePf.getStudenteByIDRichiesta(rt.getId()).getNome()%></th>
+					    <th><%=rt.getProfessore().getCognome()%> <%=rt.getProfessore().getNome()%></th>
+					    <th class="btn-right"><a href="#">Conferma</a></th>
+					  </tr>
+					 
 					<%
 				}
 			%>
+			</table>
 		<br/>
   	</div>
 	
