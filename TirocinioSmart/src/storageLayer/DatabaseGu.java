@@ -3,6 +3,7 @@ package storageLayer;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.*;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import gestioneUtente.*;
 
 /**
- * Classe che fornisce i metodi per le interrogazioni al database.
+ * Classe che fornisce i metodi per le interrogazioni al database per le classi del package gestioneUtente.
  * 
  * @author Caggiano Gianluca, Iannuzzi Nicola'
  *
@@ -341,6 +342,11 @@ public class DatabaseGu
 				studente.setMatricola(rs.getString("Matricola"));
 				studente.setDataNascita(rs.getString("DataNascita"));
 				studente.setLuogoNascita(rs.getString("LuogoNascita"));
+				String idRichiesta = rs.getString("RichiestaTirocinioID");
+				if(idRichiesta != null)
+				{
+					studente.setRichiestaTirocinio(DatabasePf.getRichiestaByID(Integer.parseInt(idRichiesta)));
+				}
 				studente.setAbilitato(rs.getBoolean("abilitato"));
 			}
 		} finally {

@@ -63,6 +63,7 @@ public class Login extends HttpServlet
 					{
 						Studente s = DatabaseGu.getStudenteByEmail(email);
 						s.setAutenticato(true);
+						System.out.println(s);
 						HttpSession session = request.getSession();
 						session.setAttribute("studente", s);
 						request.getRequestDispatcher("areaPersonaleStudente.jsp").forward(request, response);

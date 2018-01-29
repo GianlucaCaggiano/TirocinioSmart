@@ -180,7 +180,7 @@ public class Studente extends Utente
 	*/
 	public String toString() 
 	{
-		return super.toString()+" [matricola= " + matricola + ", data di nascita= " + dataNascita + ", luogo di nascita=" + luogoNascita + ", abilitato=" + abilitato + "]";
+		return super.toString()+" [matricola= " + matricola + ", data di nascita= " + dataNascita + ", luogo di nascita=" + luogoNascita + ", richiesta di tirocinio=" + richiestaTirocinio +" abilitato=" + abilitato + "]";
 	}
 
 	/**

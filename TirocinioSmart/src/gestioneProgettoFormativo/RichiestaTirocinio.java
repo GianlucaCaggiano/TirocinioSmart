@@ -4,12 +4,13 @@ import gestioneUtente.*;
 /**
  * Classe che modella la Richiesta Tirocinio per la piattaforma.
  * 
- * @author Iannuzzi Nicolà
+ * @author Iannuzzi Nicola', Caggiano Gianluca
  *
  * @version 1.0
  */
 public class RichiestaTirocinio 
 {
+	private String id;
 	private Azienda azienda;
 	private Professore professore;
 	private boolean convalidaAzienda;
@@ -28,6 +29,7 @@ public class RichiestaTirocinio
 	/**
 	 * Costruttore con parametri:
 	 * 
+	 * @param id Idendificativo che contrassegna la richiesta di tirocinio
 	 * @param azienda Azienda che rappresenta l'azienda coinvolta nella Richiesta Tirocinio
 	 * @param professore Professore che rappresenta il professore coinvolto nella Richiesta Tirocinio
 	 * @param convalidaAzienda boolean che rappresenta la convalida dell'Azienda nella Richiesta Tirocinio
@@ -35,12 +37,35 @@ public class RichiestaTirocinio
 	 * 
 	 * @author Iannuzzi Nicolà
 	 */
-	public RichiestaTirocinio(Azienda azienda, Professore professore, boolean convalidaAzienda, boolean convalidaProf)
+	public RichiestaTirocinio(String id, Azienda azienda, Professore professore, boolean convalidaAzienda, boolean convalidaProf)
 	{
+		this.id = id;
 		this.azienda = azienda;
 		this.professore = professore;
 		this.convalidaAzienda = convalidaAzienda;
 		this.convalidaProf = convalidaProf;
+	}
+
+	/**
+	 * Restituisce l'idendificativo della richiesta di tirocinio.
+	 * 
+	 * @return the id
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * Setta l'idendificativo della richiesta di tirocinio.
+	 * 
+	 * @param id the id to set
+	 * 
+	 * @author Caggiano Gianluca
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
