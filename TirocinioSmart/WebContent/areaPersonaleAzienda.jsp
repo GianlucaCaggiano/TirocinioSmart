@@ -32,7 +32,7 @@
 		<h1>Area Personale Azienda</h1>
 		
 		<br/>
-		<button type="button" class="btn btn-warning btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Domanda di Tirocinio</button>
+		<button type="button" onclick="location.href='listaRichiesteAzienda.jsp'" class="btn btn-warning btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Domanda di Tirocinio</button>
 		<br/>
 		<button type="button" class="btn btn-warning btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Compila Progetto Formativo</button>
 		
