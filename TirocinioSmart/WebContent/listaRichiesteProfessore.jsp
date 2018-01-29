@@ -83,7 +83,7 @@
 					    <th><%=DatabasePf.getStudenteByIDRichiesta(richiesta.getId()).getMatricola()%></th>
 					    <th><%=DatabasePf.getStudenteByIDRichiesta(richiesta.getId()).getCognome()%> <%=DatabasePf.getStudenteByIDRichiesta(richiesta.getId()).getNome()%></th>
 					    <th><%=richiesta.getAzienda().getDenominazione()%></th>
-					    <th class="btn-right"><a href="#">Conferma</a></th>
+					    <th class="btn-right"><a href="ConfermaRichiestaProf?id=<%=richiesta.getId()%>">Conferma</a></th>
 					  </tr>
 					
 					<%

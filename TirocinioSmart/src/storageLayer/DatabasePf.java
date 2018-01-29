@@ -129,6 +129,75 @@ public class DatabasePf
 	}
 	
 	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	public synchronized static boolean setConvalidaAzienda(int id) throws SQLException
+	{
+		Connection connection = null;
+		Statement statement = null;
+		
+		String query="UPDATE richiestatirocinio SET ConvalidaAzienda=1 WHERE richiestatirocinio.ID="+id+"";
+		
+		try {
+			connection=Database.getConnection();
+			statement=connection.createStatement();
+			
+			statement.executeUpdate(query);
+			connection.commit();
+		}
+		finally {
+			try {
+				if(statement != null)
+				{
+					statement.close();
+				}
+			}
+			finally {
+				Database.releaseConnection(connection);
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	public synchronized static boolean setConvalidaProf(int id) throws SQLException
+	{
+		Connection connection = null;
+		Statement statement = null;
+		
+		String query="UPDATE richiestatirocinio SET ConvalidaProf=1 WHERE richiestatirocinio.ID="+id+"";
+		
+		try {
+			connection=Database.getConnection();
+			statement=connection.createStatement();
+			
+			statement.executeUpdate(query);
+			connection.commit();
+		}
+		finally {
+			try {
+				if(statement != null)
+				{
+					statement.close();
+				}
+			}
+			finally {
+				Database.releaseConnection(connection);
+			}
+		}
+		return true;
+	}
+	
+	
+	/**
 	 * Restituisce l'ultima Richiesta Tirocinio creata in ordine temporale.
 	 * 
 	 * @return {@code -1} non e' presente nessuna convenzione, {@code Oggetto Convenzione} altrimenti.
@@ -188,7 +257,7 @@ public class DatabasePf
 			connection = Database.getConnection();
 			statement = connection.createStatement();
 
-			ResultSet rs = statement.executeQuery("SELECT * FROM richiestatirocinio WHERE richiestatirocinio.AziendaEmail='"+email+"'");
+			ResultSet rs = statement.executeQuery("SELECT * FROM richiestatirocinio WHERE richiestatirocinio.AziendaEmail='"+email+"' AND richiestatirocinio.ConvalidaAzienda=0");
 			connection.commit();
 
 			while (rs.next())
@@ -238,7 +307,7 @@ public class DatabasePf
 			connection = Database.getConnection();
 			statement = connection.createStatement();
 
-			ResultSet rs = statement.executeQuery("SELECT * FROM richiestatirocinio WHERE richiestatirocinio.ProfessoreEmail='"+email+"'");
+			ResultSet rs = statement.executeQuery("SELECT * FROM richiestatirocinio WHERE richiestatirocinio.ProfessoreEmail='"+email+"' AND richiestatirocinio.ConvalidaProf=0");
 			connection.commit();
 
 			while (rs.next())
