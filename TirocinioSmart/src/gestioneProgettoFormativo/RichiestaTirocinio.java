@@ -10,7 +10,7 @@ import gestioneUtente.*;
  */
 public class RichiestaTirocinio 
 {
-	private String id;
+	private int id;
 	private Azienda azienda;
 	private Professore professore;
 	private boolean convalidaAzienda;
@@ -23,7 +23,7 @@ public class RichiestaTirocinio
 	 */
 	public RichiestaTirocinio()
 	{
-		
+		this.id = -1;
 	}
 	
 	/**
@@ -37,7 +37,7 @@ public class RichiestaTirocinio
 	 * 
 	 * @author Iannuzzi Nicolà
 	 */
-	public RichiestaTirocinio(String id, Azienda azienda, Professore professore, boolean convalidaAzienda, boolean convalidaProf)
+	public RichiestaTirocinio(int id, Azienda azienda, Professore professore, boolean convalidaAzienda, boolean convalidaProf)
 	{
 		this.id = id;
 		this.azienda = azienda;
@@ -53,7 +53,7 @@ public class RichiestaTirocinio
 	 * 
 	 * @author Caggiano Gianluca
 	 */
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -64,7 +64,7 @@ public class RichiestaTirocinio
 	 * 
 	 * @author Caggiano Gianluca
 	 */
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

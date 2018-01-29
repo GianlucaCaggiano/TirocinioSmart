@@ -21,7 +21,7 @@ public class Convenzione
 	 */
 	public Convenzione()
 	{
-		
+		this.id = -1;
 	}
 	
 	/**

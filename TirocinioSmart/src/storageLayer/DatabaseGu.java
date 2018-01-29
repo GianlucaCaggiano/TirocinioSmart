@@ -23,11 +23,12 @@ public class DatabaseGu
 	 * Registra un utente nel database.
 	 * 
 	 * @param utente
+	 * @return {@code true} se la registrazione e' ok, {@code false} altrimenti.
 	 * @throws SQLException
 	 * 
 	 * @author Caggiano Gianluca, Iannuzzi Nicola'
 	 */
-	public synchronized static void addUser(Utente utente) throws SQLException
+	public synchronized static boolean addUser(Utente utente) throws SQLException
 	{
 		Connection connection = null;
 		
@@ -59,7 +60,6 @@ public class DatabaseGu
 				psAddStudente.setString(4, studente.getLuogoNascita());
 				psAddStudente.setInt(5, 1);
 				psAddStudente.executeUpdate();
-				System.out.println(studente);
 				connection.commit();
 			}
 			finally 
@@ -126,7 +126,6 @@ public class DatabaseGu
 					psAddAzienda.setString(11, azienda.getChiSiamo());
 				}
 				int id = getIDMaxConvenzione();
-				System.out.println(id);
 				if(id >= 0)
 				{
 					psAddAzienda.setInt(12, id);
@@ -206,6 +205,7 @@ public class DatabaseGu
 			}
 			
 		}
+		return true;
 	}
 	
 	/**
@@ -616,6 +616,7 @@ public class DatabaseGu
 				azienda.setChiSiamo(res.getString("ChiSiamo"));
 				azienda.setSitoWeb(res.getString("SitoWeb"));
 				azienda.setTelefono(res.getString("Telefono"));
+				azienda.setConvenzione(DatabaseGu.getConvenzioneById(res.getInt("ID")));
 				azienda.setAbilitato(res.getBoolean("abilitato"));
 				
 				arrayList.add(azienda);
@@ -689,6 +690,46 @@ public class DatabaseGu
 		return arrayList;
 	}
 	
+	private synchronized static Convenzione getConvenzioneById(int id) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Convenzione convenzione = new Convenzione();
+
+		try 
+		{
+			connection = Database.getConnection();
+			preparedStatement = connection.prepareStatement(queryGetConvenzioneById);
+			preparedStatement.setInt(1, id);
+
+			ResultSet rs = preparedStatement.executeQuery();
+			connection.commit();
+
+			while (rs.next())
+			{
+				convenzione.setId(rs.getInt("ID"));
+				convenzione.setData(rs.getString("Data"));
+				convenzione.setSpecifica(rs.getString("Specifiche"));
+			}
+		} finally 
+		{
+			try 
+			{
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		if (convenzione.getId() == -1)
+			return null;
+		else
+			return convenzione;
+	}
+	
 	/**
 	 * Restituisce l'ultima convenzione creata in ordine temporale.
 	 * 
@@ -739,6 +780,7 @@ public class DatabaseGu
 	private static String queryGetAziendaEmail;
 	private static String queryGetProfessoreEmail;
 	private static String queryGetSegreteriaUsername;
+	private static String queryGetConvenzioneById;
 	private static String queryGetMaxConvenzione;
 	
 	static 
@@ -756,6 +798,7 @@ public class DatabaseGu
 		queryGetAziendaEmail = "SELECT * From utente,azienda WHERE azienda.Email=utente.User AND azienda.Email=?;";
 		queryGetProfessoreEmail = "SELECT * From utente, professore WHERE utente.User = professore.Email AND professore.Email=?";
 		queryGetSegreteriaUsername = "SELECT * From utente, segreteria WHERE utente.User = segreteria.Username AND segreteria.Username=?";
+		queryGetConvenzioneById = "SELECT * FROM convenzione WHERE ID=?";
 		queryGetMaxConvenzione = "SELECT MAX(ID) FROM Convenzione";
 	}
 }
