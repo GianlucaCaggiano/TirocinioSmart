@@ -366,4 +366,10 @@ public class ProgettoFormativo
 		return progettoFormativo.getId() == this.id;
 	}
 	
+	
+	/** Costante che definisce la minima lunghezza del campo obiettivi. */
+	  public static final int MIN_LUNGHEZZA_NOME = 2;
+	  
+	  /** Costante che definisce la massima lunghezza del campo obiettivi. */
+	  public static final int MAX_LUNGHEZZA_NOME = 255;
 }

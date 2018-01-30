@@ -32,7 +32,20 @@
 	<div class="container text-center">
 		<h1>Progetto Formativo</h1>
 		<br/>
+		<% 	
+			if(request.getParameter("errore") != null)
+			{
+				String err="Errore : "+request.getParameter("errore");
+		%>
 		
+		<br/>
+		<h4 class="text-danger"><%= err %></h4>
+		
+		<% 
+			}
+		%>
+		
+		<br/>
 		<br/>
 		<form id="ajax-progettoFormativo-form" action="AggiungiProgettoFormativo" method="post" role="form" autocomplete="off" style="width: 50%; margin:0 auto;">
         	<fieldset class="form-group">
