@@ -240,7 +240,7 @@ $('#ajax-registerAzienda-form').bootstrapValidator({
 					message : 'Inserisci la via'
 				},
 				 regexp : {
-						regexp : /^[0-9a-zA-Z._-\s]+$/,
+						regexp : /^[0-9a-zA-Z.,_-\s]+$/,
 						message : 'Formato non valido'
 				}
 			}

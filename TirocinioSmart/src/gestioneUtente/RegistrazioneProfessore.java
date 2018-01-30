@@ -125,6 +125,13 @@ public class RegistrazioneProfessore extends HttpServlet
 			errore = "cognome non valido";
 		}
 		
+		String materia = request.getParameter("materia");
+		materia = materia.trim();
+		if(materia.length() < Utente.MIN_LUNGHEZZA_DUE || materia.length() > Utente.MAX_LUNGHEZZA_TRENTA)
+		{
+			errore = "materia non valida";
+		}
+		
 		try 
 		{
 			Professore p = DatabaseGu.getProfessoreByEmail(email);

@@ -2,6 +2,11 @@ package gestioneUtente;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -121,12 +126,33 @@ public class RegistrazioneAzienda extends HttpServlet
 	{
 		String email = request.getParameter("email");
 		email = email.trim();
+		if(!email.matches(Azienda.EMAIL_PATTERN))
+		{
+			errore = "Email non valida";
+		}
 		
 		String password = request.getParameter("password");
 		password = password.trim();
 		if(!password.matches(Utente.PASSWORD_PATTERN))
 		{
 			errore = "Password non valida";
+		}
+		
+		String cap = request.getParameter("cap");
+		cap = cap.trim();
+		if(!cap.matches(Azienda.CAP_PATTERN))
+		{
+			errore = "CAP non valido";
+		}
+		
+		String telefono = request.getParameter("telefono");
+		telefono = telefono.trim();
+		if(telefono != null)
+		{
+			if(!telefono.matches(Azienda.TELEFONO_PATTERN))
+			{
+				errore = "Numero di telefono non valido";
+			}
 		}
 		
 		String nome = request.getParameter("nome");
@@ -141,6 +167,51 @@ public class RegistrazioneAzienda extends HttpServlet
 		if(cognome.length() < Utente.MIN_LUNGHEZZA_DUE || cognome.length() > Utente.MAX_LUNGHEZZA_TRENTA)
 		{
 			errore = "cognome non valido";
+		}
+		
+		String denominazione = request.getParameter("denominazione");
+		denominazione = denominazione.trim();
+		if(denominazione.length() < Utente.MIN_LUNGHEZZA_DUE || denominazione.length() > Utente.MAX_LUNGHEZZA_TRENTA)
+		{
+			errore = "Ragione sociale non valida. Se la denominazione dell'azienda contiene piu' di trenta carattere inserire solo l'acronimo.";
+		}
+		
+		String citta = request.getParameter("citta");
+		citta = citta.trim();
+		if(citta.length() < Utente.MIN_LUNGHEZZA_DUE || citta.length() > Utente.MAX_LUNGHEZZA_TRENTA)
+		{
+			errore = "La citta' inserita non e' valida";
+		}
+		
+		String luogoNascita = request.getParameter("luogoNascita");
+		luogoNascita = luogoNascita.trim();
+		if(luogoNascita.length() < Utente.MIN_LUNGHEZZA_DUE || luogoNascita.length() > Utente.MAX_LUNGHEZZA_TRENTA)
+		{
+			errore = "La citta' di nascita inserita non e' valida";
+		}
+		
+		String dataNascita = request.getParameter("dataNascita");
+		dataNascita = dataNascita.trim();
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		try {
+			java.util.Date dataN = df.parse(dataNascita);
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(dataN);
+			Calendar oggi = Calendar.getInstance();
+			
+			if (oggi.get(Calendar.YEAR) - cal.get(Calendar.YEAR) <= 18)
+			{
+				errore = "Mi sembri un pochino troppo piccolo :-P";
+			}	
+			
+			if(cal.after(oggi))
+			{
+				errore = "Data di nascita successiva alla data odierna";
+			}
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		try 

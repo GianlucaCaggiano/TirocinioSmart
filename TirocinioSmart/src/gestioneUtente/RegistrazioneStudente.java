@@ -145,7 +145,7 @@ public class RegistrazioneStudente extends HttpServlet
 		luogoNascita = luogoNascita.trim();
 		if(luogoNascita.length() < Utente.MIN_LUNGHEZZA_DUE || luogoNascita.length() > Utente.MAX_LUNGHEZZA_TRENTA)
 		{
-			errore = "cognome non valido";
+			errore = "Citta' non valida";
 		}
 		
 		String dataNascita = request.getParameter("dataNascita");
