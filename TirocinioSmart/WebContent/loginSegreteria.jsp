@@ -34,6 +34,19 @@
 		<br/>
 		<h4>Benvenuto nella sezione dedicata al login della <span class="text-danger">Segreteria</span></h4>
 		<br/>
+		<% 	
+			if(request.getParameter("errore") != null)
+			{
+				String err="Errore : "+request.getParameter("errore");
+		%>
+		
+		<br/>
+		<h4 class="text-danger"><%= err %></h4>
+		
+		<% 
+			}
+		%>
+		<br/>
 		<form action="LoginSegreteria" method="post" role="form" autocomplete="off" style="width: 50%; margin:0 auto;">
         	<fieldset class="form-group">
         		<legend>Dati di accesso</legend>
