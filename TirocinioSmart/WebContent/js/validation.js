@@ -1,5 +1,5 @@
 $('#ajax-registerStudente-form').bootstrapValidator({
-	//        live: 'disabled',
+	live: 'disabled',
 	message : 'This value is not valid',
 	feedbackIcons : {
 		valid : 'glyphicon glyphicon-ok',
@@ -13,7 +13,7 @@ $('#ajax-registerStudente-form').bootstrapValidator({
 					message : 'Inserisci matricola'
 				},
 				regexp : {
-					regexp : '^[0-9]',
+					regexp : '^[0-9]+$',
 					message : 'Matricola non valida'
 				},
 				stringLength: {
@@ -113,7 +113,7 @@ $('#ajax-registerStudente-form').bootstrapValidator({
 });
 
 $('#ajax-registerAzienda-form').bootstrapValidator({
-	//        live: 'disabled',
+	live: 'disabled',
 	message : 'This value is not valid',
 	feedbackIcons : {
 		valid : 'glyphicon glyphicon-ok',
@@ -282,7 +282,7 @@ $('#ajax-registerAzienda-form').bootstrapValidator({
 });
 
 $('#ajax-registerProfessore-form').bootstrapValidator({
-	//        live: 'disabled',
+	live: 'disabled',
 	message : 'This value is not valid',
 	feedbackIcons : {
 		valid : 'glyphicon glyphicon-ok',
@@ -364,7 +364,7 @@ $('#ajax-registerProfessore-form').bootstrapValidator({
 });
 
 $('#ajax-login-form').bootstrapValidator({
-	//live: 'disabled',
+	live: 'disabled',
 	message : 'This value is not valid',
 	feedbackIcons : {
 		valid : 'glyphicon glyphicon-ok',
