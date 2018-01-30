@@ -392,3 +392,37 @@ $('#ajax-login-form').bootstrapValidator({
 		}
 	}
 });
+
+$('#ajax-progettoFormativo-form').bootstrapValidator({
+	//        live: 'disabled',
+	message : 'This value is not valid',
+	feedbackIcons : {
+		valid : 'glyphicon glyphicon-ok',
+		invalid : 'glyphicon glyphicon-remove',
+		validating : 'glyphicon glyphicon-refresh'
+	},
+	fields : {
+		dataInizio : {
+			validators : {
+				notEmpty : {
+					message : 'Inserisci la data di Inizio'
+				},
+				date: {
+                    message: 'La data non &egrave valida',
+                    format: 'YYYY/MM/DD'
+                }
+			}
+		},
+		dataFine : {
+			validators : {
+				notEmpty : {
+					message : 'Inserisci la data di Fine'
+				},
+				date: {
+                    message: 'La data non &egrave valida',
+                    format: 'YYYY/MM/DD'
+                }
+			}
+		},
+	}
+});

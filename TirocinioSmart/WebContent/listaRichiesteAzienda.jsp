@@ -69,6 +69,10 @@
 	<div class="container text-center">
 		<h1>Lista Richieste Azienda</h1>
 		<br/>
+		<%if(array.size()==0)
+		{%>
+			<span>Nessuna Richiesta</span>
+	<% 	} else {%>
 				<table>
 						<tr>
 						   <th>ID Richiesta</th>
@@ -95,6 +99,7 @@
 				}
 			%>
 			</table>
+			<%} %>
 		<br/>
   	</div>
 	

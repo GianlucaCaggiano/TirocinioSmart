@@ -391,7 +391,7 @@ public class DatabaseGu
 				studente.setPassword(rs.getString("Password"));
 				studente.setNome(rs.getString("Nome"));
 				studente.setCognome(rs.getString("Cognome"));
-				studente.setMatricola(rs.getString("Matricola"));
+				studente.setMatricola(matricola);
 				studente.setDataNascita(rs.getString("DataNascita"));
 				studente.setLuogoNascita(rs.getString("LuogoNascita"));
 				String idRichiesta = rs.getString("RichiestaTirocinioID");

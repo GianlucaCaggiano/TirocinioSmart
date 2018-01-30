@@ -13,7 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import storageLayer.DatabasePf;
 
 /**
- * Servlet implementation class ConfermaRichiestaAzienda
+ * Servlet implementation class ConfermaRichiestaTirocinio.
+ * Gestisce l'update di una ConvalidaAzienda in RichiestaTirocinio
+ * 
+ * @author Iannuzzi Nicola', Gianluca Caggiano
+ * 
+ * @version 1.0
  */
 @WebServlet("/ConfermaRichiestaAzienda")
 public class ConfermaRichiestaAzienda extends HttpServlet {

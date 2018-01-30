@@ -13,7 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import storageLayer.DatabasePf;
 
 /**
- * Servlet implementation class ConfermaRichiestaProf
+ * Servlet implementation class ConfermaRichiestaTirocinio.
+ * Gestisce l'update di una ConvalidaProf in RichiestaTirocinio
+ * 
+ * @author Iannuzzi Nicola', Gianluca Caggiano
+ * 
+ * @version 1.0
  */
 @WebServlet("/ConfermaRichiestaProf")
 public class ConfermaRichiestaProf extends HttpServlet {

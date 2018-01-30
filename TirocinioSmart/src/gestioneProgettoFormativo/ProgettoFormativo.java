@@ -14,6 +14,7 @@ public class ProgettoFormativo
 	private Azienda azienda;
 	private Segreteria segreteria;
 	private Studente studente;
+	private Professore professore;
 	private String dataInizio;
 	private String obiettivi;
 	private String dataFine;
@@ -47,12 +48,13 @@ public class ProgettoFormativo
 	 * 
 	 * @author Iannuzzi Nicolà
 	 */
-	public ProgettoFormativo(int id, Azienda azienda, Segreteria segreteria, Studente studente, String dataInizio, String obiettivi, String dataFine, boolean convalidaProf, boolean convalidaSegr, boolean sottoscrizioneStu)
+	public ProgettoFormativo(int id, Azienda azienda, Segreteria segreteria, Studente studente, Professore professore, String dataInizio, String obiettivi, String dataFine, boolean convalidaProf, boolean convalidaSegr, boolean sottoscrizioneStu)
 	{
 		this.id = id;
 		this.azienda = azienda;
 		this.segreteria = segreteria;
 		this.studente = studente;
+		this.professore = professore;
 		this.dataInizio = dataInizio;
 		this.obiettivi = obiettivi;
 		this.dataFine = dataFine;
@@ -155,6 +157,30 @@ public class ProgettoFormativo
 	public void setStudente(Studente studente) 
 	{
 		this.studente = studente;
+	}
+	
+	/**
+	 * Ritorna il Professore che effettua il Progetto Formativo
+	 * 
+	 * @return professore
+	 * 
+	 * @author Iannuzzi Nicolà
+	 */
+	public Professore getProfessore() 
+	{
+		return professore;
+	}
+
+	/**
+	 * Setta il Professore che effettua il Progetto Formativo
+	 * 
+	 * @param azienda String che rappresenta il Professore del Progetto Formativo
+	 * 
+	 * @author Iannuzzi Nicolà
+	 */
+	public void setProfessore(Professore professore) 
+	{
+		this.professore = professore;
 	}
 
 	/**

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import gestioneProgettoFormativo.ProgettoFormativo;
 import gestioneProgettoFormativo.RichiestaTirocinio;
 import gestioneUtente.Azienda;
 import gestioneUtente.Professore;
@@ -78,6 +79,50 @@ public class DatabasePf
 	}
 	
 	/**
+	 * 
+	 * @param Il Progetto Formativo da memorizzare
+	 * @return {@code true} se la aggiunta del Progetto e' ok, {@code false} altrimenti.
+	 * @throws SQLException
+	 * 
+	 * @author Gianluca Caggiano, Iannuzzi Nicola'
+	 */
+	public synchronized static boolean AddProgettoFormativo(ProgettoFormativo progettoFormativo) throws SQLException
+	{
+		Connection connection = null;
+		
+		PreparedStatement psAddProgettoFormativo = null;
+		try {
+			connection = Database.getConnection();
+			psAddProgettoFormativo= connection.prepareStatement(queryAddProgettoFormativo);
+			
+			psAddProgettoFormativo.setString(1, progettoFormativo.getAzienda().getUser());
+			psAddProgettoFormativo.setString(2, progettoFormativo.getSegreteria().getUser());
+			psAddProgettoFormativo.setString(3, progettoFormativo.getStudente().getMatricola());
+			psAddProgettoFormativo.setString(4, progettoFormativo.getProfessore().getUser());
+			psAddProgettoFormativo.setString(5, progettoFormativo.getObiettivi());
+			psAddProgettoFormativo.setString(6, progettoFormativo.getDataInizio());
+			psAddProgettoFormativo.setString(7, progettoFormativo.getDataFine());
+			psAddProgettoFormativo.executeUpdate();
+			connection.commit();
+		}
+		finally 
+		{
+			try 
+			{
+				if (psAddProgettoFormativo != null)
+				{
+					psAddProgettoFormativo.close();
+				}
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		return true;
+	}
+	
+	/**
 	 * Restituisce, se esiste, un oggetto di tipo RichiestaTirocinio dato l'identificativo.
 	 * 
 	 * @param id
@@ -129,10 +174,13 @@ public class DatabasePf
 	}
 	
 	/**
+	 * Setta in Richiesta Tirocinio 1 ConvalidaAzienda
 	 * 
 	 * @param id
-	 * @return
+	 * @return boolean
 	 * @throws SQLException
+	 * 
+	 * @author Gianluca Caggiano, Iannuzzi Nicola'
 	 */
 	public synchronized static boolean setConvalidaAzienda(int id) throws SQLException
 	{
@@ -163,10 +211,13 @@ public class DatabasePf
 	}
 	
 	/**
+	 * Setta in Richiesta Tirocinio 1 ConvalidaProf
 	 * 
 	 * @param id
-	 * @return
+	 * @return boolean
 	 * @throws SQLException
+	 * 
+	 * @author Iannuzzi Nicola', Gianluca Caggiano
 	 */
 	public synchronized static boolean setConvalidaProf(int id) throws SQLException
 	{
@@ -258,6 +309,56 @@ public class DatabasePf
 			statement = connection.createStatement();
 
 			ResultSet rs = statement.executeQuery("SELECT * FROM richiestatirocinio WHERE richiestatirocinio.AziendaEmail='"+email+"' AND richiestatirocinio.ConvalidaAzienda=0");
+			connection.commit();
+
+			while (rs.next())
+			{
+				richiesta = new RichiestaTirocinio();
+				richiesta.setId(rs.getInt("ID"));
+				richiesta.setAzienda(DatabaseGu.getAziendaByEmail(rs.getString("AziendaEmail")));
+				richiesta.setProfessore(DatabaseGu.getProfessoreByEmail(rs.getString("ProfessoreEmail")));
+				richiesta.setConvalidaAzienda(rs.getBoolean("ConvalidaAzienda"));
+				richiesta.setConvalidaProf(rs.getBoolean("ConvalidaProf"));
+				
+				arrayRichiesta.add(richiesta);
+			}
+		} finally 
+		{
+			try 
+			{
+				if (statement != null)
+					statement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		return arrayRichiesta;
+	}
+	
+	/**
+	 * Restituisce un ArrayList di oggetti di tipo RichiestaTirocinio dato l'email dell'Azienda che sono state Convalidate sia da esse che dal Prof.
+	 * 
+	 * @param email
+	 * @return {@code ArrayList<RichiestaTirocinio>}.
+	 * @throws SQLException
+	 * 
+	 * @author Iannuzzi Nicola'
+	 */
+	public synchronized static ArrayList<RichiestaTirocinio> doRetrieveRichiesteAziendeConvalidate(String email) throws SQLException
+	{
+		Connection connection = null;
+		Statement statement = null;
+
+		RichiestaTirocinio richiesta = null;
+		ArrayList<RichiestaTirocinio> arrayRichiesta = new ArrayList<RichiestaTirocinio>();
+		try 
+		{
+			connection = Database.getConnection();
+			statement = connection.createStatement();
+
+			ResultSet rs = statement.executeQuery("SELECT * FROM richiestatirocinio WHERE richiestatirocinio.AziendaEmail='"+email+"' AND richiestatirocinio.ConvalidaAzienda=1 AND richiestatirocinio.ConvalidaProf=1");
 			connection.commit();
 
 			while (rs.next())
@@ -385,6 +486,7 @@ public class DatabasePf
 	}
 	
 	private static String queryAddRichiesta;
+	private static String queryAddProgettoFormativo;
 	private static String queryGetRichiestaById;
 	private static String queryUpdateStudente;
 	private static String queryGetMaxRichiestaTirocinio;
@@ -393,6 +495,7 @@ public class DatabasePf
 	static {
 		
 		queryAddRichiesta = "INSERT INTO richiestatirocinio (AziendaEmail, ProfessoreEmail) VALUES (?,?);";
+		queryAddProgettoFormativo= "INSERT INTO progettoformativo (AziendaEmail, SegreteriaUsername, StudenteMatricola, ProfessoreEmail, Obiettivi, DataInizio, DataFine) VALUES (?,?,?,?,?,?,?);";
 		
 		queryUpdateStudente= "UPDATE studente SET RichiestaTirocinioID=? WHERE studente.Email=?";
 		

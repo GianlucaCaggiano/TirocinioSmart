@@ -66,6 +66,10 @@
 	<div class="container text-center">
 		<h1>Lista Richieste di Tirocinio</h1>
 		<br/>
+		<%if(arrayRichiesta.size()==0)
+		{%>
+			<span>Nessuna Richiesta</span>
+	<% 	} else {%>
 			<table>
 					<tr>
 					   <th>ID Richiesta</th>
@@ -90,6 +94,7 @@
 				}
 			%>
 			</table>
+			<%} %>
 		<br/>
   	</div>
 	
