@@ -7,6 +7,7 @@ import java.util.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import gestioneUtente.*;
 
@@ -446,6 +447,7 @@ public class DatabaseGu
 				azienda.setPassword(rs.getString("Password"));
 				azienda.setNome(rs.getString("Nome"));
 				azienda.setCognome(rs.getString("Cognome"));
+				azienda.setTipo(rs.getString("Tipo"));
 				azienda.setLuogoNascita(rs.getString("LuogoNascita"));
 				azienda.setDataNascita(rs.getString("DataNascita"));
 				azienda.setDenominazione(rs.getString("Denominazione"));
@@ -522,6 +524,7 @@ public class DatabaseGu
 				professore.setCognome(rs.getString("Cognome"));
 				professore.setMateria(rs.getString("Materia"));
 				professore.setAutorizzo(rs.getBoolean("Autorizzato"));
+				professore.setTipo(rs.getString("Tipo"));
 			}
 		} finally 
 		{
@@ -805,6 +808,166 @@ public class DatabaseGu
 			}
 		}
 		return id;
+	}
+	
+	/**
+	 * Restituisce un ArrayList di Utenti (Azienda) che non sono ancora abilitati
+	 * 
+	 * @return ArrayList Utenti
+	 * @throws SQLException
+	 * @author Iannuzzi Nicola'
+	 */
+	public synchronized static ArrayList<Utente> doRetriveAllNonAbilitatiAziende() throws SQLException
+	{
+		Connection connection = null;
+		java.sql.Statement statement = null;
+		
+		String sql = "SELECT * FROM utente, azienda WHERE  utente.User = azienda.Email  AND  azienda.abilitato=0";
+		ArrayList<Utente> arrayList = new ArrayList<Utente>();
+		
+		try
+		{
+			connection = Database.getConnection();
+			statement = connection.createStatement();
+			
+			ResultSet res = statement.executeQuery(sql);
+			
+			while(res.next())
+			{
+				arrayList.add(DatabaseGu.getAziendaByEmail(res.getString("User")));
+			}
+		}
+		finally
+		{
+			try 
+			{
+				if (statement != null)
+					statement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		
+		return arrayList;
+	}
+	
+	/**
+	 * Restituisce un ArrayList di Utenti (Professori) che non sono ancora abilitati
+	 * 
+	 * @return ArrayList Utenti
+	 * @throws SQLException
+	 * @author Iannuzzi Nicola'
+	 */
+	public synchronized static ArrayList<Utente> doRetriveAllNonAbilitatiProfessori() throws SQLException
+	{
+		Connection connection = null;
+		java.sql.Statement statement = null;
+		
+		String sql = "SELECT * FROM utente, professore WHERE  utente.User = professore.Email  AND  professore.Autorizzato=0";
+		ArrayList<Utente> arrayList = new ArrayList<Utente>();
+		
+		try
+		{
+			connection = Database.getConnection();
+			statement = connection.createStatement();
+			
+			ResultSet res = statement.executeQuery(sql);
+			
+			while(res.next())
+			{
+				arrayList.add(DatabaseGu.getProfessoreByEmail(res.getString("User")));
+			}
+		}
+		finally
+		{
+			try 
+			{
+				if (statement != null)
+					statement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		
+		return arrayList;
+	}
+	
+	/**
+	 * Setta abilitato 1 in Azienda
+	 * 
+	 * @param id
+	 * @return boolean
+	 * @throws SQLException
+	 * 
+	 * @author Iannuzzi Nicola'
+	 */
+	public synchronized static boolean setAbilitatoAzienda(String id) throws SQLException
+	{
+		Connection connection = null;
+		Statement statement = null;
+		
+		String query="UPDATE azienda SET abilitato=1 WHERE azienda.Email='"+id+"'";
+		
+		try {
+			connection=Database.getConnection();
+			statement=connection.createStatement();
+			
+			statement.executeUpdate(query);
+			connection.commit();
+		}
+		finally {
+			try {
+				if(statement != null)
+				{
+					statement.close();
+				}
+			}
+			finally {
+				Database.releaseConnection(connection);
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Setta autorizzato 1 in Professore
+	 * 
+	 * @param id
+	 * @return boolean
+	 * @throws SQLException
+	 * 
+	 * @author Iannuzzi Nicola'
+	 */
+	public synchronized static boolean setAbilitatoProfessore(String id) throws SQLException
+	{
+		Connection connection = null;
+		Statement statement = null;
+		
+		String query="UPDATE professore SET Autorizzato=1 WHERE professore.Email='"+id+"'";
+		
+		try {
+			connection=Database.getConnection();
+			statement=connection.createStatement();
+			
+			statement.executeUpdate(query);
+			connection.commit();
+		}
+		finally {
+			try {
+				if(statement != null)
+				{
+					statement.close();
+				}
+			}
+			finally {
+				Database.releaseConnection(connection);
+			}
+		}
+		return true;
 	}
 	
 	private static String queryAddUtente;

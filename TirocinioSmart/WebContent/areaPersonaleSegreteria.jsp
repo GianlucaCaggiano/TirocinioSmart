@@ -32,7 +32,7 @@
 		<h1>Area Personale Segreteria</h1>
 		
 		<br/>
-		<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Richiesta Registrazione</button>
+		<button type="button" onclick="location.href='ListaRichiestaRegistrazione.jsp'" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Richiesta Registrazione</button>
 		<br/>
 		<button type="button" onclick="location.href='ConfermaProgettoFormativoSegreteria.jsp'" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Conferma Progetto Formativo</button>
 		<br/>

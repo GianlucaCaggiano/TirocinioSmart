@@ -14,6 +14,7 @@ public abstract class Utente
 	private String password;
 	private String nome;
 	private String cognome;
+	private String tipo;
 	private boolean autenticato;
 	
 	/**
@@ -23,7 +24,6 @@ public abstract class Utente
 	 */
 	public Utente()
 	{
-		super();
 		autenticato = false;
 	}
 	
@@ -34,6 +34,7 @@ public abstract class Utente
 	 * @param password Stringa che rappresenta la password di accesso al sistema
 	 * @param nome Stringa che rappresenta il nome dell'utente
 	 * @param cognome Stringa che rappresenta il cognome dell'utente
+	 * @param tipo Stringa che rappresenta il tipo di Utente: Studente, Professore, Azienda, Segreteria
 	 * 
 	 * @author Caggiano Gianluca
 	 */
@@ -155,6 +156,29 @@ public abstract class Utente
 		this.cognome = cognome;
 	}
 	
+	/**
+	 * Restituisce il tipo dell'utente
+	 * 
+	 * @return Il tipo dell'utente
+	 * 
+	 * @author Iannuzzi Nicola'
+	 */
+	public String getTipo() 
+	{
+		return tipo;
+	}
+	
+	/**
+	 * Setta il tipo dell'utente
+	 * 
+	 * @param tipo Stringa che rappresenta il tipo dell'utente
+	 * 
+	 * @author Iannuzzi Nicola'
+	 */
+	public void setTipo(String tipo) 
+	{
+		this.tipo = tipo;
+	}
 
 	 /**
 	  * Verifica se un utente e' autenticato alla piattaforma
