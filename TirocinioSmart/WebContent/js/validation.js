@@ -424,5 +424,17 @@ $('#ajax-progettoFormativo-form').bootstrapValidator({
                 }
 			}
 		},
+		obiettivi : {
+			validators : {
+				notEmpty : {
+					message : "Inserisci i dati relativi agli obiettivi del progetto formativo",
+				},
+				stringLength: {
+                    enabled: true,
+                    max: 255,
+                    message: 'Il contenuto di questa area di testo può contenere al massimo 255 caratteri. Sii più breve :-P',
+                }
+			}	
+		}
 	}
 });
