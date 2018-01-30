@@ -34,7 +34,7 @@
 		<br/>
 		<button type="button" onclick="location.href='listaRichiesteProfessore.jsp'" class="btn btn-success btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Domanda di Tirocinio</button>
 		<br/>
-		<button type="button" class="btn btn-success btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Conferma Progetto Formativo</button>
+		<button type="button" onclick="location.href='ConfermaProgettoFormativoProfessore.jsp'" class="btn btn-success btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Conferma Progetto Formativo</button>
 		
 	</div>
 

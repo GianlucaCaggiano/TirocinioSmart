@@ -247,6 +247,116 @@ public class DatabasePf
 		return true;
 	}
 	
+	/**
+	 * Setta in Progetto Formativo 1 ConvalidaProf
+	 * 
+	 * @param id
+	 * @return boolean
+	 * @throws SQLException
+	 * 
+	 * @author Iannuzzi Nicola'
+	 */
+	public synchronized static boolean setConvalidaProfProgetto(int id) throws SQLException
+	{
+		Connection connection = null;
+		Statement statement = null;
+		
+		String query="UPDATE progettoformativo SET convalidaProf=1 WHERE progettoformativo.ID="+id+"";
+		
+		try {
+			connection=Database.getConnection();
+			statement=connection.createStatement();
+			
+			statement.executeUpdate(query);
+			connection.commit();
+		}
+		finally {
+			try {
+				if(statement != null)
+				{
+					statement.close();
+				}
+			}
+			finally {
+				Database.releaseConnection(connection);
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Setta in Progetto Formativo 1 ConvalidaSegr
+	 * 
+	 * @param id
+	 * @return boolean
+	 * @throws SQLException
+	 * 
+	 * @author Iannuzzi Nicola'
+	 */
+	public synchronized static boolean setConvalidaSegrProgetto(int id) throws SQLException
+	{
+		Connection connection = null;
+		Statement statement = null;
+		
+		String query="UPDATE progettoformativo SET convalidaSegr=1 WHERE progettoformativo.ID="+id+"";
+		
+		try {
+			connection=Database.getConnection();
+			statement=connection.createStatement();
+			
+			statement.executeUpdate(query);
+			connection.commit();
+		}
+		finally {
+			try {
+				if(statement != null)
+				{
+					statement.close();
+				}
+			}
+			finally {
+				Database.releaseConnection(connection);
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Setta in Progetto Formativo 1 sottoscrizioneStu
+	 * 
+	 * @param id
+	 * @return boolean
+	 * @throws SQLException
+	 * 
+	 * @author Iannuzzi Nicola'
+	 */
+	public synchronized static boolean setSottoscrizioneStuProgetto(int id) throws SQLException
+	{
+		Connection connection = null;
+		Statement statement = null;
+		
+		String query="UPDATE progettoformativo SET sottoscrizioneStu=1 WHERE progettoformativo.ID="+id+"";
+		
+		try {
+			connection=Database.getConnection();
+			statement=connection.createStatement();
+			
+			statement.executeUpdate(query);
+			connection.commit();
+		}
+		finally {
+			try {
+				if(statement != null)
+				{
+					statement.close();
+				}
+			}
+			finally {
+				Database.releaseConnection(connection);
+			}
+		}
+		return true;
+	}
 	
 	/**
 	 * Restituisce l'ultima Richiesta Tirocinio creata in ordine temporale.
@@ -485,12 +595,179 @@ public class DatabasePf
 		return s;
 	}
 	
+	/**
+	 * Restituisce un oggetto di tipo ProgettoFormativo data la matricola dello Studente.
+	 * 
+	 * @param matricola
+	 * @return {@code RichiestaTirocinio}.
+	 * @throws SQLException
+	 * 
+	 * @author Iannuzzi Nicola'
+	 */
+	public synchronized static ProgettoFormativo doRetrievProgettoFormativoStudente(String matricola) throws SQLException
+	{
+		Connection connection = null;
+		Statement statement = null;
+
+		ProgettoFormativo progettoFormativo = null;
+		try 
+		{
+			connection = Database.getConnection();
+			statement = connection.createStatement();
+
+			ResultSet rs = statement.executeQuery("SELECT * FROM progettoformativo WHERE StudenteMatricola='"+matricola+"' AND sottoscrizioneStu=0");
+			connection.commit();
+
+			while (rs.next())
+			{
+				progettoFormativo = new ProgettoFormativo();
+				progettoFormativo.setId(rs.getInt("ID"));
+				progettoFormativo.setAzienda(DatabaseGu.getAziendaByEmail(rs.getString("AziendaEmail")));
+				progettoFormativo.setSegreteria(DatabaseGu.getSegreteriaByUser(rs.getString("SegreteriaUsername")));
+				progettoFormativo.setStudente(DatabaseGu.getStudenteByMatricola(matricola));
+				progettoFormativo.setProfessore(DatabaseGu.getProfessoreByEmail(rs.getString("ProfessoreEmail")));
+				progettoFormativo.setObiettivi(rs.getString("Obiettivi"));
+				progettoFormativo.setDataInizio(rs.getString("DataInizio"));
+				progettoFormativo.setDataFine(rs.getString("DataFine"));
+				progettoFormativo.setConvalidaProf(rs.getBoolean("convalidaProf"));
+				progettoFormativo.setConvalidaSegr(rs.getBoolean("convalidaSegr"));
+				progettoFormativo.setSottoscrizioneStu(rs.getBoolean("sottoscrizioneStu"));
+			}
+		} finally 
+		{
+			try 
+			{
+				if (statement != null)
+					statement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		return progettoFormativo;
+	}
+	
+	/**
+	 * Restituisce un oggetto di tipo ProgettoFormativo data l'email Professore.
+	 * 
+	 * @param email
+	 * @return {@code ArrayList<RichiestaTirocinio>}.
+	 * @throws SQLException
+	 * 
+	 * @author Iannuzzi Nicola'
+	 */
+	public synchronized static ArrayList<ProgettoFormativo> doRetrievProgettoFormativoProfessore(String email) throws SQLException
+	{
+		Connection connection = null;
+		Statement statement = null;
+
+		ProgettoFormativo progettoFormativo = null;
+		ArrayList<ProgettoFormativo> array = new ArrayList<ProgettoFormativo>();
+		try 
+		{
+			connection = Database.getConnection();
+			statement = connection.createStatement();
+
+			ResultSet rs = statement.executeQuery("SELECT * FROM progettoformativo WHERE ProfessoreEmail='"+email+"' AND convalidaProf=0");
+			connection.commit();
+
+			while (rs.next())
+			{
+				progettoFormativo = new ProgettoFormativo();
+				progettoFormativo.setId(rs.getInt("ID"));
+				progettoFormativo.setAzienda(DatabaseGu.getAziendaByEmail(rs.getString("AziendaEmail")));
+				progettoFormativo.setSegreteria(DatabaseGu.getSegreteriaByUser(rs.getString("SegreteriaUsername")));
+				progettoFormativo.setStudente(DatabaseGu.getStudenteByMatricola(rs.getString("StudenteMatricola")));
+				progettoFormativo.setProfessore(DatabaseGu.getProfessoreByEmail(email));
+				progettoFormativo.setObiettivi(rs.getString("Obiettivi"));
+				progettoFormativo.setDataInizio(rs.getString("DataInizio"));
+				progettoFormativo.setDataFine(rs.getString("DataFine"));
+				progettoFormativo.setConvalidaProf(rs.getBoolean("convalidaProf"));
+				progettoFormativo.setConvalidaSegr(rs.getBoolean("convalidaSegr"));
+				progettoFormativo.setSottoscrizioneStu(rs.getBoolean("sottoscrizioneStu"));
+				
+				array.add(progettoFormativo);
+			}
+		} finally 
+		{
+			try 
+			{
+				if (statement != null)
+					statement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		return array;
+	}
+	
+	/**
+	 * Restituisce un oggetto di tipo ProgettoFormativo data l'username Segreteria.
+	 * 
+	 * @param username
+	 * @return {@code ArrayList<RichiestaTirocinio>}.
+	 * @throws SQLException
+	 * 
+	 * @author Iannuzzi Nicola'
+	 */
+	public synchronized static ArrayList<ProgettoFormativo> doRetrievProgettoFormativoSegreteria(String username) throws SQLException
+	{
+		Connection connection = null;
+		Statement statement = null;
+
+		ProgettoFormativo progettoFormativo = null;
+		ArrayList<ProgettoFormativo> array = new ArrayList<ProgettoFormativo>();
+		try 
+		{
+			connection = Database.getConnection();
+			statement = connection.createStatement();
+
+			ResultSet rs = statement.executeQuery("SELECT * FROM progettoformativo WHERE SegreteriaUsername='"+username+"' AND convalidaProf=1 AND sottoscrizioneStu=1 AND convalidaSegr=0");
+			connection.commit();
+
+			while (rs.next())
+			{
+				progettoFormativo = new ProgettoFormativo();
+				progettoFormativo.setId(rs.getInt("ID"));
+				progettoFormativo.setAzienda(DatabaseGu.getAziendaByEmail(rs.getString("AziendaEmail")));
+				progettoFormativo.setSegreteria(DatabaseGu.getSegreteriaByUser(username));
+				progettoFormativo.setStudente(DatabaseGu.getStudenteByMatricola(rs.getString("StudenteMatricola")));
+				progettoFormativo.setProfessore(DatabaseGu.getProfessoreByEmail(rs.getString("ProfessoreEmail")));
+				progettoFormativo.setObiettivi(rs.getString("Obiettivi"));
+				progettoFormativo.setDataInizio(rs.getString("DataInizio"));
+				progettoFormativo.setDataFine(rs.getString("DataFine"));
+				progettoFormativo.setConvalidaProf(rs.getBoolean("convalidaProf"));
+				progettoFormativo.setConvalidaSegr(rs.getBoolean("convalidaSegr"));
+				progettoFormativo.setSottoscrizioneStu(rs.getBoolean("sottoscrizioneStu"));
+				
+				array.add(progettoFormativo);
+			}
+		} finally 
+		{
+			try 
+			{
+				if (statement != null)
+					statement.close();
+			} 
+			finally 
+			{
+				Database.releaseConnection(connection);
+			}
+		}
+		return array;
+	}
+	
 	private static String queryAddRichiesta;
 	private static String queryAddProgettoFormativo;
 	private static String queryGetRichiestaById;
 	private static String queryUpdateStudente;
 	private static String queryGetMaxRichiestaTirocinio;
 	private static String queryGetStudenteByIDRichiesta;
+	private static String queryGetProgettoFormativoByProfessore;
+	private static String queryGetProgettoFormativoBySegreteria;
 	
 	static {
 		
@@ -502,5 +779,7 @@ public class DatabasePf
 		queryGetRichiestaById = "SELECT * FROM richiestatirocinio WHERE richiestatirocinio.ID=?";
 		queryGetMaxRichiestaTirocinio = "SELECT MAX(ID) FROM richiestatirocinio";
 		queryGetStudenteByIDRichiesta = "SELECT * FROM studente, utente WHERE studente.Email=utente.User AND studente.RichiestaTirocinioID=?";
+		queryGetProgettoFormativoByProfessore = "SELECT * FROM progettoformativo WHERE ProfessoreEmail=? AND convalidaProf=0";
+		queryGetProgettoFormativoBySegreteria = "SELECT * FROM progettoformativo WHERE SegreteriaUsername=? AND convalidaSegr=0";
 	}
 }

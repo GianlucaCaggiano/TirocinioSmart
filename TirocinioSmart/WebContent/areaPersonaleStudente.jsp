@@ -41,7 +41,7 @@
 		<%RichiestaTirocinio richiesta = DatabasePf.getRichiestaByID(studente.getRichiestaTirocinio().getId());
 		if(richiesta.isConvalidaAzienda() && richiesta.isConvalidaProf())
 		{%>
-		<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Sottoscrivi Progetto Formativo</button>
+		<button type="button" onclick="location.href='sottoscriviProgettoFormativo.jsp'" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Sottoscrivi Progetto Formativo</button>
 		<%}%>
 	</div>
 
