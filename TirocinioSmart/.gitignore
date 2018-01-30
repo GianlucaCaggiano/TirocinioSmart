@@ -9,6 +9,9 @@
 # BlueJ files
 *.ctxt
 
+# ObjectAid project
+*.ucls
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
