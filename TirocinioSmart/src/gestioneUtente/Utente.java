@@ -239,10 +239,10 @@ public abstract class Utente
 	  public static final String PASSWORD_PATTERN = "^[0-9a-zA-Z._-]{6,32}$";
 	  
 	  /** Costante che definisce la minima lunghezza dei campi nome e cognome. */
-	  public static final int MIN_LUNGHEZZA_NOME = 2;
+	  public static final int MIN_LUNGHEZZA_DUE = 2;
 	  
 	  /** Costante che definisce la massima lunghezza dei campi nome e cognome. */
-	  public static final int MAX_LUNGHEZZA_NOME = 30;
+	  public static final int MAX_LUNGHEZZA_TRENTA = 30;
 
 	  
 }

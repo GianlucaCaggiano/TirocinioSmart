@@ -129,14 +129,21 @@ public class RegistrazioneStudente extends HttpServlet
 		
 		String nome = request.getParameter("nome");
 		nome = nome.trim();
-		if(nome.length() < Utente.MIN_LUNGHEZZA_NOME || nome.length() > Utente.MAX_LUNGHEZZA_NOME)
+		if(nome.length() < Utente.MIN_LUNGHEZZA_DUE || nome.length() > Utente.MAX_LUNGHEZZA_TRENTA)
 		{
 			errore = "nome non valido";
 		}
 		
 		String cognome = request.getParameter("cognome");
 		cognome = cognome.trim();
-		if(cognome.length() < Utente.MIN_LUNGHEZZA_NOME || cognome.length() > Utente.MAX_LUNGHEZZA_NOME)
+		if(cognome.length() < Utente.MIN_LUNGHEZZA_DUE || cognome.length() > Utente.MAX_LUNGHEZZA_TRENTA)
+		{
+			errore = "cognome non valido";
+		}
+		
+		String luogoNascita = request.getParameter("luogoNascita");
+		luogoNascita = luogoNascita.trim();
+		if(luogoNascita.length() < Utente.MIN_LUNGHEZZA_DUE || luogoNascita.length() > Utente.MAX_LUNGHEZZA_TRENTA)
 		{
 			errore = "cognome non valido";
 		}
