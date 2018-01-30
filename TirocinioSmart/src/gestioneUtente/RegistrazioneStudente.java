@@ -2,6 +2,11 @@ package gestioneUtente;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -134,6 +139,30 @@ public class RegistrazioneStudente extends HttpServlet
 		if(cognome.length() < Utente.MIN_LUNGHEZZA_NOME || cognome.length() > Utente.MAX_LUNGHEZZA_NOME)
 		{
 			errore = "cognome non valido";
+		}
+		
+		String dataNascita = request.getParameter("dataNascita");
+		dataNascita = dataNascita.trim();
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		try {
+			java.util.Date dataN = df.parse(dataNascita);
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(dataN);
+			Calendar oggi = Calendar.getInstance();
+			
+			if (oggi.get(Calendar.YEAR) - cal.get(Calendar.YEAR) <= 18)
+			{
+				errore = "Mi sembri un pochino troppo piccolo per essere uno studente universitario :-P";
+			}	
+			
+			if(cal.after(oggi))
+			{
+				errore = "Data di nascita successiva alla data odierna";
+			}
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		try 

@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -129,8 +131,12 @@ public class AggiungiProgettoFormativo extends HttpServlet
 		try {
 			java.util.Date dataI = df.parse(dataInizio);
 			java.util.Date dataF = df.parse(dataFine);
-			
-			if(dataI.getTime() > dataF.getTime())
+			Calendar dI = new GregorianCalendar();
+			dI.setTime(dataI);
+			Calendar dF = new GregorianCalendar();
+			dF.setTime(dataF);
+
+			if(dI.after(dF))
 			{
 				errore = "Data inizio successiva alla data di fine";
 			}
