@@ -36,8 +36,6 @@
 		<br/>
 		<button type="button" onclick="location.href='ConfermaProgettoFormativoSegreteria.jsp'" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Conferma Progetto Formativo</button>
 		<br/>
-		<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Visualizza Lista Utente</button>
-		
 	</div>
 
    <%@ include file="footer.html" %>
