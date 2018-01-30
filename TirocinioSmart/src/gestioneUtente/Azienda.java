@@ -389,7 +389,7 @@ public class Azienda extends Utente
 	                                           + "|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
 	  
 	/** Espressione regolare che definisce il formato del campo CAP. */
-	  public static final String CAP_PATTERN = "^[0-9]{5,6}";
+	  public static final String CAP_PATTERN = "^[0-9]{5,6}$";
 	  
 	  /** Espressione regolare che definisce il formato del campo telefono. */
 	  public static final String TELEFONO_PATTERN = "^[0-9]{10,11}";

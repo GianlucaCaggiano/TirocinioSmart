@@ -200,5 +200,5 @@ public class Studente extends Utente
 	  public static final String EMAIL_PATTERN = "^[a-zA-Z0-9.]+\\@studenti\\.unisa\\.it";
 	  
 	  /** Espressione regolare che definisce il formato del campo matricola per lo studente. */
-	  public static final String MATRICOLA_PATTERN = "^[0-9]{10,11}";
+	  public static final String MATRICOLA_PATTERN = "^[0-9]{10}$";
 }
