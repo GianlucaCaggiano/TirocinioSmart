@@ -73,7 +73,7 @@ public class RegistrazioneProfessore extends HttpServlet
 			{
 				Professore professore = new Professore(email, password, nome, cognome, false, materia);
 				DatabaseGu.addUser(professore);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/registrazioneSucc.jsp");
 				dispatcher.forward(request, response);
 			}
 			catch(SQLException e1)

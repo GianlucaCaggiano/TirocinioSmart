@@ -100,7 +100,7 @@ public class RegistrazioneAzienda extends HttpServlet
 				convenzione.setSpecifica(specifica);
 				DatabaseGu.addConvenzione(convenzione);
 				DatabaseGu.addUser(azienda);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/registrazioneSucc.jsp");
 				dispatcher.forward(request, response);
 			}
 			catch(SQLException e1)
