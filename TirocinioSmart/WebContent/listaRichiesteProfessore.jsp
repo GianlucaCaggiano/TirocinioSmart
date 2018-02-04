@@ -1,6 +1,6 @@
-<%@page import="storageLayer.DatabaseGu"%>
+<%@page import="storagelayer.DatabaseGu"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, gestioneUtente.Professore, gestioneProgettoFormativo.*, storageLayer.*"%>
+    pageEncoding="ISO-8859-1" import="java.util.*, gestioneutente.Professore, gestioneprogettoformativo.*, storagelayer.*"%>
     <%@ include file="sessionImport.txt" %>
 
 <!DOCTYPE html>
@@ -84,8 +84,8 @@
 					%>
 					  <tr>
 					    <th><%=richiesta.getId()%></th>
-					    <th><%=DatabasePf.getStudenteByIDRichiesta(richiesta.getId()).getMatricola()%></th>
-					    <th><%=DatabasePf.getStudenteByIDRichiesta(richiesta.getId()).getCognome()%> <%=DatabasePf.getStudenteByIDRichiesta(richiesta.getId()).getNome()%></th>
+					    <th><%=DatabasePf.getStudenteByIdRichiesta(richiesta.getId()).getMatricola()%></th>
+					    <th><%=DatabasePf.getStudenteByIdRichiesta(richiesta.getId()).getCognome()%> <%=DatabasePf.getStudenteByIdRichiesta(richiesta.getId()).getNome()%></th>
 					    <th><%=richiesta.getAzienda().getDenominazione()%></th>
 					    <th class="btn-right"><a href="ConfermaRichiestaProf?id=<%=richiesta.getId()%>">Conferma</a></th>
 					  </tr>

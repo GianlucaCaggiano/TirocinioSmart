@@ -16,29 +16,29 @@
     
     <title>Errore</title>
 
-	<%@ include file="headImport.html" %>
-	
+  <%@ include file="headImport.html" %>
+  
 </head>
 
 <body>
 
-	<%if(studente.isAutenticato() || azienda.isAutenticato() || professore.isAutenticato() || segreteria.isAutenticato())
-	  {%>
-			<%@ include file="navigationAutenticate.html" %>
-	<%}else{ %>
-			<%@ include file="navigation.html" %>
-	<%} %>
-	
+  <%if(studente.isAutenticato() || azienda.isAutenticato() || professore.isAutenticato() || segreteria.isAutenticato())
+    {%>
+      <%@ include file="navigationAutenticate.html" %>
+  <%}else{ %>
+      <%@ include file="navigation.html" %>
+  <%} %>
+  
     <br/><br/>
-	
-	<div class="container text-center">
-		<h1 class="text-danger">Ops...Pagina non trovata</h1>
-		<br/>
-		<p>Nel vano tentativo di scoprire i nostri segreti più oscuri sei incappato in una pagina che non esiste.</p>
-		 <br/> <br/>
-		<p>Non dannarti, ci pensiamo noi a riportarti alla Home... Buona Navigazione :).</p>
-		
-	</div>
+  
+  <div class="container text-center">
+    <h1 class="text-danger">Ops...Pagina non trovata</h1>
+    <br/>
+    <p>Nel vano tentativo di scoprire i nostri segreti più oscuri sei incappato in una pagina che non esiste.</p>
+     <br/> <br/>
+    <p>Non dannarti, ci pensiamo noi a riportarti alla Home... Buona Navigazione :).</p>
+    
+  </div>
 
    <%@ include file="footer.html" %>
 

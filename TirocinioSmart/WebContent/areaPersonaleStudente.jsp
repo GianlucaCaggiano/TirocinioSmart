@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, gestioneProgettoFormativo.*, storageLayer.*"%>
+    pageEncoding="ISO-8859-1" import="java.util.*, gestioneprogettoformativo.*, storagelayer.*"%>
 <%@ include file="sessionImport.txt" %>
     
 <!DOCTYPE html>
@@ -38,7 +38,7 @@
 		<button type="button" onclick="location.href='listaAziende.jsp'" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Scelta Azienda e Professore</button>
 		<%} %>
 		<br/>
-		<%RichiestaTirocinio richiesta = DatabasePf.getRichiestaByID(studente.getRichiestaTirocinio().getId());
+		<%RichiestaTirocinio richiesta = DatabasePf.getRichiestaById(studente.getRichiestaTirocinio().getId());
 		if(richiesta.isConvalidaAzienda() && richiesta.isConvalidaProf())
 		{%>
 		<button type="button" onclick="location.href='sottoscriviProgettoFormativo.jsp'" class="btn btn-danger btn-lg" data-toggle="modal" style=" min-width: 280px; width: 50%; margin: 10px;">Sottoscrivi Progetto Formativo</button>

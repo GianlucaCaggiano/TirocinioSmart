@@ -1,7 +1,7 @@
-<%@page import="storageLayer.DatabasePf"%>
-<%@page import="storageLayer.DatabaseGu"%>
+<%@page import="storagelayer.DatabasePf"%>
+<%@page import="storagelayer.DatabaseGu"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, gestioneProgettoFormativo.*"%>
+    pageEncoding="ISO-8859-1" import="java.util.*, gestioneprogettoformativo.*"%>
     <%@ include file="sessionImport.txt" %>
 
 <!DOCTYPE html>
@@ -61,7 +61,7 @@
 	<br/><br/>
 	
 	<%
-		RichiestaTirocinio richiesta = DatabasePf.getRichiestaByID(studente.getRichiestaTirocinio().getId());
+		RichiestaTirocinio richiesta = DatabasePf.getRichiestaById(studente.getRichiestaTirocinio().getId());
 		String aziendaConvalida;
 		String professoreConvalida;
 		if(richiesta.isConvalidaAzienda())

@@ -1,7 +1,7 @@
-<%@page import="gestioneProgettoFormativo.RichiestaTirocinio"%>
-<%@page import="storageLayer.*"%>
+<%@page import="gestioneprogettoformativo.RichiestaTirocinio"%>
+<%@page import="storagelayer.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, gestioneProgettoFormativo.*"%>
+    pageEncoding="ISO-8859-1" import="java.util.*, gestioneprogettoformativo.*"%>
     <%@ include file="sessionImport.txt" %>
 
 <!DOCTYPE html>

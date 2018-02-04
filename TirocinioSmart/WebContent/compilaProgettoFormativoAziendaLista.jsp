@@ -1,7 +1,7 @@
-<%@page import="gestioneProgettoFormativo.RichiestaTirocinio"%>
-<%@page import="storageLayer.*"%>
+<%@page import="gestioneprogettoformativo.RichiestaTirocinio"%>
+<%@page import="storagelayer.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, gestioneUtente.Azienda"%>
+    pageEncoding="ISO-8859-1" import="java.util.*, gestioneutente.Azienda"%>
     <%@ include file="sessionImport.txt" %>
 
 <!DOCTYPE html>
@@ -89,10 +89,10 @@
 					
 						<tr>
 					    <th><%=rt.getId()%></th>
-					    <th><%=DatabasePf.getStudenteByIDRichiesta(rt.getId()).getMatricola()%></th>
-					    <th><%=DatabasePf.getStudenteByIDRichiesta(rt.getId()).getCognome()%> <%=DatabasePf.getStudenteByIDRichiesta(rt.getId()).getNome()%></th>
+					    <th><%=DatabasePf.getStudenteByIdRichiesta(rt.getId()).getMatricola()%></th>
+					    <th><%=DatabasePf.getStudenteByIdRichiesta(rt.getId()).getCognome()%> <%=DatabasePf.getStudenteByIdRichiesta(rt.getId()).getNome()%></th>
 					    <th><%=rt.getProfessore().getCognome()%> <%=rt.getProfessore().getNome()%></th>
-					    <th class="btn-right"><a href="compilaProgettoFormativoAzienda.jsp?cognome=<%=DatabasePf.getStudenteByIDRichiesta(rt.getId()).getCognome()%>&nome=<%=DatabasePf.getStudenteByIDRichiesta(rt.getId()).getNome()%>&matricola=<%=DatabasePf.getStudenteByIDRichiesta(rt.getId()).getMatricola()%>&pCognome=<%=rt.getProfessore().getCognome()%>&pNome=<%=rt.getProfessore().getNome()%>&pEmail=<%=rt.getProfessore().getUser()%>">Compila</a></th>
+					    <th class="btn-right"><a href="compilaProgettoFormativoAzienda.jsp?cognome=<%=DatabasePf.getStudenteByIdRichiesta(rt.getId()).getCognome()%>&nome=<%=DatabasePf.getStudenteByIdRichiesta(rt.getId()).getNome()%>&matricola=<%=DatabasePf.getStudenteByIdRichiesta(rt.getId()).getMatricola()%>&pCognome=<%=rt.getProfessore().getCognome()%>&pNome=<%=rt.getProfessore().getNome()%>&pEmail=<%=rt.getProfessore().getUser()%>">Compila</a></th>
 					  </tr>
 					 
 					<%

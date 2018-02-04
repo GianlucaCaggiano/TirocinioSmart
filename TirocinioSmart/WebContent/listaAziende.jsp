@@ -1,6 +1,6 @@
-<%@page import="storageLayer.DatabaseGu"%>
+<%@page import="storagelayer.DatabaseGu"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, gestioneUtente.Azienda"%>
+    pageEncoding="ISO-8859-1" import="java.util.*, gestioneutente.Azienda"%>
     <%@ include file="sessionImport.txt" %>
 
 <!DOCTYPE html>
@@ -86,7 +86,7 @@
 						    <th><%=a.getDenominazione()%></th>
 						    <th><%=a.getCitta()%></th>
 						    <th><%=a.getVia()%></th>
-						    <th><%=a.getCAP()%></th>
+						    <th><%=a.getCap()%></th>
 						    <%if(studente.isAutenticato()) 
 						    {%>
 						    <th class="btn-right"><a href="listaProfessori.jsp?azienda=<%=a.getUser()%>">Scegli Azienda</a></th>

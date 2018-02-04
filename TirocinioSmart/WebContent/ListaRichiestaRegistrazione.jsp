@@ -1,6 +1,6 @@
-<%@page import="storageLayer.DatabaseGu"%>
+<%@page import="storagelayer.DatabaseGu"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, gestioneUtente.*, gestioneProgettoFormativo.*, storageLayer.*"%>
+    pageEncoding="ISO-8859-1" import="java.util.*, gestioneutente.*, gestioneprogettoformativo.*, storagelayer.*"%>
     <%@ include file="sessionImport.txt" %>
 
 <!DOCTYPE html>
