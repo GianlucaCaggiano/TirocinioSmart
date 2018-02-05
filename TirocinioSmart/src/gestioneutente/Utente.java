@@ -236,5 +236,10 @@ public abstract class Utente {
 
   /** Costante che definisce la massima lunghezza dei campi nome e cognome. */
   public static final int MAX_LUNGHEZZA_TRENTA = 30;
+  
+  /** Costante che definisce l'eta' minima di un utente. */
+  public static final int MIN_ETA = 18;
+  
+  
 
 }

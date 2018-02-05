@@ -192,7 +192,7 @@ public class RegistrazioneAzienda extends HttpServlet {
       cal.setTime(dataN);
       Calendar oggi = Calendar.getInstance();
 
-      if (oggi.get(Calendar.YEAR) - cal.get(Calendar.YEAR) <= 18) {
+      if (oggi.get(Calendar.YEAR) - cal.get(Calendar.YEAR) <= Utente.MIN_ETA) {
         errore = "Mi sembri un pochino troppo piccolo :-P";
       }
 
