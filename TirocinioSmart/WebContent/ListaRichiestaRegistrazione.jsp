@@ -67,11 +67,24 @@
 		arrayRichiestaProfessore = DatabaseGu.doRetriveAllNonAbilitatiProfessori();
 	%>
 	<div class="container text-center">
+	 <%   
+      if(request.getParameter("success") != null)
+      {
+        String succ=request.getParameter("success");
+    %>
+    <img src="images/success.png" alt="successo">
+    <br/>
+    <h4 class="text-success"><%= succ %></h4>
+    
+    <% 
+      }
+    %>
+    
 		<h1>Richieste Registrazioni</h1>
 		<br/>
 		<%if(arrayRichiestaAziende.size()==0 && arrayRichiestaProfessore.size()==0)
 		{%>
-			<span>Nessuna Richiesta</span>
+			<h4>Nessuna Richiesta</h4>
 	<% 	} else {%>
 			<table>
 					<tr>

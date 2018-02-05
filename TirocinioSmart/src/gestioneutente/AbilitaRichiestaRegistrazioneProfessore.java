@@ -41,11 +41,12 @@ public class AbilitaRichiestaRegistrazioneProfessore extends HttpServlet {
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    String success = "Professore abilitato con successo";
     String id = request.getParameter("id");
     try {
       DatabaseGu.setAbilitatoProfessore(id);
       RequestDispatcher dispatcher = request
-          .getRequestDispatcher("/ListaRichiestaRegistrazione.jsp");
+          .getRequestDispatcher("/ListaRichiestaRegistrazione.jsp?success=" + success);
       dispatcher.forward(request, response);
     } catch (NumberFormatException | SQLException e) {
       // TODO Auto-generated catch block
