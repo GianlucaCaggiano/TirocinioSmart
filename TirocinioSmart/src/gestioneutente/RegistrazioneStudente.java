@@ -148,12 +148,24 @@ public class RegistrazioneStudente extends HttpServlet {
       Calendar cal = new GregorianCalendar();
       cal.setTime(dataN);
       Calendar oggi = Calendar.getInstance();
-
-      if (oggi.get(Calendar.YEAR) - cal.get(Calendar.YEAR) <= Utente.MIN_ETA) {
+      
+      //Controlla se l'utente e' minorenne
+      int giorno = cal.get(Calendar.DAY_OF_MONTH);
+      int mese = cal.get(Calendar.MONTH);
+      int anno = cal.get(Calendar.YEAR) + Utente.MIN_ETA;
+      GregorianCalendar mageta = new GregorianCalendar(anno,mese,giorno,0,0,0);
+      mageta.set(Calendar.MILLISECOND, 0);
+          
+      if (oggi.getTimeInMillis() - mageta.getTimeInMillis() < 0) {
         errore = "Mi sembri un pochino troppo piccolo per essere uno studente universitario :-P";
       }
 
-      if (oggi.get(Calendar.YEAR) - cal.get(Calendar.YEAR) >= Utente.MAX_ETA) {
+      //Controlla se l'utente è ultra centenario
+      anno = cal.get(Calendar.YEAR) + Utente.MAX_ETA;
+      GregorianCalendar centenario = new GregorianCalendar(anno,mese,giorno,0,0,0);
+      centenario.set(Calendar.MILLISECOND, 0);
+      
+      if (oggi.getTimeInMillis() - centenario.getTimeInMillis() >= 0) {
         errore = "Mi sembri un pochino troppo grande :-P";
       }
       
