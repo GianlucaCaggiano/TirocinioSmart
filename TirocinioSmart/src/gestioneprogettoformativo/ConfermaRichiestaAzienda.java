@@ -40,10 +40,12 @@ public class ConfermaRichiestaAzienda extends HttpServlet {
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    String success = "Richiesta accettata con successo";
     String id = request.getParameter("id");
     try {
       DatabasePf.setConvalidaAzienda(Integer.parseInt(id));
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/listaRichiesteAzienda.jsp");
+      RequestDispatcher dispatcher = request.getRequestDispatcher("/listaRichiesteAzienda.jsp"
+          + "?success=" + success);
       dispatcher.forward(request, response);
     } catch (NumberFormatException | SQLException e) {
       // TODO Auto-generated catch block

@@ -40,11 +40,13 @@ public class ConfermaProgettoFormativoSegreteria extends HttpServlet {
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    String success = "Progetto confermato con successo";
     String id = request.getParameter("id");
     try {
       DatabasePf.setConvalidaSegrProgetto(Integer.parseInt(id));
       RequestDispatcher dispatcher = request
-          .getRequestDispatcher("/ConfermaProgettoFormativoSegreteria.jsp");
+          .getRequestDispatcher("/ConfermaProgettoFormativoSegreteria.jsp"
+              + "?success=" + success);
       dispatcher.forward(request, response);
     } catch (NumberFormatException | SQLException e) {
       // TODO Auto-generated catch block

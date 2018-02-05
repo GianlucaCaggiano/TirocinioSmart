@@ -64,6 +64,20 @@
 		arrayRichiesta = DatabasePf.doRetrieveRichiesteProfessore(professore.getUser());
 	%>
 	<div class="container text-center">
+	
+	 <%   
+      if(request.getParameter("success") != null)
+      {
+        String succ=request.getParameter("success");
+    %>
+    <img src="images/success.png" alt="successo">
+    <br/>
+    <h4 class="text-success"><%= succ %></h4>
+    
+    <% 
+      }
+    %>
+    
 		<h1>Lista Richieste di Tirocinio</h1>
 		<br/>
 		<%if(arrayRichiesta.size()==0)

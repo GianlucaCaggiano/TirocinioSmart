@@ -41,11 +41,13 @@ public class ConfermaProgettoFormativoProfessore extends HttpServlet {
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    String success = "Progetto formativo confermato con successo";
     String id = request.getParameter("id");
     try {
       DatabasePf.setConvalidaProfProgetto(Integer.parseInt(id));
       RequestDispatcher dispatcher = request
-          .getRequestDispatcher("/ConfermaProgettoFormativoProfessore.jsp");
+          .getRequestDispatcher("/ConfermaProgettoFormativoProfessore.jsp"
+              + "?success=" + success);
       dispatcher.forward(request, response);
     } catch (NumberFormatException | SQLException e) {
       // TODO Auto-generated catch block

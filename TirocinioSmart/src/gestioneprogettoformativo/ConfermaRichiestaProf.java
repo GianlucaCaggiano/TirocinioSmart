@@ -41,10 +41,12 @@ public class ConfermaRichiestaProf extends HttpServlet {
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    String success = "Richiesta accettata con successo";
     String id = request.getParameter("id");
     try {
       DatabasePf.setConvalidaProf(Integer.parseInt(id));
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/listaRichiesteProfessore.jsp");
+      RequestDispatcher dispatcher = request.getRequestDispatcher("/listaRichiesteProfessore.jsp?"
+          + "success=" + success);
       dispatcher.forward(request, response);
     } catch (NumberFormatException | SQLException e) {
       // TODO Auto-generated catch block
