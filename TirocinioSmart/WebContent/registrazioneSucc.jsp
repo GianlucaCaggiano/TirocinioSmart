@@ -27,7 +27,8 @@
 	<br/><br/>
 	
 	<div class="container text-center">
-	
+	<img src="images/success.png" alt="successo">
+	<br/>
 	<h1 class="text-danger">Complimenti!!!</h1>
 	<br/>
 	<h2>Registrazione avvenuta con <span class="text-success">successo!</span></h2>
