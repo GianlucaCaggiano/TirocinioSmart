@@ -196,6 +196,10 @@ public class RegistrazioneAzienda extends HttpServlet {
         errore = "Mi sembri un pochino troppo piccolo :-P";
       }
 
+      if (oggi.get(Calendar.YEAR) - cal.get(Calendar.YEAR) >= Utente.MAX_ETA) {
+        errore = "Mi sembri un pochino troppo grande :-P";
+      }
+      
       if (cal.after(oggi)) {
         errore = "Data di nascita successiva alla data odierna";
       }

@@ -240,6 +240,7 @@ public abstract class Utente {
   /** Costante che definisce l'eta' minima di un utente. */
   public static final int MIN_ETA = 18;
   
-  
+  /** Costante che definisce l'eta' massima di un utente. */
+  public static final int MAX_ETA = 100;
 
 }
