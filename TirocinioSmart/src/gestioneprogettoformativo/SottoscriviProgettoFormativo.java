@@ -44,7 +44,7 @@ public class SottoscriviProgettoFormativo extends HttpServlet {
     String id = request.getParameter("id");
     try {
       DatabasePf.setSottoscrizioneStuProgetto(Integer.parseInt(id));
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/areaPersonale.jsp");
+      RequestDispatcher dispatcher = request.getRequestDispatcher("/success.jsp");
       dispatcher.forward(request, response);
     } catch (NumberFormatException | SQLException e) {
       // TODO Auto-generated catch block

@@ -59,7 +59,7 @@ public class AggiungiRichiestaTirocinio extends HttpServlet {
       studente.setRichiestaTirocinio(DatabasePf.getRichiestaById(id));
 
       request.getSession().setAttribute("studente", studente);
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/areaPersonale.jsp");
+      RequestDispatcher dispatcher = request.getRequestDispatcher("/success.jsp");
       dispatcher.forward(request, response);
     } catch (SQLException e) {
       e.printStackTrace();
