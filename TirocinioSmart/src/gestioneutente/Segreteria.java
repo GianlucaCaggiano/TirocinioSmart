@@ -114,7 +114,7 @@ public class Segreteria extends Utente {
     return super.equals(arg0);
   }
 
-  /** Espressione regolare che definisce la username della segreteria */
+  /** Espressione regolare che definisce la username della segreteria. */
   public static final String USERNAME = "segreteriaUnisa";
   
 }
