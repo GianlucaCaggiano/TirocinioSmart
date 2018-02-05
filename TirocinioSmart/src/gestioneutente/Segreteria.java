@@ -114,4 +114,7 @@ public class Segreteria extends Utente {
     return super.equals(arg0);
   }
 
+  /** Espressione regolare che definisce il formato del campo password. */
+  public static final String USERNAME = "segreteriaUnisa";
+  
 }

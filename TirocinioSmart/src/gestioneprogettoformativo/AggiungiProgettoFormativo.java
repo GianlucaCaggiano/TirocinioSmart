@@ -2,6 +2,7 @@ package gestioneprogettoformativo;
 
 import gestioneutente.Azienda;
 import gestioneutente.Professore;
+import gestioneutente.Segreteria;
 import gestioneutente.Studente;
 
 import java.io.IOException;
@@ -91,7 +92,7 @@ public class AggiungiProgettoFormativo extends HttpServlet {
         progettoFormativo.setDataFine(dataFine);
         progettoFormativo.setObiettivi(obiettivi);
         progettoFormativo.setStudente(s);
-        progettoFormativo.setSegreteria(DatabaseGu.getSegreteriaByUser("segreteriaUnisa"));
+        progettoFormativo.setSegreteria(DatabaseGu.getSegreteriaByUser(Segreteria.USERNAME));
         progettoFormativo.setProfessore(p);
 
         DatabasePf.addProgettoFormativo(progettoFormativo);
