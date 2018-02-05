@@ -127,7 +127,7 @@ public class AggiungiProgettoFormativo extends HttpServlet {
     
     if (obiettivi.length() < ProgettoFormativo.MIN_LUNGHEZZA_NOME
         || obiettivi.length() > ProgettoFormativo.MAX_LUNGHEZZA_NOME) {
-      errore = "Cmpo obiettivi troppo corto o troppo lungo (max 255 caratteri)";
+      errore = "Campo obiettivi troppo corto o troppo lungo (max 255 caratteri)";
     }
 
     DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
