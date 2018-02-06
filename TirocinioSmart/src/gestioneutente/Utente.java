@@ -228,13 +228,22 @@ public abstract class Utente {
     return user.equals(utenteRegistrato.getUser());
   }
 
+  /** Costante che definisce la massima lunghezza della user di accesso. */
+  public static final int MAX_LUNGHEZZA_USER = 64;
+  
   /** Espressione regolare che definisce il formato del campo password. */
   public static final String PASSWORD_PATTERN = "^[0-9a-zA-Z._-]{6,32}$";
+  
+  /** Espressione regolare che definisce il formato dei campi composti da sole lettere. */
+  public static final String ALL_LETTERS = "^[A-Z a-z]+$";
 
+  /** Espressione regolare che definisce il formato dei campi composti da lettere e numeri. */
+  public static final String ALFANUMERIC = "^[0-9 a-zA-Z.,_-]+$";
+  
   /** Costante che definisce la minima lunghezza dei campi nome e cognome. */
   public static final int MIN_LUNGHEZZA_DUE = 2;
 
-  /** Costante che definisce la massima lunghezza dei campi nome e cognome. */
+  /** Costante che definisce la massima lunghezza dei campi nome, cognomee altri. */
   public static final int MAX_LUNGHEZZA_TRENTA = 30;
   
   /** Costante che definisce l'eta' minima di un utente. */

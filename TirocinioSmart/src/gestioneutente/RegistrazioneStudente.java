@@ -104,7 +104,7 @@ public class RegistrazioneStudente extends HttpServlet {
   private boolean controllo(HttpServletRequest request, HttpServletResponse response) {
     String email = request.getParameter("email");
     email = email.trim();
-    if (!email.matches(Studente.EMAIL_PATTERN)) {
+    if ((!email.matches(Studente.EMAIL_PATTERN)) || email.length() > Utente.MAX_LUNGHEZZA_USER) {
       errore = "Email non valida";
     }
 
@@ -122,21 +122,25 @@ public class RegistrazioneStudente extends HttpServlet {
 
     String nome = request.getParameter("nome");
     nome = nome.trim();
-    if (nome.length() < Utente.MIN_LUNGHEZZA_DUE || nome.length() > Utente.MAX_LUNGHEZZA_TRENTA) {
+    if ((!nome.matches(Utente.ALL_LETTERS)) || ((nome.length() < Utente.MIN_LUNGHEZZA_DUE) 
+        || (nome.length() > Utente.MAX_LUNGHEZZA_TRENTA))) {
       errore = "nome non valido";
     }
 
     String cognome = request.getParameter("cognome");
     cognome = cognome.trim();
-    if (cognome.length() < Utente.MIN_LUNGHEZZA_DUE
-        || cognome.length() > Utente.MAX_LUNGHEZZA_TRENTA) {
+    cognome = cognome.replace("'", " ");
+    if ((!cognome.matches(Utente.ALL_LETTERS)) || (cognome.length() < Utente.MIN_LUNGHEZZA_DUE)
+        || (cognome.length() > Utente.MAX_LUNGHEZZA_TRENTA)) {
       errore = "cognome non valido";
     }
 
     String luogoNascita = request.getParameter("luogoNascita");
     luogoNascita = luogoNascita.trim();
-    if (luogoNascita.length() < Utente.MIN_LUNGHEZZA_DUE
-        || luogoNascita.length() > Utente.MAX_LUNGHEZZA_TRENTA) {
+    luogoNascita = luogoNascita.replace("'", " ");
+    if ((!luogoNascita.matches(Utente.ALL_LETTERS)) 
+        || (luogoNascita.length() < Utente.MIN_LUNGHEZZA_DUE)
+        || (luogoNascita.length() > Utente.MAX_LUNGHEZZA_TRENTA)) {
       errore = "Citta' non valida";
     }
 

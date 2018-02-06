@@ -94,7 +94,7 @@ public class RegistrazioneProfessore extends HttpServlet {
   private boolean controllo(HttpServletRequest request, HttpServletResponse response) {
     String email = request.getParameter("email");
     email = email.trim();
-    if (!email.matches(Professore.EMAIL_PATTERN)) {
+    if ((!email.matches(Professore.EMAIL_PATTERN)) || email.length() > Utente.MAX_LUNGHEZZA_USER) {
       errore = "Email non valida";
     }
 
@@ -106,21 +106,24 @@ public class RegistrazioneProfessore extends HttpServlet {
 
     String nome = request.getParameter("nome");
     nome = nome.trim();
-    if (nome.length() < Utente.MIN_LUNGHEZZA_DUE || nome.length() > Utente.MAX_LUNGHEZZA_TRENTA) {
+    if ((!nome.matches(Utente.ALL_LETTERS)) || ((nome.length() < Utente.MIN_LUNGHEZZA_DUE) 
+        || (nome.length() > Utente.MAX_LUNGHEZZA_TRENTA))) {
       errore = "nome non valido";
     }
 
     String cognome = request.getParameter("cognome");
     cognome = cognome.trim();
-    if (cognome.length() < Utente.MIN_LUNGHEZZA_DUE
-        || cognome.length() > Utente.MAX_LUNGHEZZA_TRENTA) {
+    cognome = cognome.replace("'", " ");
+    if ((!cognome.matches(Utente.ALL_LETTERS)) || (cognome.length() < Utente.MIN_LUNGHEZZA_DUE)
+        || (cognome.length() > Utente.MAX_LUNGHEZZA_TRENTA)) {
       errore = "cognome non valido";
     }
 
     String materia = request.getParameter("materia");
     materia = materia.trim();
-    if (materia.length() < Utente.MIN_LUNGHEZZA_DUE
-        || materia.length() > Utente.MAX_LUNGHEZZA_TRENTA) {
+    materia = materia.replace("'", " ");
+    if ((!materia.matches(Utente.ALFANUMERIC)) || (materia.length() < Utente.MIN_LUNGHEZZA_DUE)
+        || (materia.length() > Utente.MAX_LUNGHEZZA_TRENTA)) {
       errore = "materia non valida";
     }
 

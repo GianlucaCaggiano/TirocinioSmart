@@ -307,7 +307,7 @@ $('#ajax-registerProfessore-form').bootstrapValidator({
 					message : 'Inserisci cognome'
 				},
 				regexp : {
-					regexp : /^[A-Z a-z]+$/,
+					regexp : /^[A-Z a-z']+$/,
 					message : 'Cognome non valido'
 				},
 			}

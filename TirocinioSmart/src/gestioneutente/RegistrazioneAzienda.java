@@ -124,7 +124,7 @@ public class RegistrazioneAzienda extends HttpServlet {
   private boolean controllo(HttpServletRequest request, HttpServletResponse response) {
     String email = request.getParameter("email");
     email = email.trim();
-    if (!email.matches(Azienda.EMAIL_PATTERN)) {
+    if ((!email.matches(Azienda.EMAIL_PATTERN)) || email.length() > Utente.MAX_LUNGHEZZA_USER) {
       errore = "Email non valida";
     }
 
@@ -147,24 +147,36 @@ public class RegistrazioneAzienda extends HttpServlet {
         errore = "Numero di telefono non valido";
       }
     }
+    
+    String sitoWeb = request.getParameter("sitoWeb");
+    sitoWeb = sitoWeb.trim();
+    if (sitoWeb != null) {
+      if (!sitoWeb.matches(Azienda.SITO_PATTERN)) {
+        errore = "Indirizzo web non valido";
+      }
+    }
 
     String nome = request.getParameter("nome");
     nome = nome.trim();
-    if (nome.length() < Utente.MIN_LUNGHEZZA_DUE || nome.length() > Utente.MAX_LUNGHEZZA_TRENTA) {
+    if ((!nome.matches(Utente.ALL_LETTERS)) || ((nome.length() < Utente.MIN_LUNGHEZZA_DUE) 
+        || (nome.length() > Utente.MAX_LUNGHEZZA_TRENTA))) {
       errore = "nome non valido";
     }
 
     String cognome = request.getParameter("cognome");
     cognome = cognome.trim();
-    if (cognome.length() < Utente.MIN_LUNGHEZZA_DUE
-        || cognome.length() > Utente.MAX_LUNGHEZZA_TRENTA) {
+    cognome = cognome.replace("'", " ");
+    if ((!cognome.matches(Utente.ALL_LETTERS)) || (cognome.length() < Utente.MIN_LUNGHEZZA_DUE)
+        || (cognome.length() > Utente.MAX_LUNGHEZZA_TRENTA)) {
       errore = "cognome non valido";
     }
 
     String denominazione = request.getParameter("denominazione");
     denominazione = denominazione.trim();
-    if (denominazione.length() < Utente.MIN_LUNGHEZZA_DUE
-        || denominazione.length() > Utente.MAX_LUNGHEZZA_TRENTA) {
+    denominazione = denominazione.replace("'", " ");
+    if ((!denominazione.matches(Utente.ALFANUMERIC)) 
+        || (denominazione.length() < Utente.MIN_LUNGHEZZA_DUE)
+        || (denominazione.length() > Utente.MAX_LUNGHEZZA_TRENTA)) {
       errore = "Ragione sociale non valida. ";
       errore = errore + "Se la denominazione dell'azienda contiene piu' di trenta caratteri";
       errore = errore + "inserire solo l'acronimo.";
@@ -172,14 +184,28 @@ public class RegistrazioneAzienda extends HttpServlet {
 
     String citta = request.getParameter("citta");
     citta = citta.trim();
-    if (citta.length() < Utente.MIN_LUNGHEZZA_DUE || citta.length() > Utente.MAX_LUNGHEZZA_TRENTA) {
+    citta = citta.replace("'", " ");
+    if ((!citta.matches(Utente.ALL_LETTERS)) 
+        || (citta.length() < Utente.MIN_LUNGHEZZA_DUE)
+        || (citta.length() > Utente.MAX_LUNGHEZZA_TRENTA)) {
       errore = "La citta' inserita non e' valida";
     }
 
+    String via = request.getParameter("via");
+    via = via.trim();
+    via = via.replace("'", " ");
+    if ((!via.matches(Utente.ALFANUMERIC)) 
+        || (via.length() < Utente.MIN_LUNGHEZZA_DUE)
+        || (via.length() > Utente.MAX_LUNGHEZZA_TRENTA)) {
+      errore = "la strada inserita non è valida";
+    }
+    
     String luogoNascita = request.getParameter("luogoNascita");
     luogoNascita = luogoNascita.trim();
-    if (luogoNascita.length() < Utente.MIN_LUNGHEZZA_DUE
-        || luogoNascita.length() > Utente.MAX_LUNGHEZZA_TRENTA) {
+    luogoNascita = luogoNascita.replace("'", " ");
+    if ((!luogoNascita.matches(Utente.ALL_LETTERS)) 
+        || (luogoNascita.length() < Utente.MIN_LUNGHEZZA_DUE)
+        || (luogoNascita.length() > Utente.MAX_LUNGHEZZA_TRENTA)) {
       errore = "La citta' di nascita inserita non e' valida";
     }
 

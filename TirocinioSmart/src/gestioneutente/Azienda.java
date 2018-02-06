@@ -388,6 +388,10 @@ public class Azienda extends Utente {
   /** Espressione regolare che definisce il formato del campo CAP. */
   public static final String CAP_PATTERN = "^[0-9]{5,6}$";
 
+  /** Espressione regolare che definisce il formato del campo sito web. */
+  public static final String SITO_PATTERN = "^(http(s)?:\\/\\/)?(www\\.)"
+      + "[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$";
+  
   /** Espressione regolare che definisce il formato del campo telefono. */
   public static final String TELEFONO_PATTERN = "^[0-9]{10,11}";
 }
