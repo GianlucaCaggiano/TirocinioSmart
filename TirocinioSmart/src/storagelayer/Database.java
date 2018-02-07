@@ -33,7 +33,7 @@ public class Database {
     hostname = "localhost:";
     port = "3306/";
     dbName = "tirociniosmart";
-    mySqlUrl = protocol + hostname + port + dbName;
+    mySqlUrl = protocol + hostname + port + dbName + "?autoReconnect=true&useSSL=false";
     username = "root";
     password = "tomorrow";
     userInfo = new Properties();
