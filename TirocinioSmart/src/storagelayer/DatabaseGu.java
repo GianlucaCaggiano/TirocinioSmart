@@ -222,6 +222,41 @@ public class DatabaseGu {
   }
 
   /**
+   * Elimina un utente dal database.
+   * 
+   * @param email Email dell'utente da eliminare.
+   * @return {@code true} se l'eliminazione e' ok, {@code false} altrimenti.
+   * @throws SQLException 
+   * Eccezione lanciata nel caso in cui non si riesce a stabilite una connessione con il database.
+   * 
+   * @author Caggiano Gianluca
+   */
+  public static synchronized boolean deleteUser(String email) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+
+    int result = 0;
+
+    try {
+      connection = Database.getConnection();
+      preparedStatement = connection.prepareStatement(queryEliminaAccount);
+      preparedStatement.setString(1, email);
+
+      result = preparedStatement.executeUpdate();
+      connection.commit();
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        Database.releaseConnection(connection);
+      }
+    }
+    return (result != 0);
+  }
+  
+  /**
    * Restituisce ,se esiste, un oggetto Utente data la user di accesso.
    * 
    * @param user Username dell'utente da prelevare 
@@ -885,6 +920,7 @@ public class DatabaseGu {
   private static String queryGetSegreteriaUsername;
   private static String queryGetConvenzioneById;
   private static String queryGetMaxConvenzione;
+  private static String queryEliminaAccount;
 
   static {
     // Query universale per tutti gli utenti
@@ -911,5 +947,7 @@ public class DatabaseGu {
         + "WHERE utente.User = segreteria.Username AND segreteria.Username=?";
     queryGetConvenzioneById = "SELECT * FROM convenzione WHERE ID=?";
     queryGetMaxConvenzione = "SELECT MAX(ID) FROM Convenzione";
+    
+    queryEliminaAccount = "DELETE FROM utente WHERE utente.user=?;";
   }
 }
