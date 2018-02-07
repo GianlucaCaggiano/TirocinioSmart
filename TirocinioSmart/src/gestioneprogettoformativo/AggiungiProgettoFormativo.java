@@ -126,8 +126,8 @@ public class AggiungiProgettoFormativo extends HttpServlet {
     dataInizio = dataInizio.trim();
     dataFine = dataFine.trim();
     
-    if (obiettivi.length() < ProgettoFormativo.MIN_LUNGHEZZA_NOME
-        || obiettivi.length() > ProgettoFormativo.MAX_LUNGHEZZA_NOME) {
+    if (obiettivi.length() < ProgettoFormativo.MIN_LUNGHEZZA_OBIETTIVO
+        || obiettivi.length() > ProgettoFormativo.MAX_LUNGHEZZA_OBIETTIVO) {
       errore = "Campo obiettivi troppo corto o troppo lungo (max 255 caratteri)";
     }
 

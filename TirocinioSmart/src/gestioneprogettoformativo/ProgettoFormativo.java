@@ -365,8 +365,8 @@ public class ProgettoFormativo {
   }
 
   /** Costante che definisce la minima lunghezza del campo obiettivi. */
-  public static final int MIN_LUNGHEZZA_NOME = 2;
+  public static final int MIN_LUNGHEZZA_OBIETTIVO = 2;
 
   /** Costante che definisce la massima lunghezza del campo obiettivi. */
-  public static final int MAX_LUNGHEZZA_NOME = 255;
+  public static final int MAX_LUNGHEZZA_OBIETTIVO = 255;
 }
