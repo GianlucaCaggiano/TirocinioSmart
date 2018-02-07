@@ -29,7 +29,8 @@ public class DatabaseGu {
   /**
    * Registra un utente nel database.
    * 
-   * @param utente Utente della piattaforma che deve essere aggiunto
+   * @param utente
+   *          Utente della piattaforma che deve essere aggiunto
    * @return {@code true} se la registrazione e' ok, {@code false} altrimenti.
    * @throws SQLException
    * 
@@ -110,15 +111,25 @@ public class DatabaseGu {
         psAddAzienda.setString(6, azienda.getCap());
         psAddAzienda.setString(7, azienda.getVia());
         psAddAzienda.setInt(8, 0);
+
         if (azienda.getTelefono() != null) {
           psAddAzienda.setString(9, azienda.getTelefono());
+        } else {
+          psAddAzienda.setString(9, null);
         }
+
         if (azienda.getSitoWeb() != null) {
           psAddAzienda.setString(10, azienda.getSitoWeb());
+        } else {
+          psAddAzienda.setString(10, null);
         }
+
         if (azienda.getChiSiamo() != null) {
           psAddAzienda.setString(11, azienda.getChiSiamo());
+        } else {
+          psAddAzienda.setString(11, null);
         }
+
         int id = getIdMaxConvenzione();
         if (id >= 0) {
           psAddAzienda.setInt(12, id);
@@ -189,7 +200,8 @@ public class DatabaseGu {
   /**
    * Registra una convenzione nel database.
    * 
-   * @param convenzione Convenzione da aggiungere
+   * @param convenzione
+   *          Convenzione da aggiungere
    * @throws SQLException
    * 
    * @author Iannuzzi Nicola'
@@ -224,10 +236,12 @@ public class DatabaseGu {
   /**
    * Elimina un utente dal database.
    * 
-   * @param email Email dell'utente da eliminare.
+   * @param email
+   *          Email dell'utente da eliminare.
    * @return {@code true} se l'eliminazione e' ok, {@code false} altrimenti.
-   * @throws SQLException 
-   * Eccezione lanciata nel caso in cui non si riesce a stabilite una connessione con il database.
+   * @throws SQLException
+   *           Eccezione lanciata nel caso in cui non si riesce a stabilite una connessione con il
+   *           database.
    * 
    * @author Caggiano Gianluca
    */
@@ -238,9 +252,53 @@ public class DatabaseGu {
     int result = 0;
 
     try {
+      Utente u = DatabaseGu.getUtenteById(email);
+      Azienda a = null;
+      if (u instanceof Azienda) {
+        a = DatabaseGu.getAziendaByEmail(email);
+      }
       connection = Database.getConnection();
       preparedStatement = connection.prepareStatement(queryEliminaAccount);
       preparedStatement.setString(1, email);
+
+      result = preparedStatement.executeUpdate();
+      connection.commit();
+      
+      if (a != null) {
+        DatabaseGu.deleteConvenzione(a.getConvenzione().getId());
+      }  
+
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        Database.releaseConnection(connection);
+      }
+    }
+    return (result != 0);
+  }
+
+  /**
+   * Elimina la convenzione di un'azienda eliminata dal database.
+   * 
+   * @param id Identificativo della convenzione da eliminare
+   * @return {@code true} se l'eliminazione e' ok, {@code false} altrimenti.
+   * @throws SQLException 
+   *            Eccezione lanciata nel caso in cui non si riesce a stabilite una connessione con il
+   *            database.
+   */
+  public static synchronized boolean deleteConvenzione(int id) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+
+    int result = 0;
+
+    try {
+      connection = Database.getConnection();
+      preparedStatement = connection.prepareStatement(queryEliminaConvenzione);
+      preparedStatement.setInt(1, id);
 
       result = preparedStatement.executeUpdate();
       connection.commit();
@@ -255,11 +313,12 @@ public class DatabaseGu {
     }
     return (result != 0);
   }
-  
+
   /**
    * Restituisce ,se esiste, un oggetto Utente data la user di accesso.
    * 
-   * @param user Username dell'utente da prelevare 
+   * @param user
+   *          Username dell'utente da prelevare
    * @return {@code null} se l'utente non esiste, {@code Oggetto Utente } altrimenti.
    * @throws SQLException
    * 
@@ -312,7 +371,8 @@ public class DatabaseGu {
   /**
    * Restituisce ,se esiste, un oggetto Studente data una email.
    * 
-   * @param email email dello studente da prelevare
+   * @param email
+   *          email dello studente da prelevare
    * @return {@code null} se l'utente non esiste, {@code Oggetto Studente } altrimenti.
    * @throws SQLException
    * 
@@ -366,7 +426,8 @@ public class DatabaseGu {
   /**
    * Restituisce, se esiste, un oggetto Studente data una matricola.
    * 
-   * @param matricola Matricola dello studente da prelevare
+   * @param matricola
+   *          Matricola dello studente da prelevare
    * @return {@code null} se l'utente non esiste, {@code Oggetto Studente } altrimenti.
    * @throws SQLException
    * 
@@ -420,7 +481,8 @@ public class DatabaseGu {
   /**
    * Restituisce ,se esiste, un oggetto Azienda data una email.
    * 
-   * @param email Email dell'azienda da prelevare
+   * @param email
+   *          Email dell'azienda da prelevare
    * @return {@code null} se l'utente non esiste, {@code Oggetto Azienda } altrimenti.
    * @throws SQLException
    * 
@@ -486,7 +548,8 @@ public class DatabaseGu {
   /**
    * Restituisce, se esiste, un oggetto Professore data una email.
    * 
-   * @param email Email del professore da prelevare
+   * @param email
+   *          Email del professore da prelevare
    * @return {@code null} se l'utente non esiste, {@code Oggetto Professore } altrimenti.
    * @throws SQLException
    * 
@@ -534,7 +597,8 @@ public class DatabaseGu {
   /**
    * Restituisce, se esiste, un oggetto Segreteria dato uno username.
    * 
-   * @param username Username della segreteria 
+   * @param username
+   *          Username della segreteria
    * @return {@code null} se l'utente non esiste, {@code Oggetto Segreteria} altrimenti.
    * @throws SQLException
    * 
@@ -581,7 +645,8 @@ public class DatabaseGu {
    * Restituisce un ArrayList di Aziende che hanno una convenzione con l'Università.
    * 
    * @return ArrayList Azienda
-   * @throws SQLException Eccezione lanciata
+   * @throws SQLException
+   *           Eccezione lanciata
    * @author Gianluca Caggiano
    */
   public static synchronized ArrayList<Azienda> doRetriveAllAziende() throws SQLException {
@@ -647,7 +712,8 @@ public class DatabaseGu {
    * Restituisce un ArrayList di Professori.
    * 
    * @return ArrayList Professore
-   * @throws SQLException Eccezione lanciata
+   * @throws SQLException
+   *           Eccezione lanciata
    * @author Iannuzzi Nicola'
    */
   public static synchronized ArrayList<Professore> doRetriveAllProfessore() throws SQLException {
@@ -692,7 +758,8 @@ public class DatabaseGu {
   /**
    * Restituisce, se esiste, un oggetto di tipo convenzione con un certo id.
    * 
-   * @param id Identificativo della convezione da prelevare
+   * @param id
+   *          Identificativo della convezione da prelevare
    * @return {@code null} se la convenzione non esiste, {@code Oggetto Convenzione } altrimenti.
    * @throws SQLException
    * 
@@ -737,7 +804,8 @@ public class DatabaseGu {
    * Restituisce l'ultima convenzione creata in ordine temporale.
    * 
    * @return {@code -1} non e' presente nessuna convenzione, {@code Oggetto Convenzione} altrimenti.
-   * @throws SQLException Eccezione lanciata
+   * @throws SQLException
+   *           Eccezione lanciata
    */
   private static synchronized int getIdMaxConvenzione() throws SQLException {
     Connection connection = null;
@@ -769,7 +837,8 @@ public class DatabaseGu {
    * Restituisce un ArrayList di Utenti (Azienda) che non sono ancora abilitati.
    * 
    * @return ArrayList Utenti
-   * @throws SQLException Eccezione lanciata
+   * @throws SQLException
+   *           Eccezione lanciata
    * @author Iannuzzi Nicola'
    */
   public static synchronized ArrayList<Utente> doRetriveAllNonAbilitatiAziende()
@@ -807,7 +876,8 @@ public class DatabaseGu {
    * Restituisce un ArrayList di Utenti (Professori) che non sono ancora abilitati.
    * 
    * @return ArrayList Utenti
-   * @throws SQLException Eccezione lanciata
+   * @throws SQLException
+   *           Eccezione lanciata
    * @author Iannuzzi Nicola'
    */
   public static synchronized ArrayList<Utente> doRetriveAllNonAbilitatiProfessori()
@@ -844,7 +914,8 @@ public class DatabaseGu {
   /**
    * Setta abilitato 1 in Azienda.
    * 
-   * @param email Email dell'azienda
+   * @param email
+   *          Email dell'azienda
    * @return boolean
    * @throws SQLException
    * 
@@ -877,7 +948,8 @@ public class DatabaseGu {
   /**
    * Setta autorizzato 1 in Professore.
    * 
-   * @param email Email del professore
+   * @param email
+   *          Email del professore
    * @return boolean
    * @throws SQLException
    * 
@@ -921,6 +993,7 @@ public class DatabaseGu {
   private static String queryGetConvenzioneById;
   private static String queryGetMaxConvenzione;
   private static String queryEliminaAccount;
+  private static String queryEliminaConvenzione;
 
   static {
     // Query universale per tutti gli utenti
@@ -943,11 +1016,12 @@ public class DatabaseGu {
         + "WHERE azienda.Email=utente.User AND azienda.Email=?;";
     queryGetProfessoreEmail = "SELECT * From utente, professore "
         + "WHERE utente.User = professore.Email AND professore.Email=?";
-    queryGetSegreteriaUsername = "SELECT * From utente, segreteria " 
+    queryGetSegreteriaUsername = "SELECT * From utente, segreteria "
         + "WHERE utente.User = segreteria.Username AND segreteria.Username=?";
     queryGetConvenzioneById = "SELECT * FROM convenzione WHERE ID=?";
     queryGetMaxConvenzione = "SELECT MAX(ID) FROM Convenzione";
-    
+
     queryEliminaAccount = "DELETE FROM utente WHERE utente.user=?;";
+    queryEliminaConvenzione = "DELETE FROM convenzione WHERE convenzione.ID=?;";
   }
 }
