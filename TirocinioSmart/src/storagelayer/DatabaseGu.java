@@ -452,11 +452,12 @@ public class DatabaseGu {
         studente.setPassword(rs.getString("Password"));
         studente.setNome(rs.getString("Nome"));
         studente.setCognome(rs.getString("Cognome"));
-        studente.setMatricola(matricola);
+        studente.setMatricola(rs.getString("Matricola"));
         studente.setDataNascita(rs.getString("DataNascita"));
         studente.setLuogoNascita(rs.getString("LuogoNascita"));
         String idRichiesta = rs.getString("RichiestaTirocinioID");
         if (idRichiesta != null) {
+          int id = Integer.parseInt(idRichiesta);
           studente
               .setRichiestaTirocinio(DatabasePf.getRichiestaById(Integer.parseInt(idRichiesta)));
         }
