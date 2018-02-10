@@ -331,10 +331,10 @@ public class TestDatabaseGu {
     }
     test.add(b);
     test.add(a);
-    String stringa = test.toString();
+    String atteso = test.toString();
     try {
       ArrayList<Azienda> aziende = DatabaseGu.doRetriveAllAziende();
-      String atteso = aziende.toString();
+      String stringa = aziende.toString();
       assertEquals(atteso, stringa);
     } catch (SQLException e) {
       // TODO Auto-generated catch block
@@ -354,17 +354,17 @@ public class TestDatabaseGu {
     Professore b = null;
     try {
       a = DatabaseGu.getProfessoreByEmail("massimo@unisa.it");
-      b = DatabaseGu.getProfessoreByEmail("rossi@unisa.it");
+      b = DatabaseGu.getProfessoreByEmail("pino@unisa.it");
     } catch (SQLException e1) {
       // TODO Auto-generated catch block
       e1.printStackTrace();
     }
     test.add(a);
     test.add(b);
-    String stringa = test.toString();
+    String atteso = test.toString();
     try {
       ArrayList<Professore> professori = DatabaseGu.doRetriveAllProfessore();
-      String atteso = professori.toString();
+      String stringa = professori.toString();
       assertEquals(atteso, stringa);
     } catch (SQLException e) {
       // TODO Auto-generated catch block
@@ -390,10 +390,10 @@ public class TestDatabaseGu {
     }
     test.add(b);
     test.add(a);
-    String stringa = test.toString();
+    String atteso = test.toString();
     try {
       ArrayList<Utente> aziende = DatabaseGu.doRetriveAllNonAbilitatiAziende();
-      String atteso = aziende.toString();
+      String stringa = aziende.toString();
       assertEquals(atteso, stringa);
     } catch (SQLException e) {
       // TODO Auto-generated catch block
@@ -407,19 +407,23 @@ public class TestDatabaseGu {
    */
   @Test
   public void testDoRetriveAllNonAbilitatiProfessori() {
-    ArrayList<Utente> test = new ArrayList<Utente>();
-    Utente a = null;
+    ArrayList<Professore> test = new ArrayList<Professore>();
+    Professore a = null;
+    Professore b = null;
     try {
-      a = DatabaseGu.getUtenteById("pino@unisa.it");
+      a = DatabaseGu.getProfessoreByEmail("rossi@unisa.it");
+      b = DatabaseGu.getProfessoreByEmail("testProfessore@unisa.it");
     } catch (SQLException e1) {
       // TODO Auto-generated catch block
       e1.printStackTrace();
     }
     test.add(a);
-    String stringa = test.toString();
+    test.add(b);
+    String atteso = test.toString();
     try {
       ArrayList<Utente> professori = DatabaseGu.doRetriveAllNonAbilitatiProfessori();
-      String atteso = professori.toString();
+      System.out.println(professori);
+      String stringa = professori.toString();
       assertEquals(atteso, stringa);
     } catch (SQLException e) {
       // TODO Auto-generated catch block
