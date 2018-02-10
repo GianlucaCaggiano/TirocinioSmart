@@ -6,10 +6,12 @@ import static org.junit.Assert.fail;
 import gestioneutente.Azienda;
 import gestioneutente.Convenzione;
 import gestioneutente.Professore;
+import gestioneutente.Segreteria;
 import gestioneutente.Studente;
 import gestioneutente.Utente;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -28,8 +30,8 @@ public class TestDatabaseGu {
   @Test
   public void testAddUser() {
     // Registrazione studente
-    Studente s = new Studente("0512103879", "testStudente@studenti.unisa.it", "testStudente", "testNome", "testCognome",
-        "1989/1/1", "Poggiomarino", true);
+    Studente s = new Studente("0512103879", "testStudente@studenti.unisa.it", "testStudente",
+        "testNome", "testCognome", "1989/1/1", "Poggiomarino", true);
     try {
       Boolean done = DatabaseGu.addUser(s);
       assertEquals(true, done);
@@ -40,8 +42,8 @@ public class TestDatabaseGu {
     // Registrazione azienda
     Convenzione convenzione = new Convenzione();
     convenzione.setSpecifica("Test Specifica Convenzione");
-    Azienda a = new Azienda("azienda@test.it", "testAzienda", "testNome", "testCognome", "Nocera", "1956/2/8",
-        "Test Azienda s.r.l.", "Napoli", "80100", "Via Pioppi, 10", false);
+    Azienda a = new Azienda("azienda@test.it", "testAzienda", "testNome", "testCognome",
+        "Nocera", "1956/2/8", "Test Azienda s.r.l.", "Napoli", "80100", "Via Pioppi, 10", false);
     try {
       DatabaseGu.addConvenzione(convenzione);
       Boolean done = DatabaseGu.addUser(a);
@@ -53,8 +55,8 @@ public class TestDatabaseGu {
     // Registra Azienda con tutti i campi opzionali
     convenzione = new Convenzione();
     convenzione.setSpecifica("Test Specifica Convenzione per Azienda con tutti i campi");
-    a = new Azienda("aziendaCompleta@test.it", "testAzienda", "testNome", "testCognome", "Nocera", "1956/2/8",
-        "Test Azienda s.r.l.", "Napoli", "80100", "Via Pioppi, 10", false);
+    a = new Azienda("aziendaCompleta@test.it", "testAzienda", "testNome", "testCognome",
+        "Nocera", "1956/2/8", "Test Azienda s.r.l.", "Napoli", "80100", "Via Pioppi, 10", false);
     a.setTelefono("0825477958");
     a.setSitoWeb("www.aziendatest.it");
     a.setChiSiamo("Questo è un test");
@@ -67,7 +69,8 @@ public class TestDatabaseGu {
     }
 
     // Registrazione Professore
-    Professore p = new Professore("testProfessore@unisa.it", "profPassword", "Test", "Test", false, "Programmazione 1");
+    Professore p = new Professore("testProfessore@unisa.it", "profPassword", 
+        "Test", "Test", false, "Programmazione 1");
     try {
       Boolean done = DatabaseGu.addUser(p);
       assertEquals(true, done);
@@ -288,7 +291,27 @@ public class TestDatabaseGu {
    */
   @Test
   public void testGetSegreteriaByUser() {
-    fail("Not yet implemented");
+    String name = "segreteriaUnisa";
+    try {
+      String atteso = "gestioneutente.Segreteria [user= segreteriaUnisa, password= 1234567891,"
+          + " nome=Michele, cognome=Pasquale]Segreteria [telefono=null,"
+          + " email=carrierestudenti.di@unisa.it]";
+      String test = DatabaseGu.getSegreteriaByUser(name).toString();
+      assertEquals(atteso, test);
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
+    //segreteria non esistente
+    name = "segreteria";
+    try {
+      Segreteria u = DatabaseGu.getSegreteriaByUser(name);
+      assertEquals(null, u);
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -296,7 +319,29 @@ public class TestDatabaseGu {
    */
   @Test
   public void testDoRetriveAllAziende() {
-    fail("Not yet implemented");
+    ArrayList<Azienda> test = new ArrayList<Azienda>();
+    Azienda a = null;
+    Azienda b = null;
+    try {
+      a = DatabaseGu.getAziendaByEmail("convenzione@live.it");
+      b = DatabaseGu.getAziendaByEmail("convenzione2@gmail.com");
+    } catch (SQLException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    test.add(b);
+    test.add(a);
+    String stringa = test.toString();
+    try {
+      ArrayList<Azienda> aziende = DatabaseGu.doRetriveAllAziende();
+      String atteso = aziende.toString();
+      assertEquals(atteso, stringa);
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
+    
   }
 
   /**
@@ -304,7 +349,27 @@ public class TestDatabaseGu {
    */
   @Test
   public void testDoRetriveAllProfessore() {
-    fail("Not yet implemented");
+    ArrayList<Professore> test = new ArrayList<Professore>();
+    Professore a = null;
+    Professore b = null;
+    try {
+      a = DatabaseGu.getProfessoreByEmail("massimo@unisa.it");
+      b = DatabaseGu.getProfessoreByEmail("rossi@unisa.it");
+    } catch (SQLException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    test.add(a);
+    test.add(b);
+    String stringa = test.toString();
+    try {
+      ArrayList<Professore> professori = DatabaseGu.doRetriveAllProfessore();
+      String atteso = professori.toString();
+      assertEquals(atteso, stringa);
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -313,7 +378,27 @@ public class TestDatabaseGu {
    */
   @Test
   public void testDoRetriveAllNonAbilitatiAziende() {
-    fail("Not yet implemented");
+    ArrayList<Azienda> test = new ArrayList<Azienda>();
+    Azienda a = null;
+    Azienda b = null;
+    try {
+      a = DatabaseGu.getAziendaByEmail("testsoftware@unina.it");
+      b = DatabaseGu.getAziendaByEmail("accasoftware@test.it");
+    } catch (SQLException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    test.add(b);
+    test.add(a);
+    String stringa = test.toString();
+    try {
+      ArrayList<Utente> aziende = DatabaseGu.doRetriveAllNonAbilitatiAziende();
+      String atteso = aziende.toString();
+      assertEquals(atteso, stringa);
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -322,7 +407,24 @@ public class TestDatabaseGu {
    */
   @Test
   public void testDoRetriveAllNonAbilitatiProfessori() {
-    fail("Not yet implemented");
+    ArrayList<Utente> test = new ArrayList<Utente>();
+    Utente a = null;
+    try {
+      a = DatabaseGu.getUtenteById("pino@unisa.it");
+    } catch (SQLException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    test.add(a);
+    String stringa = test.toString();
+    try {
+      ArrayList<Utente> professori = DatabaseGu.doRetriveAllNonAbilitatiProfessori();
+      String atteso = professori.toString();
+      assertEquals(atteso, stringa);
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   /**
