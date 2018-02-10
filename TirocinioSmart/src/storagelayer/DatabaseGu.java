@@ -457,7 +457,6 @@ public class DatabaseGu {
         studente.setLuogoNascita(rs.getString("LuogoNascita"));
         String idRichiesta = rs.getString("RichiestaTirocinioID");
         if (idRichiesta != null) {
-          int id = Integer.parseInt(idRichiesta);
           studente
               .setRichiestaTirocinio(DatabasePf.getRichiestaById(Integer.parseInt(idRichiesta)));
         }
