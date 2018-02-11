@@ -40,7 +40,6 @@ public abstract class Utente {
    * @author Caggiano Gianluca
    */
   public Utente(String user, String password, String nome, String cognome) {
-    super();
     this.user = user;
     this.password = password;
     this.nome = nome;

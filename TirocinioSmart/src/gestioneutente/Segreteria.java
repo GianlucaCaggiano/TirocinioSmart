@@ -40,7 +40,7 @@ public class Segreteria extends Utente {
    */
   public Segreteria(String user, String password, String nome, String cognome, String telefono,
       String email) {
-    super(email, password, nome, cognome);
+    super(user, password, nome, cognome);
     this.telefono = telefono;
     this.email = email;
   }
