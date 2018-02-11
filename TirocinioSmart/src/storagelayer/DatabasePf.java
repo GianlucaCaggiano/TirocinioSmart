@@ -46,18 +46,28 @@ public class DatabasePf {
       psAddRichiesta.executeUpdate();
       connection.commit();
 
-      psUpdateStudente = connection.prepareStatement(queryUpdateStudente);
-      id = getIdMaxRichiestaTirocinio();
-      psUpdateStudente.setInt(1, id);
-      psUpdateStudente.setString(2, s.getUser());
-      psUpdateStudente.executeUpdate();
-      connection.commit();
     } finally {
       try {
         if (psAddRichiesta != null) {
           psAddRichiesta.close();
         }
-
+      } finally {
+        Database.releaseConnection(connection);
+      }
+    }
+    
+    try {
+      connection = Database.getConnection();
+      psUpdateStudente = connection.prepareStatement(queryUpdateStudente);
+      
+      id = getIdMaxRichiestaTirocinio();
+      psUpdateStudente.setInt(1, id);
+      psUpdateStudente.setString(2, s.getUser());
+      psUpdateStudente.executeUpdate();
+      connection.commit();
+    
+    } finally {
+      try {
         if (psUpdateStudente != null) {
           psUpdateStudente.close();
         }
@@ -65,6 +75,7 @@ public class DatabasePf {
         Database.releaseConnection(connection);
       }
     }
+    
     return id;
   }
 
@@ -413,7 +424,7 @@ public class DatabasePf {
    * 
    * @author Iannuzzi Nicola'
    */
-  public static synchronized ArrayList<RichiestaTirocinio> doRetrieveRichiesteAziendeConvalidate(
+  public static synchronized ArrayList<RichiestaTirocinio> doRetrieveRichiesteConvalidate(
       String email) throws SQLException {
     Connection connection = null;
     Statement statement = null;
@@ -529,6 +540,8 @@ public class DatabasePf {
         s.setNome(rs.getString("Nome"));
         s.setCognome(rs.getString("Cognome"));
         s.setMatricola(rs.getString("Matricola"));
+        s.setDataNascita(rs.getString("DataNascita"));
+        s.setLuogoNascita(rs.getString("LuogoNascita"));
       }
     } finally {
       try {
