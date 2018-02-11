@@ -1,6 +1,7 @@
 package storagelayer;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import gestioneutente.Azienda;
@@ -36,7 +37,7 @@ public class TestDatabaseGu {
       Boolean done = DatabaseGu.addUser(s);
       assertEquals(true, done);
     } catch (SQLException e) {
-      e.printStackTrace();
+      fail("non doveva capitare");
     }
 
     // Registrazione azienda
@@ -49,7 +50,7 @@ public class TestDatabaseGu {
       Boolean done = DatabaseGu.addUser(a);
       assertEquals(true, done);
     } catch (SQLException e) {
-      e.printStackTrace();
+      fail("non doveva capitare");
     }
 
     // Registra Azienda con tutti i campi opzionali
@@ -65,7 +66,7 @@ public class TestDatabaseGu {
       Boolean done = DatabaseGu.addUser(a);
       assertEquals(true, done);
     } catch (SQLException e) {
-      e.printStackTrace();
+      fail("non doveva capitare");
     }
 
     // Registrazione Professore
@@ -75,8 +76,8 @@ public class TestDatabaseGu {
       Boolean done = DatabaseGu.addUser(p);
       assertEquals(true, done);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
   }
 
@@ -92,7 +93,7 @@ public class TestDatabaseGu {
       Boolean done = DatabaseGu.deleteUser(email);
       assertEquals(true, done);
     } catch (SQLException e) {
-      e.printStackTrace();
+      fail("non doveva capitare");
     }
 
     // Elimina account Azienda
@@ -104,7 +105,7 @@ public class TestDatabaseGu {
       assertEquals(true, done);
 
     } catch (SQLException e) {
-      e.printStackTrace();
+      fail("non doveva capitare");
     }
 
     // Elimina account Azienda completa
@@ -113,7 +114,7 @@ public class TestDatabaseGu {
       Boolean done = DatabaseGu.deleteUser(email);
       assertEquals(true, done);
     } catch (SQLException e) {
-      e.printStackTrace();
+      fail("non doveva capitare");
     }
 
     // Elimina account Professore
@@ -122,7 +123,7 @@ public class TestDatabaseGu {
       Boolean done = DatabaseGu.deleteUser(email);
       assertEquals(true, done);
     } catch (SQLException e) {
-      e.printStackTrace();
+      fail("non doveva capitare");
     }
 
   }
@@ -138,8 +139,8 @@ public class TestDatabaseGu {
       Utente u = DatabaseGu.getUtenteById(user);
       assertEquals(null, u);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
   }
 
@@ -158,8 +159,8 @@ public class TestDatabaseGu {
       String test = DatabaseGu.getStudenteByEmail(email).toString();
       assertEquals(atteso, test);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
     
     // getStudente con richiesta
@@ -180,8 +181,8 @@ public class TestDatabaseGu {
       String test = DatabaseGu.getStudenteByEmail(email).toString();
       assertEquals(atteso, test);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
     
     //user non esistente
@@ -190,8 +191,8 @@ public class TestDatabaseGu {
       Utente u = DatabaseGu.getStudenteByEmail(user);
       assertEquals(null, u);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
     
   }
@@ -211,8 +212,8 @@ public class TestDatabaseGu {
       String test = DatabaseGu.getStudenteByMatricola(matricola).toString();
       assertEquals(atteso, test);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
     
     // getStudente con richiesta
@@ -233,8 +234,8 @@ public class TestDatabaseGu {
       String test = DatabaseGu.getStudenteByMatricola(matricola).toString();
       assertEquals(atteso, test);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
     
     //user non esistente
@@ -243,8 +244,8 @@ public class TestDatabaseGu {
       Studente u = DatabaseGu.getStudenteByMatricola(user);
       assertEquals(null, u);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
   }
 
@@ -262,8 +263,8 @@ public class TestDatabaseGu {
       Azienda u = DatabaseGu.getAziendaByEmail(mail);
       assertEquals(null, u.getConvenzione());
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
     
   }
@@ -280,8 +281,8 @@ public class TestDatabaseGu {
       Utente u = DatabaseGu.getProfessoreByEmail(user);
       assertEquals(null, u);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
   }
 
@@ -299,8 +300,8 @@ public class TestDatabaseGu {
       String test = DatabaseGu.getSegreteriaByUser(name).toString();
       assertEquals(atteso, test);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
     
     //segreteria non esistente
@@ -309,8 +310,8 @@ public class TestDatabaseGu {
       Segreteria u = DatabaseGu.getSegreteriaByUser(name);
       assertEquals(null, u);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
   }
 
@@ -326,7 +327,7 @@ public class TestDatabaseGu {
       a = DatabaseGu.getAziendaByEmail("convenzione@live.it");
       b = DatabaseGu.getAziendaByEmail("convenzione2@gmail.com");
     } catch (SQLException e1) {
-      // TODO Auto-generated catch block
+      
       e1.printStackTrace();
     }
     test.add(b);
@@ -337,8 +338,8 @@ public class TestDatabaseGu {
       String stringa = aziende.toString();
       assertEquals(atteso, stringa);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
     
     
@@ -356,7 +357,7 @@ public class TestDatabaseGu {
       a = DatabaseGu.getProfessoreByEmail("massimo@unisa.it");
       b = DatabaseGu.getProfessoreByEmail("pino@unisa.it");
     } catch (SQLException e1) {
-      // TODO Auto-generated catch block
+      
       e1.printStackTrace();
     }
     test.add(a);
@@ -367,8 +368,8 @@ public class TestDatabaseGu {
       String stringa = professori.toString();
       assertEquals(atteso, stringa);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
   }
 
@@ -385,7 +386,7 @@ public class TestDatabaseGu {
       a = DatabaseGu.getAziendaByEmail("testsoftware@unina.it");
       b = DatabaseGu.getAziendaByEmail("accasoftware@test.it");
     } catch (SQLException e1) {
-      // TODO Auto-generated catch block
+      
       e1.printStackTrace();
     }
     test.add(b);
@@ -396,8 +397,8 @@ public class TestDatabaseGu {
       String stringa = aziende.toString();
       assertEquals(atteso, stringa);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
   }
 
@@ -414,7 +415,7 @@ public class TestDatabaseGu {
       a = DatabaseGu.getProfessoreByEmail("rossi@unisa.it");
       b = DatabaseGu.getProfessoreByEmail("testProfessore@unisa.it");
     } catch (SQLException e1) {
-      // TODO Auto-generated catch block
+      
       e1.printStackTrace();
     }
     test.add(a);
@@ -426,8 +427,8 @@ public class TestDatabaseGu {
       String stringa = professori.toString();
       assertEquals(atteso, stringa);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      
+      fail("non doveva capitare");
     }
   }
 
@@ -437,7 +438,14 @@ public class TestDatabaseGu {
    */
   @Test
   public void testSetAbilitatoAzienda() {
-    fail("Not yet implemented");
+    String email = "convenzione2@gmail.com";
+    try {
+      Boolean done = DatabaseGu.setAbilitatoAzienda(email);
+      assertTrue(done);
+    } catch (SQLException e) {
+      
+      fail("non doveva capitare");
+    }
   }
 
   /**
@@ -446,7 +454,14 @@ public class TestDatabaseGu {
    */
   @Test
   public void testSetAbilitatoProfessore() {
-    fail("Not yet implemented");
+    String email = "pino@unisa.it";
+    try {
+      Boolean done = DatabaseGu.setAbilitatoProfessore(email);
+      assertTrue(done);
+    } catch (SQLException e) {
+      
+      fail("non doveva capitare");
+    }
   }
 
 }
