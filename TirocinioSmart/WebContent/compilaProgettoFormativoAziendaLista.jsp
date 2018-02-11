@@ -64,7 +64,7 @@
 		Azienda az = (Azienda) request.getSession().getAttribute("azienda");
 	
 		ArrayList<RichiestaTirocinio> array = new ArrayList<RichiestaTirocinio>();
-		array = DatabasePf.doRetrieveRichiesteAziendeConvalidate(az.getUser());
+		array = DatabasePf.doRetrieveRichiesteConvalidate(az.getUser());
 	%>
 	<div class="container text-center">
 		<h1>Compila Progetto Formativo</h1>

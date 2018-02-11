@@ -175,7 +175,7 @@ public class RichiestaTirocinio {
    * @author Iannuzzi Nicolà
    */
   public String toString() {
-    return "RichiestaTirocinio [azienda=" + azienda + ", professore=" + professore
+    return "RichiestaTirocinio [ID=" + id + " azienda=" + azienda + ", professore=" + professore
         + ", convalidaAzienda=" + convalidaAzienda + ", convalidaProf=" + convalidaProf + "]";
   }
 
