@@ -54,15 +54,13 @@ public class TestDatabaseGu {
     }
 
     // Registra Azienda con tutti i campi opzionali
-    convenzione = new Convenzione();
-    convenzione.setSpecifica("Test Specifica Convenzione per Azienda con tutti i campi");
     a = new Azienda("aziendaCompleta@test.it", "testAzienda", "testNome", "testCognome",
         "Nocera", "1956/2/8", "Test Azienda s.r.l.", "Napoli", "80100", "Via Pioppi, 10", false);
     a.setTelefono("0825477958");
     a.setSitoWeb("www.aziendatest.it");
     a.setChiSiamo("Questo è un test");
     try {
-      DatabaseGu.addConvenzione(convenzione);
+      
       Boolean done = DatabaseGu.addUser(a);
       assertEquals(true, done);
     } catch (SQLException e) {
@@ -98,12 +96,9 @@ public class TestDatabaseGu {
 
     // Elimina account Azienda
     email = "azienda@test.it";
-
     try {
-
       Boolean done = DatabaseGu.deleteUser(email);
       assertEquals(true, done);
-
     } catch (SQLException e) {
       fail("non doveva capitare");
     }
@@ -423,7 +418,6 @@ public class TestDatabaseGu {
     String atteso = test.toString();
     try {
       ArrayList<Utente> professori = DatabaseGu.doRetriveAllNonAbilitatiProfessori();
-      System.out.println(professori);
       String stringa = professori.toString();
       assertEquals(atteso, stringa);
     } catch (SQLException e) {

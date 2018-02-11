@@ -85,6 +85,8 @@ public class DatabaseGu {
     if (utente instanceof Azienda) {
       PreparedStatement psAddUtente = null;
       PreparedStatement psAddAzienda = null;
+
+      int id = -1;
       try {
         connection = Database.getConnection();
         psAddUtente = connection.prepareStatement(queryAddUtente);
@@ -100,9 +102,9 @@ public class DatabaseGu {
         connection.commit();
 
         Azienda azienda = (Azienda) utente;
-
+        
         psAddAzienda = connection.prepareStatement(queryAddAzienda);
-
+        
         psAddAzienda.setString(1, azienda.getUser());
         psAddAzienda.setString(2, azienda.getLuogoNascita());
         psAddAzienda.setString(3, azienda.getDataNascita());
@@ -130,12 +132,11 @@ public class DatabaseGu {
           psAddAzienda.setString(11, null);
         }
 
-        int id = getIdMaxConvenzione();
+        id = getIdMaxConvenzione();
         if (id >= 0) {
           psAddAzienda.setInt(12, id);
         }
         psAddAzienda.executeUpdate();
-        System.out.println(azienda);
         connection.commit();
       } finally {
         try {
@@ -158,7 +159,7 @@ public class DatabaseGu {
       try {
         connection = Database.getConnection();
         psAddUtente = connection.prepareStatement(queryAddUtente);
-
+        
         psAddUtente.setString(1, utente.getUser());
         psAddUtente.setString(2, utente.getPassword());
         psAddUtente.setString(3, utente.getNome());
@@ -177,7 +178,6 @@ public class DatabaseGu {
         psAddProfessore.setInt(2, 0);
         psAddProfessore.setString(3, professore.getMateria());
         psAddProfessore.executeUpdate();
-        System.out.println(professore);
         connection.commit();
       } finally {
         try {
@@ -692,7 +692,6 @@ public class DatabaseGu {
           azienda.setConvenzione(DatabaseGu.getConvenzioneById(Integer.parseInt(idConvenzione)));
         }
         azienda.setAbilitato(res.getBoolean("abilitato"));
-        System.out.println(azienda);
         arrayList.add(azienda);
       }
     } finally {
