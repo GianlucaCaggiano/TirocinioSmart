@@ -127,7 +127,22 @@ public class TestDatabaseGu {
     } catch (SQLException e) {
       fail("non doveva capitare");
     }
-
+    
+    //Elimina un account non presente nel database (Eliminazione non avvenuta con successo)
+    try {
+      Boolean done = DatabaseGu.deleteUser(email);
+      assertEquals(false, done);
+    } catch (SQLException e) {
+      fail("non doveva capitare");
+    }
+    
+    //Elimina convenzione non presente nel database
+    try {
+      Boolean done = DatabaseGu.deleteConvenzione(0);
+      assertEquals(false, done);
+    } catch (SQLException e) {
+      fail("non doveva capitare");
+    }
   }
 
   /**

@@ -272,8 +272,12 @@ public class TestDatabasePf {
   @Test
   public void test09_GetStudenteByIdRichiesta() {
     try {
+      //Caso in cui lo studente con tale richiesta c'è
       Studente ciccio = DatabasePf.getStudenteByIdRichiesta(idRichiesta);
       assertEquals(s.toString(),ciccio.toString());
+      //Caso in cui lo studente con una richiesta non c'è
+      ciccio = DatabasePf.getStudenteByIdRichiesta(0);
+      assertNull(ciccio);
     } catch (SQLException e) {
       fail("Non doveva capitare");
     }
