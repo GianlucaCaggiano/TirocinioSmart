@@ -40,11 +40,10 @@ public class DatabaseGu {
     Connection connection = null;
 
     if (utente instanceof Studente) {
-      PreparedStatement psAddUtente = null;
-      PreparedStatement psAddStudente = null;
+       
       try {
         connection = Database.getConnection();
-        psAddUtente = connection.prepareStatement(queryAddUtente);
+        PreparedStatement psAddUtente = connection.prepareStatement(queryAddUtente);
 
         psAddUtente.setString(1, utente.getUser());
         psAddUtente.setString(2, utente.getPassword());
@@ -53,12 +52,12 @@ public class DatabaseGu {
         psAddUtente.setString(5, "ST");// ST sta ad indicare il tipo "Studente" nel database
         // AZ=Azienda, SR=Segreteria, PR=Professore
         psAddUtente.executeUpdate();
-
+        psAddUtente.close();
         connection.commit();
 
         Studente studente = (Studente) utente;
 
-        psAddStudente = connection.prepareStatement(queryAddStudente);
+        PreparedStatement psAddStudente = connection.prepareStatement(queryAddStudente);
 
         psAddStudente.setString(1, studente.getMatricola());
         psAddStudente.setString(2, studente.getUser());
@@ -66,30 +65,19 @@ public class DatabaseGu {
         psAddStudente.setString(4, studente.getLuogoNascita());
         psAddStudente.setInt(5, 1);
         psAddStudente.executeUpdate();
+        psAddStudente.close();
         connection.commit();
       } finally {
-        try {
-          if (psAddUtente != null) {
-            psAddUtente.close();
-          }
-
-          if (psAddStudente != null) {
-            psAddStudente.close();
-          }
-        } finally {
-          Database.releaseConnection(connection);
-        }
+        Database.releaseConnection(connection);
       }
     }
 
     if (utente instanceof Azienda) {
-      PreparedStatement psAddUtente = null;
-      PreparedStatement psAddAzienda = null;
 
       int id = -1;
       try {
         connection = Database.getConnection();
-        psAddUtente = connection.prepareStatement(queryAddUtente);
+        PreparedStatement psAddUtente = connection.prepareStatement(queryAddUtente);
 
         psAddUtente.setString(1, utente.getUser());
         psAddUtente.setString(2, utente.getPassword());
@@ -98,12 +86,12 @@ public class DatabaseGu {
         psAddUtente.setString(5, "AZ");// ST sta ad indicare il tipo "Studente" nel database
         // AZ=Azienda, SR=Segreteria, PR=Professore
         psAddUtente.executeUpdate();
-
+        psAddUtente.close();
         connection.commit();
 
         Azienda azienda = (Azienda) utente;
         
-        psAddAzienda = connection.prepareStatement(queryAddAzienda);
+        PreparedStatement psAddAzienda = connection.prepareStatement(queryAddAzienda);
         
         psAddAzienda.setString(1, azienda.getUser());
         psAddAzienda.setString(2, azienda.getLuogoNascita());
@@ -137,28 +125,20 @@ public class DatabaseGu {
           psAddAzienda.setInt(12, id);
         }
         psAddAzienda.executeUpdate();
+        psAddAzienda.close();
         connection.commit();
       } finally {
-        try {
-          if (psAddUtente != null) {
-            psAddUtente.close();
-          }
-
-          if (psAddAzienda != null) {
-            psAddAzienda.close();
-          }
-        } finally {
-          Database.releaseConnection(connection);
-        }
+        
+        Database.releaseConnection(connection);
+        
       }
     }
 
     if (utente instanceof Professore) {
-      PreparedStatement psAddUtente = null;
-      PreparedStatement psAddProfessore = null;
+      
       try {
         connection = Database.getConnection();
-        psAddUtente = connection.prepareStatement(queryAddUtente);
+        PreparedStatement psAddUtente = connection.prepareStatement(queryAddUtente);
         
         psAddUtente.setString(1, utente.getUser());
         psAddUtente.setString(2, utente.getPassword());
@@ -167,30 +147,23 @@ public class DatabaseGu {
         psAddUtente.setString(5, "PR");// ST sta ad indicare il tipo "Studente" nel database
         // AZ=Azienda, SR=Segreteria, PR=Professore
         psAddUtente.executeUpdate();
-
+        psAddUtente.close();
         connection.commit();
 
         Professore professore = (Professore) utente;
 
-        psAddProfessore = connection.prepareStatement(queryAddProfessore);
+        PreparedStatement psAddProfessore = connection.prepareStatement(queryAddProfessore);
 
         psAddProfessore.setString(1, professore.getUser());
         psAddProfessore.setInt(2, 0);
         psAddProfessore.setString(3, professore.getMateria());
         psAddProfessore.executeUpdate();
+        psAddProfessore.close();
         connection.commit();
       } finally {
-        try {
-          if (psAddUtente != null) {
-            psAddUtente.close();
-          }
 
-          if (psAddProfessore != null) {
-            psAddProfessore.close();
-          }
-        } finally {
-          Database.releaseConnection(connection);
-        }
+        Database.releaseConnection(connection);
+        
       }
 
     }
@@ -207,29 +180,20 @@ public class DatabaseGu {
    * @author Iannuzzi Nicola'
    */
   public static synchronized void addConvenzione(Convenzione convenzione) throws SQLException {
-    PreparedStatement psAddConvenzione = null;
     Connection connection = null;
     try {
       connection = Database.getConnection();
-      psAddConvenzione = connection.prepareStatement(queryAddConvenzione);
+      PreparedStatement psAddConvenzione = connection.prepareStatement(queryAddConvenzione);
 
       psAddConvenzione.setDate(1, new Date(Calendar.getInstance().getTime().getTime()));
       psAddConvenzione.setString(2, convenzione.getSpecifica());
       psAddConvenzione.executeUpdate();
-
+      psAddConvenzione.close();
       connection.commit();
     } finally {
-      try {
-        if (psAddConvenzione != null) {
-          psAddConvenzione.close();
-        }
-
-        if (psAddConvenzione != null) {
-          psAddConvenzione.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+     
+      Database.releaseConnection(connection);
+      
     }
   }
 
@@ -247,8 +211,7 @@ public class DatabaseGu {
    */
   public static synchronized boolean deleteUser(String email) throws SQLException {
     Connection connection = null;
-    PreparedStatement preparedStatement = null;
-
+  
     int result = 0;
 
     try {
@@ -258,10 +221,11 @@ public class DatabaseGu {
         a = DatabaseGu.getAziendaByEmail(email);
       }
       connection = Database.getConnection();
-      preparedStatement = connection.prepareStatement(queryEliminaAccount);
+      PreparedStatement preparedStatement = connection.prepareStatement(queryEliminaAccount);
       preparedStatement.setString(1, email);
 
       result = preparedStatement.executeUpdate();
+      preparedStatement.close();
       connection.commit();
       
       if (a != null) {
@@ -269,13 +233,9 @@ public class DatabaseGu {
       }  
 
     } finally {
-      try {
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+      
+      Database.releaseConnection(connection);
+    
     }
     return (result != 0);
   }
@@ -291,25 +251,21 @@ public class DatabaseGu {
    */
   public static synchronized boolean deleteConvenzione(int id) throws SQLException {
     Connection connection = null;
-    PreparedStatement preparedStatement = null;
 
     int result = 0;
 
     try {
       connection = Database.getConnection();
-      preparedStatement = connection.prepareStatement(queryEliminaConvenzione);
+      PreparedStatement preparedStatement = connection.prepareStatement(queryEliminaConvenzione);
       preparedStatement.setInt(1, id);
 
       result = preparedStatement.executeUpdate();
+      preparedStatement.close();
       connection.commit();
     } finally {
-      try {
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+      
+      Database.releaseConnection(connection);
+      
     }
     return (result != 0);
   }
@@ -326,16 +282,16 @@ public class DatabaseGu {
    */
   public static synchronized Utente getUtenteById(String user) throws SQLException {
     Connection connection = null;
-    PreparedStatement preparedStatement = null;
 
     Utente u = null;
 
     try {
       connection = Database.getConnection();
-      preparedStatement = connection.prepareStatement(queryGetUtenteById);
+      PreparedStatement preparedStatement = connection.prepareStatement(queryGetUtenteById);
       preparedStatement.setString(1, user);
 
       ResultSet rs = preparedStatement.executeQuery();
+      
       connection.commit();
 
       if (rs.next()) {
@@ -356,14 +312,12 @@ public class DatabaseGu {
           u.setPassword(rs.getString("Password"));
         }
       }
+      rs.close();
+      preparedStatement.close();
     } finally {
-      try {
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+      
+      Database.releaseConnection(connection);
+      
     }
     return u;
   }
@@ -380,13 +334,12 @@ public class DatabaseGu {
    */
   public static synchronized Studente getStudenteByEmail(String email) throws SQLException {
     Connection connection = null;
-    PreparedStatement preparedStatement = null;
 
     Studente studente = new Studente();
 
     try {
       connection = Database.getConnection();
-      preparedStatement = connection.prepareStatement(queryGetStudenteEmail);
+      PreparedStatement preparedStatement = connection.prepareStatement(queryGetStudenteEmail);
       preparedStatement.setString(1, email);
 
       ResultSet rs = preparedStatement.executeQuery();
@@ -407,14 +360,12 @@ public class DatabaseGu {
         }
         studente.setAbilitato(rs.getBoolean("abilitato"));
       }
+      rs.close();
+      preparedStatement.close();
     } finally {
-      try {
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+     
+      Database.releaseConnection(connection);
+      
     }
     if (studente.getUser() == null) {
       return null;
@@ -435,13 +386,12 @@ public class DatabaseGu {
    */
   public static synchronized Studente getStudenteByMatricola(String matricola) throws SQLException {
     Connection connection = null;
-    PreparedStatement preparedStatement = null;
 
     Studente studente = new Studente();
 
     try {
       connection = Database.getConnection();
-      preparedStatement = connection.prepareStatement(queryGetStudenteMatricola);
+      PreparedStatement preparedStatement = connection.prepareStatement(queryGetStudenteMatricola);
       preparedStatement.setString(1, matricola);
 
       ResultSet rs = preparedStatement.executeQuery();
@@ -462,14 +412,12 @@ public class DatabaseGu {
         }
         studente.setAbilitato(rs.getBoolean("abilitato"));
       }
+      rs.close();
+      preparedStatement.close();
     } finally {
-      try {
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+      
+      Database.releaseConnection(connection);
+      
     }
     if (studente.getUser() == null) {
       return null;
@@ -490,13 +438,12 @@ public class DatabaseGu {
    */
   public static synchronized Azienda getAziendaByEmail(String email) throws SQLException {
     Connection connection = null;
-    PreparedStatement preparedStatement = null;
 
     Azienda azienda = new Azienda();
 
     try {
       connection = Database.getConnection();
-      preparedStatement = connection.prepareStatement(queryGetAziendaEmail);
+      PreparedStatement preparedStatement = connection.prepareStatement(queryGetAziendaEmail);
       preparedStatement.setString(1, email);
 
       ResultSet rs = preparedStatement.executeQuery();
@@ -529,14 +476,12 @@ public class DatabaseGu {
         }
         azienda.setAbilitato(rs.getBoolean("abilitato"));
       }
+      rs.close();
+      preparedStatement.close();
     } finally {
-      try {
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+     
+      Database.releaseConnection(connection);
+     
     }
     if (azienda.getUser() == null) {
       return null;
@@ -557,13 +502,12 @@ public class DatabaseGu {
    */
   public static synchronized Professore getProfessoreByEmail(String email) throws SQLException {
     Connection connection = null;
-    PreparedStatement preparedStatement = null;
 
     Professore professore = new Professore();
 
     try {
       connection = Database.getConnection();
-      preparedStatement = connection.prepareStatement(queryGetProfessoreEmail);
+      PreparedStatement preparedStatement = connection.prepareStatement(queryGetProfessoreEmail);
       preparedStatement.setString(1, email);
 
       ResultSet rs = preparedStatement.executeQuery();
@@ -578,14 +522,12 @@ public class DatabaseGu {
         professore.setAutorizzo(rs.getBoolean("Autorizzato"));
         professore.setTipo(rs.getString("Tipo"));
       }
+      rs.close();
+      preparedStatement.close();
     } finally {
-      try {
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+      
+      Database.releaseConnection(connection);
+      
     }
     if (professore.getUser() == null) {
       return null;
@@ -606,13 +548,12 @@ public class DatabaseGu {
    */
   public static synchronized Segreteria getSegreteriaByUser(String username) throws SQLException {
     Connection connection = null;
-    PreparedStatement preparedStatement = null;
 
     Segreteria segreteria = new Segreteria();
 
     try {
       connection = Database.getConnection();
-      preparedStatement = connection.prepareStatement(queryGetSegreteriaUsername);
+      PreparedStatement preparedStatement = connection.prepareStatement(queryGetSegreteriaUsername);
       preparedStatement.setString(1, username);
 
       ResultSet rs = preparedStatement.executeQuery();
@@ -625,14 +566,10 @@ public class DatabaseGu {
         segreteria.setCognome(rs.getString("Cognome"));
         segreteria.setEmail(rs.getString("Email"));
       }
+      rs.close();
+      preparedStatement.close();
     } finally {
-      try {
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+      Database.releaseConnection(connection);
     }
     if (segreteria.getUser() == null) {
       return null;
@@ -651,7 +588,6 @@ public class DatabaseGu {
    */
   public static synchronized ArrayList<Azienda> doRetriveAllAziende() throws SQLException {
     Connection connection = null;
-    java.sql.Statement statement = null;
 
     String sql = "SELECT * FROM utente, azienda ";
     sql = sql + "WHERE utente.User=azienda.Email ";
@@ -661,7 +597,7 @@ public class DatabaseGu {
 
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      java.sql.Statement statement = connection.createStatement();
 
       ResultSet res = statement.executeQuery(sql);
 
@@ -694,14 +630,10 @@ public class DatabaseGu {
         azienda.setAbilitato(res.getBoolean("abilitato"));
         arrayList.add(azienda);
       }
+      res.close();
+      statement.close();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+      Database.releaseConnection(connection);
     }
 
     return arrayList;
@@ -717,7 +649,6 @@ public class DatabaseGu {
    */
   public static synchronized ArrayList<Professore> doRetriveAllProfessore() throws SQLException {
     Connection connection = null;
-    java.sql.Statement statement = null;
 
     String sql = "SELECT * FROM utente, professore ";
     sql = sql + "WHERE utente.User=professore.Email AND professore.Autorizzato=1";
@@ -726,7 +657,7 @@ public class DatabaseGu {
 
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      java.sql.Statement statement = connection.createStatement();
 
       ResultSet res = statement.executeQuery(sql);
 
@@ -741,14 +672,12 @@ public class DatabaseGu {
 
         arrayList.add(professore);
       }
+      res.close();
+      statement.close();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+   
+      Database.releaseConnection(connection);
+      
     }
 
     return arrayList;
@@ -766,13 +695,12 @@ public class DatabaseGu {
    */
   private static synchronized Convenzione getConvenzioneById(int id) throws SQLException {
     Connection connection = null;
-    PreparedStatement preparedStatement = null;
 
     Convenzione convenzione = new Convenzione();
 
     try {
       connection = Database.getConnection();
-      preparedStatement = connection.prepareStatement(queryGetConvenzioneById);
+      PreparedStatement preparedStatement = connection.prepareStatement(queryGetConvenzioneById);
       preparedStatement.setInt(1, id);
 
       ResultSet rs = preparedStatement.executeQuery();
@@ -783,14 +711,12 @@ public class DatabaseGu {
         convenzione.setData(rs.getString("Data"));
         convenzione.setSpecifica(rs.getString("Specifiche"));
       }
+      rs.close();
+      preparedStatement.close();
     } finally {
-      try {
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+      
+      Database.releaseConnection(connection);
+      
     }
     if (convenzione.getId() == -1) {
       return null;
@@ -808,26 +734,23 @@ public class DatabaseGu {
    */
   private static synchronized int getIdMaxConvenzione() throws SQLException {
     Connection connection = null;
-    java.sql.Statement statement = null;
 
     int id = -1;
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      java.sql.Statement statement = connection.createStatement();
 
       ResultSet rs = statement.executeQuery(queryGetMaxConvenzione);
 
       if (rs.next()) {
         id = rs.getInt(1);
       }
+      rs.close();
+      statement.close();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+      
+      Database.releaseConnection(connection);
+      
     }
     return id;
   }
@@ -843,7 +766,6 @@ public class DatabaseGu {
   public static synchronized ArrayList<Utente> doRetriveAllNonAbilitatiAziende()
       throws SQLException {
     Connection connection = null;
-    java.sql.Statement statement = null;
 
     String sql = "SELECT * FROM utente, azienda ";
     sql = sql + "WHERE  utente.User = azienda.Email  AND  azienda.abilitato=0";
@@ -851,21 +773,19 @@ public class DatabaseGu {
 
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      java.sql.Statement statement = connection.createStatement();
 
       ResultSet res = statement.executeQuery(sql);
 
       while (res.next()) {
         arrayList.add(DatabaseGu.getAziendaByEmail(res.getString("User")));
       }
+      res.close();
+      statement.close();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
 
     return arrayList;
@@ -882,7 +802,6 @@ public class DatabaseGu {
   public static synchronized ArrayList<Utente> doRetriveAllNonAbilitatiProfessori()
       throws SQLException {
     Connection connection = null;
-    java.sql.Statement statement = null;
 
     String sql = "SELECT * FROM utente, professore ";
     sql = sql + "WHERE  utente.User = professore.Email  AND  professore.Autorizzato=0";
@@ -890,21 +809,19 @@ public class DatabaseGu {
 
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      java.sql.Statement statement = connection.createStatement();
 
       ResultSet res = statement.executeQuery(sql);
 
       while (res.next()) {
         arrayList.add(DatabaseGu.getProfessoreByEmail(res.getString("User")));
       }
+      res.close();
+      statement.close();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+      
+      Database.releaseConnection(connection);
+      
     }
 
     return arrayList;
@@ -922,24 +839,20 @@ public class DatabaseGu {
    */
   public static synchronized boolean setAbilitatoAzienda(String email) throws SQLException {
     Connection connection = null;
-    Statement statement = null;
 
     String query = "UPDATE azienda SET abilitato=1 WHERE azienda.Email='" + email + "'";
 
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
       statement.executeUpdate(query);
+      statement.close();
       connection.commit();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+      
+      Database.releaseConnection(connection);
+      
     }
     return true;
   }
@@ -956,24 +869,20 @@ public class DatabaseGu {
    */
   public static synchronized boolean setAbilitatoProfessore(String email) throws SQLException {
     Connection connection = null;
-    Statement statement = null;
 
     String query = "UPDATE professore SET Autorizzato=1 WHERE professore.Email='" + email + "'";
 
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
       statement.executeUpdate(query);
+      statement.close();
       connection.commit();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+      
+      Database.releaseConnection(connection);
+      
     }
     return true;
   }

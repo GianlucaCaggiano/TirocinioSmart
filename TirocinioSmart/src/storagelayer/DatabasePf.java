@@ -35,47 +35,40 @@ public class DatabasePf {
     Connection connection = null;
 
     int id = -1;
-    PreparedStatement psAddRichiesta = null;
-    PreparedStatement psUpdateStudente = null;
+
     try {
       connection = Database.getConnection();
-      psAddRichiesta = connection.prepareStatement(queryAddRichiesta);
+      PreparedStatement psAddRichiesta = connection.prepareStatement(queryAddRichiesta);
 
       psAddRichiesta.setString(1, rt.getAzienda().getUser());
       psAddRichiesta.setString(2, rt.getProfessore().getUser());
       psAddRichiesta.executeUpdate();
+      psAddRichiesta.close();
       connection.commit();
 
     } finally {
-      try {
-        if (psAddRichiesta != null) {
-          psAddRichiesta.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
-    
+
     try {
       connection = Database.getConnection();
-      psUpdateStudente = connection.prepareStatement(queryUpdateStudente);
-      
+      PreparedStatement psUpdateStudente = connection.prepareStatement(queryUpdateStudente);
+
       id = getIdMaxRichiestaTirocinio();
       psUpdateStudente.setInt(1, id);
       psUpdateStudente.setString(2, s.getUser());
       psUpdateStudente.executeUpdate();
+      psUpdateStudente.close();
       connection.commit();
-    
+
     } finally {
-      try {
-        if (psUpdateStudente != null) {
-          psUpdateStudente.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
-    
+
     return id;
   }
 
@@ -92,10 +85,10 @@ public class DatabasePf {
       throws SQLException {
     Connection connection = null;
 
-    PreparedStatement psAddProgettoFormativo = null;
     try {
       connection = Database.getConnection();
-      psAddProgettoFormativo = connection.prepareStatement(queryAddProgettoFormativo);
+      PreparedStatement psAddProgettoFormativo = connection
+          .prepareStatement(queryAddProgettoFormativo);
 
       psAddProgettoFormativo.setString(1, progettoFormativo.getAzienda().getUser());
       psAddProgettoFormativo.setString(2, progettoFormativo.getSegreteria().getUser());
@@ -105,15 +98,12 @@ public class DatabasePf {
       psAddProgettoFormativo.setString(6, progettoFormativo.getDataInizio());
       psAddProgettoFormativo.setString(7, progettoFormativo.getDataFine());
       psAddProgettoFormativo.executeUpdate();
+      psAddProgettoFormativo.close();
       connection.commit();
     } finally {
-      try {
-        if (psAddProgettoFormativo != null) {
-          psAddProgettoFormativo.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     return true;
   }
@@ -121,7 +111,8 @@ public class DatabasePf {
   /**
    * Restituisce, se esiste, un oggetto di tipo RichiestaTirocinio dato l'identificativo.
    * 
-   * @param id Identificativo della richiesta da prelevare
+   * @param id
+   *          Identificativo della richiesta da prelevare
    * @return {@code null} se la richiesta di tirocinio con tale id non esiste,
    *         {@code Oggetto RichiestaTirocinio } altrimenti.
    * @throws SQLException
@@ -130,13 +121,12 @@ public class DatabasePf {
    */
   public static synchronized RichiestaTirocinio getRichiestaById(int id) throws SQLException {
     Connection connection = null;
-    PreparedStatement preparedStatement = null;
 
     RichiestaTirocinio richiesta = new RichiestaTirocinio();
 
     try {
       connection = Database.getConnection();
-      preparedStatement = connection.prepareStatement(queryGetRichiestaById);
+      PreparedStatement preparedStatement = connection.prepareStatement(queryGetRichiestaById);
       preparedStatement.setInt(1, id);
 
       ResultSet rs = preparedStatement.executeQuery();
@@ -149,14 +139,12 @@ public class DatabasePf {
         richiesta.setConvalidaAzienda(rs.getBoolean("ConvalidaAzienda"));
         richiesta.setConvalidaProf(rs.getBoolean("ConvalidaProf"));
       }
+      rs.close();
+      preparedStatement.close();
     } finally {
-      try {
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     if (richiesta.getId() == -1) {
       return null;
@@ -168,7 +156,8 @@ public class DatabasePf {
   /**
    * Setta in Richiesta Tirocinio 1 a ConvalidaAzienda.
    * 
-   * @param id Identificativo della richiesta di tirocinio 
+   * @param id
+   *          Identificativo della richiesta di tirocinio
    * @return boolean
    * @throws SQLException
    * 
@@ -176,25 +165,21 @@ public class DatabasePf {
    */
   public static synchronized boolean setConvalidaAzienda(int id) throws SQLException {
     Connection connection = null;
-    Statement statement = null;
 
     String query = "UPDATE richiestatirocinio SET ConvalidaAzienda=1 WHERE richiestatirocinio.ID="
         + id + "";
 
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
       statement.executeUpdate(query);
+      statement.close();
       connection.commit();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     return true;
   }
@@ -202,7 +187,8 @@ public class DatabasePf {
   /**
    * Setta in Richiesta Tirocinio 1 a ConvalidaProf.
    * 
-   * @param id Identificativo della richiesta di tirocinio
+   * @param id
+   *          Identificativo della richiesta di tirocinio
    * @return boolean
    * @throws SQLException
    * 
@@ -210,25 +196,21 @@ public class DatabasePf {
    */
   public static synchronized boolean setConvalidaProf(int id) throws SQLException {
     Connection connection = null;
-    Statement statement = null;
 
     String query = "UPDATE richiestatirocinio SET ConvalidaProf=1 WHERE richiestatirocinio.ID=" + id
         + "";
 
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
       statement.executeUpdate(query);
+      statement.close();
       connection.commit();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     return true;
   }
@@ -236,7 +218,8 @@ public class DatabasePf {
   /**
    * Setta in Progetto Formativo 1 ConvalidaProf.
    * 
-   * @param id Identificativo della richiesta di tirocinio
+   * @param id
+   *          Identificativo della richiesta di tirocinio
    * @return boolean
    * @throws SQLException
    * 
@@ -244,25 +227,21 @@ public class DatabasePf {
    */
   public static synchronized boolean setConvalidaProfProgetto(int id) throws SQLException {
     Connection connection = null;
-    Statement statement = null;
 
     String query = "UPDATE progettoformativo SET convalidaProf=1 WHERE progettoformativo.ID=" + id
         + "";
 
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
       statement.executeUpdate(query);
+      statement.close();
       connection.commit();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     return true;
   }
@@ -270,7 +249,8 @@ public class DatabasePf {
   /**
    * Setta in Progetto Formativo 1 ConvalidaSegr.
    * 
-   * @param id Identificativo del progetto formativo
+   * @param id
+   *          Identificativo del progetto formativo
    * @return boolean
    * @throws SQLException
    * 
@@ -278,25 +258,21 @@ public class DatabasePf {
    */
   public static synchronized boolean setConvalidaSegrProgetto(int id) throws SQLException {
     Connection connection = null;
-    Statement statement = null;
 
     String query = "UPDATE progettoformativo SET convalidaSegr=1 WHERE progettoformativo.ID=" + id
         + "";
 
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
       statement.executeUpdate(query);
+      statement.close();
       connection.commit();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     return true;
   }
@@ -304,7 +280,8 @@ public class DatabasePf {
   /**
    * Setta in Progetto Formativo 1 sottoscrizioneStu.
    * 
-   * @param id Identificativo del progetto formativo
+   * @param id
+   *          Identificativo del progetto formativo
    * @return boolean
    * @throws SQLException
    * 
@@ -312,25 +289,21 @@ public class DatabasePf {
    */
   public static synchronized boolean setSottoscrizioneStuProgetto(int id) throws SQLException {
     Connection connection = null;
-    Statement statement = null;
 
     String query = "UPDATE progettoformativo SET sottoscrizioneStu=1 WHERE progettoformativo.ID="
         + id + "";
 
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
       statement.executeUpdate(query);
+      statement.close();
       connection.commit();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     return true;
   }
@@ -339,30 +312,28 @@ public class DatabasePf {
    * Restituisce l'ultima Richiesta Tirocinio creata in ordine temporale.
    * 
    * @return {@code -1} non e' presente nessuna convenzione, {@code Oggetto Convenzione} altrimenti.
-   * @throws SQLException Eccezione lanciata
+   * @throws SQLException
+   *           Eccezione lanciata
    */
   private static synchronized int getIdMaxRichiestaTirocinio() throws SQLException {
     Connection connection = null;
-    java.sql.Statement statement = null;
 
     int id = -1;
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
       ResultSet rs = statement.executeQuery(queryGetMaxRichiestaTirocinio);
 
       if (rs.next()) {
         id = rs.getInt(1);
       }
+      rs.close();
+      statement.close();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     return id;
   }
@@ -370,7 +341,8 @@ public class DatabasePf {
   /**
    * Restituisce un ArrayList di oggetti di tipo RichiestaTirocinio dato l'email dell'Azienda.
    * 
-   * @param email Email dell'azienda
+   * @param email
+   *          Email dell'azienda
    * @return {@code ArrayList<RichiestaTirocinio>}.
    * @throws SQLException
    * 
@@ -379,13 +351,12 @@ public class DatabasePf {
   public static synchronized ArrayList<RichiestaTirocinio> doRetrieveRichiesteAziende(String email)
       throws SQLException {
     Connection connection = null;
-    Statement statement = null;
 
     RichiestaTirocinio richiesta = null;
     ArrayList<RichiestaTirocinio> arrayRichiesta = new ArrayList<RichiestaTirocinio>();
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
       ResultSet rs = statement
           .executeQuery("SELECT * FROM richiestatirocinio WHERE richiestatirocinio.AziendaEmail='"
@@ -402,14 +373,12 @@ public class DatabasePf {
 
         arrayRichiesta.add(richiesta);
       }
+      rs.close();
+      statement.close();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     return arrayRichiesta;
   }
@@ -418,7 +387,8 @@ public class DatabasePf {
    * Restituisce un ArrayList di oggetti di tipo RichiestaTirocinio dato l'email dell'Azienda che
    * sono state Convalidate sia da esse che dal Prof.
    * 
-   * @param email Email dell'azienda
+   * @param email
+   *          Email dell'azienda
    * @return {@code ArrayList<RichiestaTirocinio>}.
    * @throws SQLException
    * 
@@ -427,17 +397,16 @@ public class DatabasePf {
   public static synchronized ArrayList<RichiestaTirocinio> doRetrieveRichiesteConvalidate(
       String email) throws SQLException {
     Connection connection = null;
-    Statement statement = null;
 
     RichiestaTirocinio richiesta = null;
     ArrayList<RichiestaTirocinio> arrayRichiesta = new ArrayList<RichiestaTirocinio>();
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
-      ResultSet rs = statement.executeQuery(
-          "SELECT * FROM richiestatirocinio WHERE richiestatirocinio.AziendaEmail='" + email
-              + "' AND richiestatirocinio.ConvalidaAzienda=1 "
+      ResultSet rs = statement
+          .executeQuery("SELECT * FROM richiestatirocinio WHERE richiestatirocinio.AziendaEmail='"
+              + email + "' AND richiestatirocinio.ConvalidaAzienda=1 "
               + "AND richiestatirocinio.ConvalidaProf=1");
       connection.commit();
 
@@ -451,14 +420,12 @@ public class DatabasePf {
 
         arrayRichiesta.add(richiesta);
       }
+      rs.close();
+      statement.close();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     return arrayRichiesta;
   }
@@ -466,7 +433,8 @@ public class DatabasePf {
   /**
    * Restituisce un ArrayList di oggetti di tipo RichiestaTirocinio dato l'email del Professore.
    * 
-   * @param email Email del professore
+   * @param email
+   *          Email del professore
    * @return {@code ArrayList<RichiestaTirocinio>}.
    * @throws SQLException
    * 
@@ -475,13 +443,12 @@ public class DatabasePf {
   public static synchronized ArrayList<RichiestaTirocinio> doRetrieveRichiesteProfessore(
       String email) throws SQLException {
     Connection connection = null;
-    Statement statement = null;
 
     RichiestaTirocinio richiesta = null;
     ArrayList<RichiestaTirocinio> arrayRichiesta = new ArrayList<RichiestaTirocinio>();
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
       ResultSet rs = statement.executeQuery(
           "SELECT * FROM richiestatirocinio WHERE richiestatirocinio.ProfessoreEmail='" + email
@@ -498,14 +465,12 @@ public class DatabasePf {
 
         arrayRichiesta.add(richiesta);
       }
+      rs.close();
+      statement.close();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     return arrayRichiesta;
   }
@@ -513,7 +478,8 @@ public class DatabasePf {
   /**
    * Restituisce, se esiste, un oggetto di tipo Studente dato l'identificativo della Richiesta.
    * 
-   * @param id Identificativo della richiesta di tirocinio
+   * @param id
+   *          Identificativo della richiesta di tirocinio
    * @return {@code Studente}.
    * @throws SQLException
    * 
@@ -521,13 +487,13 @@ public class DatabasePf {
    */
   public static synchronized Studente getStudenteByIdRichiesta(int id) throws SQLException {
     Connection connection = null;
-    PreparedStatement preparedStatement = null;
 
     Studente s = null;
 
     try {
       connection = Database.getConnection();
-      preparedStatement = connection.prepareStatement(queryGetStudenteByIDRichiesta);
+      PreparedStatement preparedStatement = connection
+          .prepareStatement(queryGetStudenteByIDRichiesta);
       preparedStatement.setInt(1, id);
 
       ResultSet rs = preparedStatement.executeQuery();
@@ -543,14 +509,12 @@ public class DatabasePf {
         s.setDataNascita(rs.getString("DataNascita"));
         s.setLuogoNascita(rs.getString("LuogoNascita"));
       }
+      rs.close();
+      preparedStatement.close();
     } finally {
-      try {
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     return s;
   }
@@ -558,7 +522,8 @@ public class DatabasePf {
   /**
    * Restituisce un oggetto di tipo ProgettoFormativo data la matricola dello Studente.
    * 
-   * @param matricola Matricola dello studente
+   * @param matricola
+   *          Matricola dello studente
    * @return {@code RichiestaTirocinio}.
    * @throws SQLException
    * 
@@ -567,12 +532,11 @@ public class DatabasePf {
   public static synchronized ProgettoFormativo doRetrievProgettoFormativoStudente(String matricola)
       throws SQLException {
     Connection connection = null;
-    Statement statement = null;
 
     ProgettoFormativo progettoFormativo = null;
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
       ResultSet rs = statement
           .executeQuery("SELECT * FROM progettoformativo WHERE StudenteMatricola='" + matricola
@@ -595,14 +559,12 @@ public class DatabasePf {
         progettoFormativo.setConvalidaSegr(rs.getBoolean("convalidaSegr"));
         progettoFormativo.setSottoscrizioneStu(rs.getBoolean("sottoscrizioneStu"));
       }
+      rs.close();
+      statement.close();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     return progettoFormativo;
   }
@@ -610,7 +572,8 @@ public class DatabasePf {
   /**
    * Restituisce un oggetto di tipo ProgettoFormativo data l'email Professore.
    * 
-   * @param email Email del professore
+   * @param email
+   *          Email del professore
    * @return {@code ArrayList<RichiestaTirocinio>}.
    * @throws SQLException
    * 
@@ -619,13 +582,12 @@ public class DatabasePf {
   public static synchronized ArrayList<ProgettoFormativo> doRetrievProgettoFormativoProfessore(
       String email) throws SQLException {
     Connection connection = null;
-    Statement statement = null;
 
     ProgettoFormativo progettoFormativo = null;
     ArrayList<ProgettoFormativo> array = new ArrayList<ProgettoFormativo>();
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
       ResultSet rs = statement
           .executeQuery("SELECT * FROM progettoformativo WHERE ProfessoreEmail='" + email
@@ -650,14 +612,12 @@ public class DatabasePf {
 
         array.add(progettoFormativo);
       }
+      rs.close();
+      statement.close();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     return array;
   }
@@ -665,7 +625,8 @@ public class DatabasePf {
   /**
    * Restituisce un oggetto di tipo ProgettoFormativo data l'username Segreteria.
    * 
-   * @param username Username della segreteria
+   * @param username
+   *          Username della segreteria
    * @return {@code ArrayList<RichiestaTirocinio>}.
    * @throws SQLException
    * 
@@ -674,13 +635,12 @@ public class DatabasePf {
   public static synchronized ArrayList<ProgettoFormativo> doRetrievProgettoFormativoSegreteria(
       String username) throws SQLException {
     Connection connection = null;
-    Statement statement = null;
 
     ProgettoFormativo progettoFormativo = null;
     ArrayList<ProgettoFormativo> array = new ArrayList<ProgettoFormativo>();
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
       ResultSet rs = statement
           .executeQuery("SELECT * FROM progettoformativo WHERE SegreteriaUsername='" + username
@@ -705,14 +665,12 @@ public class DatabasePf {
 
         array.add(progettoFormativo);
       }
+      rs.close();
+      statement.close();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
     return array;
   }
@@ -730,8 +688,7 @@ public class DatabasePf {
         + "VALUES (?,?);";
     queryAddProgettoFormativo = "INSERT INTO progettoformativo "
         + "(AziendaEmail, SegreteriaUsername, StudenteMatricola, "
-        + "ProfessoreEmail, Obiettivi, DataInizio, DataFine) "
-        + "VALUES (?,?,?,?,?,?,?);";
+        + "ProfessoreEmail, Obiettivi, DataInizio, DataFine) " + "VALUES (?,?,?,?,?,?,?);";
 
     queryUpdateStudente = "UPDATE studente SET RichiestaTirocinioID=? WHERE studente.Email=?";
 

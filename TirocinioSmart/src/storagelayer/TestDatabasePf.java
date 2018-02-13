@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.junit.AfterClass;
@@ -45,7 +46,7 @@ public class TestDatabasePf {
   // Id della richiesta che andremo a creare per il test e che verrà poi eliminata
   private static int idRichiesta;
   private static int idProgetto;
-  
+
   /**
    * Inizializzazione degli oggetti utili nel test.
    */
@@ -61,7 +62,7 @@ public class TestDatabasePf {
       e.printStackTrace();
     }
 
-    //Nuovi dati da inserire per il test
+    // Nuovi dati da inserire per il test
     rt = new RichiestaTirocinio();
     pf = new ProgettoFormativo();
   }
@@ -81,23 +82,23 @@ public class TestDatabasePf {
     } catch (SQLException e) {
       fail("Non doveva capitare");
     }
-    
-    //Testa il metodo equals di RichiestaTirocinio
+
+    // Testa il metodo equals di RichiestaTirocinio
     assertTrue(rt.equals(rt));
     assertFalse(rt.equals(null));
     assertFalse(rt.equals(pf));
-    //Caso in cui non è uguale convalida azienda
-    RichiestaTirocinio richiesta = new RichiestaTirocinio(1,a,p,true,true);
+    // Caso in cui non è uguale convalida azienda
+    RichiestaTirocinio richiesta = new RichiestaTirocinio(1, a, p, true, true);
     assertFalse(rt.equals(richiesta));
-    //Caso in cui non è uguale convalida prof
-    richiesta = new RichiestaTirocinio(1,a,p,false,true);
+    // Caso in cui non è uguale convalida prof
+    richiesta = new RichiestaTirocinio(1, a, p, false, true);
     assertFalse(rt.equals(richiesta));
-    //Caso in cui non è uguale l'azienda
-    Azienda az = new Azienda("ciao", "ciao", "ciao", "mare",
-        "ciao", "ciao", "ciao", "ciao", "mareee", "eeee", false);
+    // Caso in cui non è uguale l'azienda
+    Azienda az = new Azienda("ciao", "ciao", "ciao", "mare", "ciao", "ciao", "ciao", "ciao",
+        "mareee", "eeee", false);
     richiesta = new RichiestaTirocinio(1, az, p, false, false);
     assertFalse(rt.equals(richiesta));
-    //Caso in cui non è uguale il professore
+    // Caso in cui non è uguale il professore
     Professore prof = new Professore("ciao", "ciao", "ciao", "ciao", false, "Bah");
     richiesta = new RichiestaTirocinio(1, a, prof, false, false);
     assertFalse(rt.equals(richiesta));
@@ -107,8 +108,10 @@ public class TestDatabasePf {
    * Test method for
    * {@link storagelayer.DatabasePf#addProgettoFormativo 
    * (gestioneprogettoformativo.ProgettoFormativo)}.
-   * @throws SQLException 
-   * Eccezzione lanciata nel caso in cui il collegamento al database o la query non va a buon fine
+   * 
+   * @throws SQLException
+   *           Eccezzione lanciata nel caso in cui il collegamento al database o la query non va a
+   *           buon fine
    */
   @Test
   public void test02_AddProgettoFormativo() throws SQLException {
@@ -125,14 +128,13 @@ public class TestDatabasePf {
     } catch (SQLException e) {
       fail("Non doveva capitare");
     }
-    
-    //Recupera l'id del progetto formativo appena inserito nel database
+
+    // Recupera l'id del progetto formativo appena inserito nel database
     Connection connection = null;
-    java.sql.Statement statement = null;
 
     try {
       connection = Database.getConnection();
-      statement = connection.createStatement();
+      Statement statement = connection.createStatement();
 
       ResultSet rs = statement.executeQuery("SELECT MAX(ID) FROM progettoformativo");
 
@@ -140,21 +142,19 @@ public class TestDatabasePf {
         idProgetto = rs.getInt(1);
         pf.setId(idProgetto);
       }
+      rs.close();
+      statement.close();
     } finally {
-      try {
-        if (statement != null) {
-          statement.close();
-        }
-      } finally {
-        Database.releaseConnection(connection);
-      }
+
+      Database.releaseConnection(connection);
+
     }
-    
-    //Testa il metodo equals di ProgettoFormativo
+
+    // Testa il metodo equals di ProgettoFormativo
     assertTrue(pf.equals(pf));
     assertFalse(pf.equals(null));
     assertFalse(pf.equals(rt));
-    //Caso in cui il progetto formativo è diverso
+    // Caso in cui il progetto formativo è diverso
     ProgettoFormativo progetto = new ProgettoFormativo();
     assertFalse(pf.equals(progetto));
   }
@@ -192,7 +192,7 @@ public class TestDatabasePf {
       fail("Non doveva capitare");
     }
   }
-  
+
   /**
    * Test method for
    * {@link storagelayer.DatabasePf#doRetrieveRichiesteProfessore(java.lang.String)}.
@@ -205,8 +205,8 @@ public class TestDatabasePf {
       arrayAtteso.add(rt);
       String atteso = arrayAtteso.toString();
 
-      ArrayList<RichiestaTirocinio> arrayTest = 
-          DatabasePf.doRetrieveRichiesteProfessore(p.getUser());
+      ArrayList<RichiestaTirocinio> arrayTest = DatabasePf
+          .doRetrieveRichiesteProfessore(p.getUser());
       String test = arrayTest.toString();
 
       assertEquals(atteso, test);
@@ -214,7 +214,7 @@ public class TestDatabasePf {
       fail("Non doveva capitare");
     }
   }
-  
+
   /**
    * Test method for {@link storagelayer.DatabasePf#setConvalidaAzienda(int)}.
    */
@@ -251,15 +251,14 @@ public class TestDatabasePf {
       rt.setId(idRichiesta);
       rt.setConvalidaAzienda(true);
       rt.setConvalidaProf(true);
-      ArrayList<RichiestaTirocinio> arrayAtteso = 
-          new ArrayList<RichiestaTirocinio>();
+      ArrayList<RichiestaTirocinio> arrayAtteso = new ArrayList<RichiestaTirocinio>();
       arrayAtteso.add(rt);
       String atteso = arrayAtteso.toString();
-      
-      ArrayList<RichiestaTirocinio> arrayTest = 
-          DatabasePf.doRetrieveRichiesteConvalidate(a.getUser());
+
+      ArrayList<RichiestaTirocinio> arrayTest = DatabasePf
+          .doRetrieveRichiesteConvalidate(a.getUser());
       String test = arrayTest.toString();
-      
+
       assertEquals(atteso, test);
     } catch (SQLException e) {
       fail("Non doveva capitare");
@@ -272,10 +271,10 @@ public class TestDatabasePf {
   @Test
   public void test09_GetStudenteByIdRichiesta() {
     try {
-      //Caso in cui lo studente con tale richiesta c'è
+      // Caso in cui lo studente con tale richiesta c'è
       Studente ciccio = DatabasePf.getStudenteByIdRichiesta(idRichiesta);
-      assertEquals(s.toString(),ciccio.toString());
-      //Caso in cui lo studente con una richiesta non c'è
+      assertEquals(s.toString(), ciccio.toString());
+      // Caso in cui lo studente con una richiesta non c'è
       ciccio = DatabasePf.getStudenteByIdRichiesta(0);
       assertNull(ciccio);
     } catch (SQLException e) {
@@ -290,8 +289,8 @@ public class TestDatabasePf {
   @Test
   public void test10_DoRetrievProgettoFormativoStudente() {
     try {
-      ProgettoFormativo progettoTest = 
-          DatabasePf.doRetrievProgettoFormativoStudente(s.getMatricola());
+      ProgettoFormativo progettoTest = DatabasePf
+          .doRetrievProgettoFormativoStudente(s.getMatricola());
 
       assertNotNull(progettoTest);
     } catch (SQLException e) {
@@ -307,10 +306,10 @@ public class TestDatabasePf {
   public void test11_DoRetrievProgettoFormativoProfessore() {
     try {
       ArrayList<ProgettoFormativo> nonAtteso = new ArrayList<ProgettoFormativo>();
-      ArrayList<ProgettoFormativo> progettoTest = 
-          DatabasePf.doRetrievProgettoFormativoProfessore(p.getUser());
+      ArrayList<ProgettoFormativo> progettoTest = DatabasePf
+          .doRetrievProgettoFormativoProfessore(p.getUser());
 
-      assertNotEquals(nonAtteso.toString(),progettoTest.toString());
+      assertNotEquals(nonAtteso.toString(), progettoTest.toString());
     } catch (SQLException e) {
       fail("Non doveva capitare");
     }
@@ -350,15 +349,15 @@ public class TestDatabasePf {
   public void test14_DoRetrievProgettoFormativoSegreteria() {
     try {
       ArrayList<ProgettoFormativo> nonAtteso = new ArrayList<ProgettoFormativo>();
-      ArrayList<ProgettoFormativo> progettoTest = 
-          DatabasePf.doRetrievProgettoFormativoSegreteria(segreteria.getUser());
+      ArrayList<ProgettoFormativo> progettoTest = DatabasePf
+          .doRetrievProgettoFormativoSegreteria(segreteria.getUser());
 
-      assertNotEquals(nonAtteso.toString(),progettoTest.toString());
+      assertNotEquals(nonAtteso.toString(), progettoTest.toString());
     } catch (SQLException e) {
       fail("Non doveva capitare");
     }
   }
-  
+
   /**
    * Test method for {@link storagelayer.DatabasePf#setConvalidaSegrProgetto(int)}.
    */
@@ -371,7 +370,7 @@ public class TestDatabasePf {
       fail("Non doveva capitare");
     }
   }
-  
+
   /**
    * Elimina gli oggetti creati nel database durante il test.
    * 
@@ -388,7 +387,6 @@ public class TestDatabasePf {
 
   private static void eliminaRichiestaStudente() throws SQLException {
     Connection con = null;
-    PreparedStatement ps = null;
 
     String deleteRichiestaStudente = "UPDATE studente SET RichiestaTirocinioID= null "
         + "WHERE Matricola=?";
@@ -397,27 +395,23 @@ public class TestDatabasePf {
     try {
       con = Database.getConnection();
 
-      ps = con.prepareStatement(deleteRichiestaStudente);
+      PreparedStatement ps = con.prepareStatement(deleteRichiestaStudente);
       ps.setString(1, s.getMatricola());
 
       ps.executeUpdate();
+      ps.close();
       con.commit();
 
     } finally {
-      try {
-        if (ps != null) {
-          ps.close();
-        }
-      } finally {
-        Database.releaseConnection(con);
-      }
+
+      Database.releaseConnection(con);
+
     }
 
   }
 
   private static void eliminaRichiesta() throws SQLException {
     Connection con = null;
-    PreparedStatement ps = null;
 
     String rimuoviRichiesta = "DELETE FROM richiestatirocinio WHERE ID=?;";
 
@@ -425,26 +419,22 @@ public class TestDatabasePf {
     try {
       con = Database.getConnection();
 
-      ps = con.prepareStatement(rimuoviRichiesta);
+      PreparedStatement ps = con.prepareStatement(rimuoviRichiesta);
       ps.setInt(1, idRichiesta);
 
       ps.executeUpdate();
+      ps.close();
       con.commit();
 
     } finally {
-      try {
-        if (ps != null) {
-          ps.close();
-        }
-      } finally {
-        Database.releaseConnection(con);
-      }
+
+      Database.releaseConnection(con);
+
     }
   }
 
   private static void eliminaProgettoFormativo() throws SQLException {
     Connection con = null;
-    PreparedStatement ps = null;
 
     String rimuoviRichiesta = "DELETE FROM progettoformativo ";
 
@@ -452,19 +442,16 @@ public class TestDatabasePf {
     try {
       con = Database.getConnection();
 
-      ps = con.prepareStatement(rimuoviRichiesta);
+      PreparedStatement ps = con.prepareStatement(rimuoviRichiesta);
 
       ps.executeUpdate();
+      ps.close();
       con.commit();
 
     } finally {
-      try {
-        if (ps != null) {
-          ps.close();
-        }
-      } finally {
-        Database.releaseConnection(con);
-      }
+
+      Database.releaseConnection(con);
+
     }
   }
 }
