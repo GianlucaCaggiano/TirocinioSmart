@@ -1,6 +1,7 @@
 package storagelayer;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -80,7 +81,26 @@ public class TestDatabasePf {
     } catch (SQLException e) {
       fail("Non doveva capitare");
     }
-
+    
+    //Testa il metodo equals di RichiestaTirocinio
+    assertTrue(rt.equals(rt));
+    assertFalse(rt.equals(null));
+    assertFalse(rt.equals(pf));
+    //Caso in cui non è uguale convalida azienda
+    RichiestaTirocinio richiesta = new RichiestaTirocinio(1,a,p,true,true);
+    assertFalse(rt.equals(richiesta));
+    //Caso in cui non è uguale convalida prof
+    richiesta = new RichiestaTirocinio(1,a,p,false,true);
+    assertFalse(rt.equals(richiesta));
+    //Caso in cui non è uguale l'azienda
+    Azienda az = new Azienda("ciao", "ciao", "ciao", "mare",
+        "ciao", "ciao", "ciao", "ciao", "mareee", "eeee", false);
+    richiesta = new RichiestaTirocinio(1, az, p, false, false);
+    assertFalse(rt.equals(richiesta));
+    //Caso in cui non è uguale il professore
+    Professore prof = new Professore("ciao", "ciao", "ciao", "ciao", false, "Bah");
+    richiesta = new RichiestaTirocinio(1, a, prof, false, false);
+    assertFalse(rt.equals(richiesta));
   }
 
   /**
@@ -106,6 +126,7 @@ public class TestDatabasePf {
       fail("Non doveva capitare");
     }
     
+    //Recupera l'id del progetto formativo appena inserito nel database
     Connection connection = null;
     java.sql.Statement statement = null;
 
@@ -117,6 +138,7 @@ public class TestDatabasePf {
 
       if (rs.next()) {
         idProgetto = rs.getInt(1);
+        pf.setId(idProgetto);
       }
     } finally {
       try {
@@ -128,6 +150,13 @@ public class TestDatabasePf {
       }
     }
     
+    //Testa il metodo equals di ProgettoFormativo
+    assertTrue(pf.equals(pf));
+    assertFalse(pf.equals(null));
+    assertFalse(pf.equals(rt));
+    //Caso in cui il progetto formativo è diverso
+    ProgettoFormativo progetto = new ProgettoFormativo();
+    assertFalse(pf.equals(progetto));
   }
 
   /**

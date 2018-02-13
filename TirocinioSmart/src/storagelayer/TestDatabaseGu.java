@@ -1,6 +1,7 @@
 package storagelayer;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -47,6 +48,12 @@ public class TestDatabaseGu {
         "Nocera", "1956/2/8", "Test Azienda s.r.l.", "Napoli", "80100", "Via Pioppi, 10", false);
     try {
       DatabaseGu.addConvenzione(convenzione);
+      //Testa il metodo equals di convenzione
+      assertTrue(convenzione.equals(convenzione));
+      assertFalse(convenzione.equals(null));
+      Utente stu = new Studente();
+      assertFalse(convenzione.equals(stu));
+      //Test per addUser di Azienda
       Boolean done = DatabaseGu.addUser(a);
       assertEquals(true, done);
     } catch (SQLException e) {
@@ -129,6 +136,7 @@ public class TestDatabaseGu {
    */
   @Test
   public void testGetUtenteById() {
+    // Testa il caso in cui l'utente non è presente nel database
     String user = "s.ciao@unisa.it";
     try {
       Utente u = DatabaseGu.getUtenteById(user);
@@ -386,11 +394,17 @@ public class TestDatabaseGu {
     }
     test.add(b);
     test.add(a);
-    String atteso = test.toString();
     try {
       ArrayList<Utente> aziende = DatabaseGu.doRetriveAllNonAbilitatiAziende();
-      String stringa = aziende.toString();
-      assertEquals(atteso, stringa);
+      for (int i = 0; i < test.size(); i++) {
+        //Testa il caso in cui l'oggetto passato al metodo equals è null
+        assertFalse(test.get(i).equals(null));
+        //Testa il caso in cui l'oggetto passato al metodo equals è di un'altra classe
+        Utente s = new Studente();
+        assertFalse(test.get(i).equals(s));
+        //Testa il caso in cui l'oggetto passato al metodo equals è uguale
+        assertTrue(test.get(i).equals(aziende.get(i)));
+      }
     } catch (SQLException e) {
       
       fail("non doveva capitare");
