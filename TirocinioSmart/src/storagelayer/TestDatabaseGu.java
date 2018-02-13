@@ -53,6 +53,8 @@ public class TestDatabaseGu {
       assertFalse(convenzione.equals(null));
       Utente stu = new Studente();
       assertFalse(convenzione.equals(stu));
+      Convenzione con = new Convenzione(0,"2018-2-2", "Test");
+      assertFalse(convenzione.equals(con));
       //Test per addUser di Azienda
       Boolean done = DatabaseGu.addUser(a);
       assertEquals(true, done);
