@@ -688,9 +688,9 @@ public class DatabaseGu {
           azienda.setChiSiamo(res.getString("ChiSiamo"));
         }
         String idConvenzione = res.getString("ConvenzioneID");
-        if (idConvenzione != null) {
-          azienda.setConvenzione(DatabaseGu.getConvenzioneById(Integer.parseInt(idConvenzione)));
-        }
+        
+        azienda.setConvenzione(DatabaseGu.getConvenzioneById(Integer.parseInt(idConvenzione)));
+        
         azienda.setAbilitato(res.getBoolean("abilitato"));
         arrayList.add(azienda);
       }
