@@ -14,5 +14,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Gianluca/Desktop/mockito-all-1.9.5.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
