@@ -308,7 +308,7 @@ public class TestRegistrazioneProfessore {
     when(request.getParameter("cognome")).thenReturn(unProfessore.getCognome());
     when(request.getParameter("materia")).thenReturn(unProfessore.getMateria());
     when(request.getRequestDispatcher("/registrazione.jsp?errore="
-        + "Utente gia' presente nel sistema")).thenReturn(dispatcher);
+        + "Professore gia' presente nel sistema")).thenReturn(dispatcher);
     
     try {
       new RegistrazioneProfessore().doPost(request, response);
@@ -351,12 +351,12 @@ public class TestRegistrazioneProfessore {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    /*
+
     // rimuovi il professore 
     try {
       DatabaseGu.deleteUser(unProfessore.getUser());
     } catch (SQLException e) {
       e.printStackTrace();
-    }*/
+    }
   }
 }
