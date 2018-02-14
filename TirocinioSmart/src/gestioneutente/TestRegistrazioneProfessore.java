@@ -198,18 +198,161 @@ public class TestRegistrazioneProfessore {
   }
   
   /**
+   * Test case con id TC_GU_1.2_7
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test07_Nome() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn(professore.getUser());
+    when(request.getParameter("password")).thenReturn(unProfessore.getPassword());
+    when(request.getParameter("nome")).thenReturn("Car@");
+    when(request.getParameter("cognome")).thenReturn("");
+    when(request.getParameter("materia")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=nome non valido"))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneProfessore().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.2_8
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test08_Cognome() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn(professore.getUser());
+    when(request.getParameter("password")).thenReturn(unProfessore.getPassword());
+    when(request.getParameter("nome")).thenReturn(unProfessore.getNome());
+    when(request.getParameter("cognome")).thenReturn("");
+    when(request.getParameter("materia")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=cognome non valido"))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneProfessore().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.2_9
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test09_Cognome() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn(professore.getUser());
+    when(request.getParameter("password")).thenReturn(unProfessore.getPassword());
+    when(request.getParameter("nome")).thenReturn(unProfessore.getNome());
+    when(request.getParameter("cognome")).thenReturn("Gravin&");
+    when(request.getParameter("materia")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=cognome non valido"))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneProfessore().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.2_10
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test10_Materia() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn(professore.getUser());
+    when(request.getParameter("password")).thenReturn(unProfessore.getPassword());
+    when(request.getParameter("nome")).thenReturn(unProfessore.getNome());
+    when(request.getParameter("cognome")).thenReturn(unProfessore.getCognome());
+    when(request.getParameter("materia")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=materia non valida"))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneProfessore().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.2_11
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test11_EmailPresente() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn(professore.getUser());
+    when(request.getParameter("password")).thenReturn(unProfessore.getPassword());
+    when(request.getParameter("nome")).thenReturn(unProfessore.getNome());
+    when(request.getParameter("cognome")).thenReturn(unProfessore.getCognome());
+    when(request.getParameter("materia")).thenReturn(unProfessore.getMateria());
+    when(request.getRequestDispatcher("/registrazione.jsp?errore="
+        + "Utente gia' presente nel sistema")).thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneProfessore().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.2_12
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test12_Successo() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn(unProfessore.getUser());
+    when(request.getParameter("password")).thenReturn(unProfessore.getPassword());
+    when(request.getParameter("nome")).thenReturn(unProfessore.getNome());
+    when(request.getParameter("cognome")).thenReturn(unProfessore.getCognome());
+    when(request.getParameter("materia")).thenReturn(unProfessore.getMateria());
+    when(request.getRequestDispatcher("/success.jsp")).thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneProfessore().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
    * Elimina gli oggetti creati nel database durante il test.
    */
   @AfterClass
   public static void rimuovi() {
-    // rimuovi lo studente n.iannuzzi@studenti.unisa.it
+    // rimuovi il professore fferrucci
     try {
       DatabaseGu.deleteUser(professore.getUser());
     } catch (SQLException e) {
       e.printStackTrace();
     }
     /*
-    // rimuovi lo studente m.verdi1@studenti.unisa.it
+    // rimuovi il professore 
     try {
       DatabaseGu.deleteUser(unProfessore.getUser());
     } catch (SQLException e) {
