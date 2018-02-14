@@ -125,6 +125,383 @@ public class TestRegistrazioneAzienda {
   }
   
   /**
+   * Test case con id TC_GU_1.3_2
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test02_Email() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn("aa@.it");
+    when(request.getParameter("password")).thenReturn("");
+    when(request.getParameter("denominazione")).thenReturn("");
+    when(request.getParameter("citta")).thenReturn("");
+    when(request.getParameter("cap")).thenReturn("");
+    when(request.getParameter("via")).thenReturn("");
+    when(request.getParameter("telefono")).thenReturn("");
+    when(request.getParameter("sitoWeb")).thenReturn("");
+    when(request.getParameter("nome")).thenReturn("");
+    when(request.getParameter("cognome")).thenReturn("");
+    when(request.getParameter("dataNascita")).thenReturn("");
+    when(request.getParameter("luogoNascita")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=Email non valida"))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneAzienda().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.3_3
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test03_Password() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn("accososoftware@miao.it");
+    when(request.getParameter("password")).thenReturn("a1b2");
+    when(request.getParameter("denominazione")).thenReturn("");
+    when(request.getParameter("citta")).thenReturn("");
+    when(request.getParameter("cap")).thenReturn("");
+    when(request.getParameter("via")).thenReturn("");
+    when(request.getParameter("telefono")).thenReturn("");
+    when(request.getParameter("sitoWeb")).thenReturn("");
+    when(request.getParameter("nome")).thenReturn("");
+    when(request.getParameter("cognome")).thenReturn("");
+    when(request.getParameter("dataNascita")).thenReturn("");
+    when(request.getParameter("luogoNascita")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=Password non valida"))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneAzienda().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.3_4
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test04_Password() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn("accososoftware@miao.it");
+    when(request.getParameter("password")).thenReturn("a1b2c3@");
+    when(request.getParameter("denominazione")).thenReturn("");
+    when(request.getParameter("citta")).thenReturn("");
+    when(request.getParameter("cap")).thenReturn("");
+    when(request.getParameter("via")).thenReturn("");
+    when(request.getParameter("telefono")).thenReturn("");
+    when(request.getParameter("sitoWeb")).thenReturn("");
+    when(request.getParameter("nome")).thenReturn("");
+    when(request.getParameter("cognome")).thenReturn("");
+    when(request.getParameter("dataNascita")).thenReturn("");
+    when(request.getParameter("luogoNascita")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=Password non valida"))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneAzienda().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.3_8
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test08_Denominazione() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn("accososoftware@miao.it");
+    when(request.getParameter("password")).thenReturn(unAzienda.getPassword());
+    when(request.getParameter("denominazione")).thenReturn("");
+    when(request.getParameter("citta")).thenReturn("");
+    when(request.getParameter("cap")).thenReturn("");
+    when(request.getParameter("via")).thenReturn("");
+    when(request.getParameter("telefono")).thenReturn("");
+    when(request.getParameter("sitoWeb")).thenReturn("");
+    when(request.getParameter("nome")).thenReturn("");
+    when(request.getParameter("cognome")).thenReturn("");
+    when(request.getParameter("dataNascita")).thenReturn("");
+    when(request.getParameter("luogoNascita")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=Ragione sociale non valida. "
+        + "Se la denominazione dell'azienda contiene piu' di trenta caratteri"
+        + "inserire solo l'acronimo."))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneAzienda().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.3_9
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test09_Denominazione() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn("accososoftware@miao.it");
+    when(request.getParameter("password")).thenReturn(unAzienda.getPassword());
+    when(request.getParameter("denominazione")).thenReturn("H$Software s.r.l.");
+    when(request.getParameter("citta")).thenReturn("");
+    when(request.getParameter("cap")).thenReturn("");
+    when(request.getParameter("via")).thenReturn("");
+    when(request.getParameter("telefono")).thenReturn("");
+    when(request.getParameter("sitoWeb")).thenReturn("");
+    when(request.getParameter("nome")).thenReturn("");
+    when(request.getParameter("cognome")).thenReturn("");
+    when(request.getParameter("dataNascita")).thenReturn("");
+    when(request.getParameter("luogoNascita")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=Ragione sociale non valida. "
+        + "Se la denominazione dell'azienda contiene piu' di trenta caratteri"
+        + "inserire solo l'acronimo."))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneAzienda().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.3_10
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test10_Città() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn("accososoftware@miao.it");
+    when(request.getParameter("password")).thenReturn(unAzienda.getPassword());
+    when(request.getParameter("denominazione")).thenReturn(unAzienda.getDenominazione());
+    when(request.getParameter("citta")).thenReturn("");
+    when(request.getParameter("cap")).thenReturn("");
+    when(request.getParameter("via")).thenReturn("");
+    when(request.getParameter("telefono")).thenReturn("");
+    when(request.getParameter("sitoWeb")).thenReturn("");
+    when(request.getParameter("nome")).thenReturn("");
+    when(request.getParameter("cognome")).thenReturn("");
+    when(request.getParameter("dataNascita")).thenReturn("");
+    when(request.getParameter("luogoNascita")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=La citta' inserita non e' valida"))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneAzienda().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.3_11
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test11_Città() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn("accososoftware@miao.it");
+    when(request.getParameter("password")).thenReturn(unAzienda.getPassword());
+    when(request.getParameter("denominazione")).thenReturn(unAzienda.getDenominazione());
+    when(request.getParameter("citta")).thenReturn("7fichi");
+    when(request.getParameter("cap")).thenReturn("");
+    when(request.getParameter("via")).thenReturn("");
+    when(request.getParameter("telefono")).thenReturn("");
+    when(request.getParameter("sitoWeb")).thenReturn("");
+    when(request.getParameter("nome")).thenReturn("");
+    when(request.getParameter("cognome")).thenReturn("");
+    when(request.getParameter("dataNascita")).thenReturn("");
+    when(request.getParameter("luogoNascita")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=La citta' inserita non e' valida"))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneAzienda().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.3_12
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test12_Cap() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn("accososoftware@miao.it");
+    when(request.getParameter("password")).thenReturn(unAzienda.getPassword());
+    when(request.getParameter("denominazione")).thenReturn(unAzienda.getDenominazione());
+    when(request.getParameter("citta")).thenReturn(unAzienda.getCitta());
+    when(request.getParameter("cap")).thenReturn("8408");
+    when(request.getParameter("via")).thenReturn("");
+    when(request.getParameter("telefono")).thenReturn("");
+    when(request.getParameter("sitoWeb")).thenReturn("");
+    when(request.getParameter("nome")).thenReturn("");
+    when(request.getParameter("cognome")).thenReturn("");
+    when(request.getParameter("dataNascita")).thenReturn("");
+    when(request.getParameter("luogoNascita")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=CAP non valido"))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneAzienda().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.3_13
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test13_Cap() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn("accososoftware@miao.it");
+    when(request.getParameter("password")).thenReturn(unAzienda.getPassword());
+    when(request.getParameter("denominazione")).thenReturn(unAzienda.getDenominazione());
+    when(request.getParameter("citta")).thenReturn(unAzienda.getCitta());
+    when(request.getParameter("cap")).thenReturn("8408a");
+    when(request.getParameter("via")).thenReturn("");
+    when(request.getParameter("telefono")).thenReturn("");
+    when(request.getParameter("sitoWeb")).thenReturn("");
+    when(request.getParameter("nome")).thenReturn("");
+    when(request.getParameter("cognome")).thenReturn("");
+    when(request.getParameter("dataNascita")).thenReturn("");
+    when(request.getParameter("luogoNascita")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=CAP non valido"))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneAzienda().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.3_14
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test14_Via() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn("accososoftware@miao.it");
+    when(request.getParameter("password")).thenReturn(unAzienda.getPassword());
+    when(request.getParameter("denominazione")).thenReturn(unAzienda.getDenominazione());
+    when(request.getParameter("citta")).thenReturn(unAzienda.getCitta());
+    when(request.getParameter("cap")).thenReturn(unAzienda.getCap());
+    when(request.getParameter("via")).thenReturn("Via Pioppi%20");
+    when(request.getParameter("telefono")).thenReturn("");
+    when(request.getParameter("sitoWeb")).thenReturn("");
+    when(request.getParameter("nome")).thenReturn("");
+    when(request.getParameter("cognome")).thenReturn("");
+    when(request.getParameter("dataNascita")).thenReturn("");
+    when(request.getParameter("luogoNascita")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=la strada inserita non è valida"))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneAzienda().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.3_15
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test15_Via() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn("accososoftware@miao.it");
+    when(request.getParameter("password")).thenReturn(unAzienda.getPassword());
+    when(request.getParameter("denominazione")).thenReturn(unAzienda.getDenominazione());
+    when(request.getParameter("citta")).thenReturn(unAzienda.getCitta());
+    when(request.getParameter("cap")).thenReturn(unAzienda.getCap());
+    when(request.getParameter("via")).thenReturn("Via Pioppi%20");
+    when(request.getParameter("telefono")).thenReturn("");
+    when(request.getParameter("sitoWeb")).thenReturn("");
+    when(request.getParameter("nome")).thenReturn("");
+    when(request.getParameter("cognome")).thenReturn("");
+    when(request.getParameter("dataNascita")).thenReturn("");
+    when(request.getParameter("luogoNascita")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=la strada inserita non è valida"))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneAzienda().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  /**
+   * Test case con id TC_GU_1.3_15
+   * 
+   * @throws IOException Eccezione lanciata per errore di IO
+   * @throws ServletException Eccezzione lanciata dalla servlet
+   * 
+   */
+  @Test
+  public void test16_Telefono() throws ServletException, IOException {
+    when(request.getParameter("email")).thenReturn("accososoftware@miao.it");
+    when(request.getParameter("password")).thenReturn(unAzienda.getPassword());
+    when(request.getParameter("denominazione")).thenReturn(unAzienda.getDenominazione());
+    when(request.getParameter("citta")).thenReturn(unAzienda.getCitta());
+    when(request.getParameter("cap")).thenReturn(unAzienda.getCap());
+    when(request.getParameter("via")).thenReturn(unAzienda.getVia());
+    when(request.getParameter("telefono")).thenReturn("3333333t33");
+    when(request.getParameter("sitoWeb")).thenReturn("");
+    when(request.getParameter("nome")).thenReturn("");
+    when(request.getParameter("cognome")).thenReturn("");
+    when(request.getParameter("dataNascita")).thenReturn("");
+    when(request.getParameter("luogoNascita")).thenReturn("");
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=Numero di telefono non valido"))
+      .thenReturn(dispatcher);
+    
+    try {
+      new RegistrazioneAzienda().doPost(request, response);
+    } catch (NullPointerException e) {
+      fail("Non doveva capitare");
+    }    
+  }
+  
+  
+  /**
    * Elimina gli oggetti creati nel database durante il test.
    */
   @AfterClass
