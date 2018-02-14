@@ -92,31 +92,17 @@ public class RegistrazioneProfessore extends HttpServlet {
    * @author Caggiano Gianluca
    */
   private boolean controllo(HttpServletRequest request, HttpServletResponse response) {
+
     String email = request.getParameter("email");
-    email = email.trim();
-    if ((!email.matches(Professore.EMAIL_PATTERN)) || email.length() > Utente.MAX_LUNGHEZZA_USER) {
-      errore = "Email non valida";
-    }
-
-    String password = request.getParameter("password");
-    password = password.trim();
-    if (!password.matches(Utente.PASSWORD_PATTERN)) {
-      errore = "Password non valida";
-    }
-
-    String nome = request.getParameter("nome");
-    nome = nome.trim();
-    if ((!nome.matches(Utente.ALL_LETTERS)) || ((nome.length() < Utente.MIN_LUNGHEZZA_DUE) 
-        || (nome.length() > Utente.MAX_LUNGHEZZA_TRENTA))) {
-      errore = "nome non valido";
-    }
-
-    String cognome = request.getParameter("cognome");
-    cognome = cognome.trim();
-    cognome = cognome.replace("'", " ");
-    if ((!cognome.matches(Utente.ALL_LETTERS)) || (cognome.length() < Utente.MIN_LUNGHEZZA_DUE)
-        || (cognome.length() > Utente.MAX_LUNGHEZZA_TRENTA)) {
-      errore = "cognome non valido";
+    
+    //Controlla se il professore è già presente del database
+    try {
+      Professore p = DatabaseGu.getProfessoreByEmail(email);
+      if (p != null) {
+        errore = "Professore gia' presente nel sistema";
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
     }
 
     String materia = request.getParameter("materia");
@@ -127,13 +113,30 @@ public class RegistrazioneProfessore extends HttpServlet {
       errore = "materia non valida";
     }
 
-    try {
-      Professore p = DatabaseGu.getProfessoreByEmail(email);
-      if (p != null) {
-        errore = "Professore gia' presente nel sistema";
-      }
-    } catch (SQLException e1) {
-      e1.printStackTrace();
+    String cognome = request.getParameter("cognome");
+    cognome = cognome.trim();
+    cognome = cognome.replace("'", " ");
+    if ((!cognome.matches(Utente.ALL_LETTERS)) || (cognome.length() < Utente.MIN_LUNGHEZZA_DUE)
+        || (cognome.length() > Utente.MAX_LUNGHEZZA_TRENTA)) {
+      errore = "cognome non valido";
+    }
+
+    String nome = request.getParameter("nome");
+    nome = nome.trim();
+    if ((!nome.matches(Utente.ALL_LETTERS)) || ((nome.length() < Utente.MIN_LUNGHEZZA_DUE) 
+        || (nome.length() > Utente.MAX_LUNGHEZZA_TRENTA))) {
+      errore = "nome non valido";
+    }
+
+    String password = request.getParameter("password");
+    password = password.trim();
+    if (!password.matches(Utente.PASSWORD_PATTERN)) {
+      errore = "Password non valida";
+    }
+    
+    email = email.trim();
+    if ((!email.matches(Professore.EMAIL_PATTERN)) || email.length() > Utente.MAX_LUNGHEZZA_USER) {
+      errore = "Email non valida";
     }
 
     if (errore.length() != 0) {
