@@ -109,7 +109,7 @@ public class RegistrazioneStudente extends HttpServlet {
     try {
       Studente s = DatabaseGu.getStudenteByEmail(email);
       Studente s2 = DatabaseGu.getStudenteByMatricola(matricola);
-      if (s != null && s2 != null) {
+      if (s != null || s2 != null) {
         errore = "Utente gia' presente nel sistema";
       }
     } catch (SQLException e1) {
