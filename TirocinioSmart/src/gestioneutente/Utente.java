@@ -64,9 +64,6 @@ public abstract class Utente {
    * @param user
    *          Stringa che rappresenta la user di accesso dell'utente
    * 
-   * @pre user != null
-   * @pre user.length() &#62;= 2 and nome.length() &#60;= 64
-   * 
    * @author Caggiano Gianluca
    */
   public void setUser(String user) {
@@ -90,9 +87,6 @@ public abstract class Utente {
    * @param password
    *          Stringa che rappresenta la password dell'utente
    * 
-   * @pre password != null
-   * @pre password.length() &#62;= 2 and password.length() &#60;= 32
-   * 
    * @author Caggiano Gianluca
    */
   public void setPassword(String password) {
@@ -111,13 +105,10 @@ public abstract class Utente {
   }
 
   /**
-   * Setta il nome dell'utente
+   * Setta il nome dell'utente.
    * 
    * @param nome
    *          Stringa che rappresenta il nome dell'utente
-   * 
-   * @pre nome != null
-   * @pre nome.length() &#62;= 2 and nome.length() &#60;= 30
    * 
    * @author Caggiano Gianluca
    */
@@ -141,9 +132,6 @@ public abstract class Utente {
    * 
    * @param cognome
    *          Stringa che rappresenta il cognome dell'utente
-   * 
-   * @pre cognome != null
-   * @pre cognome.length() &#62;= 2 and nome.length() &#60;= 30
    * 
    * @author Caggiano Gianluca
    */

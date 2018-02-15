@@ -25,8 +25,11 @@ public class DatabasePf {
    * 
    * @param rt
    *          richiesta di tirocinio da memorizzare
+   *          
+   * @param s Studente che ha effettuato la richiesta
+   * 
    * @return {@code true} se la aggiunta della richiesta e' ok, {@code false} altrimenti.
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Gianluca Caggiano, Iannuzzi Nicola'
    */
@@ -77,7 +80,7 @@ public class DatabasePf {
    * @param progettoFormativo
    *          Progetto Formativo da memorizzare
    * @return {@code true} se la aggiunta del Progetto e' ok, {@code false} altrimenti.
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Gianluca Caggiano, Iannuzzi Nicola'
    */
@@ -115,7 +118,7 @@ public class DatabasePf {
    *          Identificativo della richiesta da prelevare
    * @return {@code null} se la richiesta di tirocinio con tale id non esiste,
    *         {@code Oggetto RichiestaTirocinio } altrimenti.
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Caggiano Gianluca
    */
@@ -159,7 +162,7 @@ public class DatabasePf {
    * @param id
    *          Identificativo della richiesta di tirocinio
    * @return boolean
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Gianluca Caggiano, Iannuzzi Nicola'
    */
@@ -190,7 +193,7 @@ public class DatabasePf {
    * @param id
    *          Identificativo della richiesta di tirocinio
    * @return boolean
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Iannuzzi Nicola', Gianluca Caggiano
    */
@@ -221,7 +224,7 @@ public class DatabasePf {
    * @param id
    *          Identificativo della richiesta di tirocinio
    * @return boolean
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Iannuzzi Nicola'
    */
@@ -252,7 +255,7 @@ public class DatabasePf {
    * @param id
    *          Identificativo del progetto formativo
    * @return boolean
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Iannuzzi Nicola'
    */
@@ -283,7 +286,7 @@ public class DatabasePf {
    * @param id
    *          Identificativo del progetto formativo
    * @return boolean
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Iannuzzi Nicola'
    */
@@ -344,7 +347,7 @@ public class DatabasePf {
    * @param email
    *          Email dell'azienda
    * @return {@code ArrayList<RichiestaTirocinio>}.
-   * @throws SQLException
+   * @throws SQLException  Eccezione lanciata da errore SQL
    * 
    * @author Caggiano Gianluca, Iannuzzi Nicola'
    */
@@ -390,7 +393,7 @@ public class DatabasePf {
    * @param email
    *          Email dell'azienda
    * @return {@code ArrayList<RichiestaTirocinio>}.
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Iannuzzi Nicola'
    */
@@ -436,7 +439,7 @@ public class DatabasePf {
    * @param email
    *          Email del professore
    * @return {@code ArrayList<RichiestaTirocinio>}.
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Caggiano Gianluca, Iannuzzi Nicola'
    */
@@ -481,7 +484,7 @@ public class DatabasePf {
    * @param id
    *          Identificativo della richiesta di tirocinio
    * @return {@code Studente}.
-   * @throws SQLException
+   * @throws SQLException  Eccezione lanciata da errore SQL
    * 
    * @author Caggiano Gianluca, Iannuzzi Nicola'
    */
@@ -525,7 +528,7 @@ public class DatabasePf {
    * @param matricola
    *          Matricola dello studente
    * @return {@code RichiestaTirocinio}.
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Iannuzzi Nicola'
    */
@@ -575,7 +578,7 @@ public class DatabasePf {
    * @param email
    *          Email del professore
    * @return {@code ArrayList<RichiestaTirocinio>}.
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Iannuzzi Nicola'
    */
@@ -628,7 +631,7 @@ public class DatabasePf {
    * @param username
    *          Username della segreteria
    * @return {@code ArrayList<RichiestaTirocinio>}.
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Iannuzzi Nicola'
    */

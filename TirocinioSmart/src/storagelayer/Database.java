@@ -98,6 +98,9 @@ public class Database {
    * 
    * @param connection
    *          rappresenta la connessione rilasciata e ri-aggiunta al pool di connessioni.
+   *          
+   * @throws SQLException Eccezione lanciata da un errore SQL. 
+   * 
    * @author Caggiano Gianluca
    */
 

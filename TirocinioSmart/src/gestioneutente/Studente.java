@@ -3,7 +3,7 @@ package gestioneutente;
 import gestioneprogettoformativo.RichiestaTirocinio;
 
 /**
- * Classe che modella uno studente che si &egrave iscritto alla piattaforma.
+ * Classe che modella uno studente che si e' iscritto alla piattaforma.
  * 
  * @author Caggiano Gianluca
  *
@@ -163,6 +163,8 @@ public class Studente extends Utente {
 
   /**
    * Setta la Richiesta di Tirocinio dello Studente.
+   * 
+   * @param richiestaTirocinio Oggetto che rappresenta la richiesta di tirocinio
    * 
    * @author Iannuzzi Nicolà
    */

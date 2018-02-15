@@ -834,7 +834,7 @@ public class DatabaseGu {
    * @param email
    *          Email dell'azienda
    * @return boolean
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Iannuzzi Nicola'
    */
@@ -864,7 +864,7 @@ public class DatabaseGu {
    * @param email
    *          Email del professore
    * @return boolean
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Iannuzzi Nicola'
    */

@@ -45,6 +45,8 @@ public class ProgettoFormativo {
    *          Segreteria che rappresenta la Segreteria
    * @param studente
    *          Studente che rappresenta lo Studente coinvolto nel Progetto Formativo
+   * @param professore
+   *          Professore che rappresenta il prof coinvolto nel Progetto Formativo
    * @param dataInizio
    *          String che rappresenta la data di inizio del Progetto Formativo
    * @param obiettivi
@@ -207,7 +209,7 @@ public class ProgettoFormativo {
   /**
    * Setta la data di inizio del Progetto Formativo.
    * 
-   * @param dataInizio
+   * @param dataInizio Stringa che rappresenta la data di inizio del tirocinio
    * 
    * @author Iannuzzi Nicolà
    */
