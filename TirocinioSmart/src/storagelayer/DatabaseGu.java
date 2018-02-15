@@ -32,7 +32,7 @@ public class DatabaseGu {
    * @param utente
    *          Utente della piattaforma che deve essere aggiunto
    * @return {@code true} se la registrazione e' ok, {@code false} altrimenti.
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da un errore SQL
    * 
    * @author Caggiano Gianluca, Iannuzzi Nicola'
    */
@@ -175,7 +175,7 @@ public class DatabaseGu {
    * 
    * @param convenzione
    *          Convenzione da aggiungere
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da un errore SQL
    * 
    * @author Iannuzzi Nicola'
    */
@@ -276,7 +276,7 @@ public class DatabaseGu {
    * @param user
    *          Username dell'utente da prelevare
    * @return {@code null} se l'utente non esiste, {@code Oggetto Utente } altrimenti.
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da un errore SQL
    * 
    * @author Caggiano Gianluca
    */
@@ -328,7 +328,7 @@ public class DatabaseGu {
    * @param email
    *          email dello studente da prelevare
    * @return {@code null} se l'utente non esiste, {@code Oggetto Studente } altrimenti.
-   * @throws SQLException
+   * @throws SQLException Eccezzione lanciata da un errore SQL
    * 
    * @author Caggiano Gianluca
    */
@@ -380,7 +380,7 @@ public class DatabaseGu {
    * @param matricola
    *          Matricola dello studente da prelevare
    * @return {@code null} se l'utente non esiste, {@code Oggetto Studente } altrimenti.
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Caggiano Gianluca
    */
@@ -432,7 +432,7 @@ public class DatabaseGu {
    * @param email
    *          Email dell'azienda da prelevare
    * @return {@code null} se l'utente non esiste, {@code Oggetto Azienda } altrimenti.
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Iannuzzi Nicolà
    */
@@ -496,7 +496,7 @@ public class DatabaseGu {
    * @param email
    *          Email del professore da prelevare
    * @return {@code null} se l'utente non esiste, {@code Oggetto Professore } altrimenti.
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Iannuzzi Nicolà
    */
@@ -542,7 +542,7 @@ public class DatabaseGu {
    * @param username
    *          Username della segreteria
    * @return {@code null} se l'utente non esiste, {@code Oggetto Segreteria} altrimenti.
-   * @throws SQLException
+   * @throws SQLException Eccezione lanciata da errore SQL
    * 
    * @author Iannuzzi Nicolà
    */
@@ -565,6 +565,7 @@ public class DatabaseGu {
         segreteria.setNome(rs.getString("Nome"));
         segreteria.setCognome(rs.getString("Cognome"));
         segreteria.setEmail(rs.getString("Email"));
+        segreteria.setTelefono(rs.getString("Telefono"));
       }
       rs.close();
       preparedStatement.close();
