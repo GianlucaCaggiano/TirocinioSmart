@@ -738,7 +738,8 @@ public class TestRegistrazioneAzienda {
     when(request.getParameter("cognome")).thenReturn(unAzienda.getCognome());
     when(request.getParameter("dataNascita")).thenReturn(unAzienda.getDataNascita());
     when(request.getParameter("luogoNascita")).thenReturn("");
-    when(request.getRequestDispatcher("/registrazione.jsp?errore=La citta' di nascita inserita non e' valida"))
+    when(request.getRequestDispatcher("/registrazione.jsp?errore="
+        + "La citta' di nascita inserita non e' valida"))
       .thenReturn(dispatcher);
     
     try {
@@ -769,7 +770,8 @@ public class TestRegistrazioneAzienda {
     when(request.getParameter("cognome")).thenReturn(unAzienda.getCognome());
     when(request.getParameter("dataNascita")).thenReturn(unAzienda.getDataNascita());
     when(request.getParameter("luogoNascita")).thenReturn("%");
-    when(request.getRequestDispatcher("/registrazione.jsp?errore=La citta' di nascita inserita non e' valida"))
+    when(request.getRequestDispatcher("/registrazione.jsp?errore="
+        + "La citta' di nascita inserita non e' valida"))
       .thenReturn(dispatcher);
     
     try {
@@ -800,7 +802,8 @@ public class TestRegistrazioneAzienda {
     when(request.getParameter("cognome")).thenReturn(unAzienda.getCognome());
     when(request.getParameter("dataNascita")).thenReturn(unAzienda.getDataNascita());
     when(request.getParameter("luogoNascita")).thenReturn(unAzienda.getLuogoNascita());
-    when(request.getRequestDispatcher("/registrazione.jsp?errore=Azienda gia' presente nel sistema"))
+    when(request.getRequestDispatcher("/registrazione.jsp?errore="
+        + "Azienda gia' presente nel sistema"))
       .thenReturn(dispatcher);
     
     try {
@@ -831,7 +834,8 @@ public class TestRegistrazioneAzienda {
     when(request.getParameter("cognome")).thenReturn(unAzienda.getCognome());
     when(request.getParameter("dataNascita")).thenReturn("2006/2/2");
     when(request.getParameter("luogoNascita")).thenReturn(unAzienda.getLuogoNascita());
-    when(request.getRequestDispatcher("/registrazione.jsp?errore=Mi sembri un pochino troppo piccolo :-P"))
+    when(request.getRequestDispatcher("/registrazione.jsp?errore="
+        + "Mi sembri un pochino troppo piccolo :-P"))
       .thenReturn(dispatcher);
     
     try {
@@ -862,7 +866,8 @@ public class TestRegistrazioneAzienda {
     when(request.getParameter("cognome")).thenReturn(unAzienda.getCognome());
     when(request.getParameter("dataNascita")).thenReturn("1880/2/2");
     when(request.getParameter("luogoNascita")).thenReturn(unAzienda.getLuogoNascita());
-    when(request.getRequestDispatcher("/registrazione.jsp?errore=Mi sembri un pochino troppo grande :-P"))
+    when(request.getRequestDispatcher("/registrazione.jsp?errore="
+        + "Mi sembri un pochino troppo grande :-P"))
       .thenReturn(dispatcher);
     
     try {
