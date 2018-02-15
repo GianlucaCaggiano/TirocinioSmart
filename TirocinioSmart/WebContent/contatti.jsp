@@ -28,8 +28,12 @@
 	<%}else{ %>
 			<%@ include file="navigation.html" %>
 	<%} %>
-	<br/><br/>
-	
+	<!-- Full Width Image Header with Logo -->
+    <!-- Image backgrounds are set within the full-width-pics.css file. -->
+    <header class="image-bg-fluid-height">
+        <img style="width: 75%;" src="images/logo-di.png" alt="Logo"> <!-- Logo del dipartimento di informatica dell'Unisa -->
+    </header>
+	</br></br>
 	<div class="container text-center">
 		<h1>Contatti</h1>
 		<h3>Segreteria Unisa Informatica</h3>
