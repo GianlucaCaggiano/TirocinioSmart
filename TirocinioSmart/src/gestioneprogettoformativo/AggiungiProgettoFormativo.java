@@ -145,8 +145,7 @@ public class AggiungiProgettoFormativo extends HttpServlet {
       }
 
     } catch (ParseException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      errore = "Data non valida";
     }
 
     if (errore.length() != 0) {
