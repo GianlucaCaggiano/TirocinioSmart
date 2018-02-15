@@ -541,32 +541,6 @@ public class TestRegistrazioneStudente {
    * @throws IOException Eccezione lanciata per errore di IO
    */
   @Test
-  public void test20_DataSuccessiva() throws ServletException, IOException {
-    when(request.getParameter("matricola")).thenReturn(unStudente.getMatricola());
-    when(request.getParameter("email")).thenReturn(unStudente.getUser());
-    when(request.getParameter("password")).thenReturn(unStudente.getPassword());
-    when(request.getParameter("nome")).thenReturn(unStudente.getNome());
-    when(request.getParameter("cognome")).thenReturn(unStudente.getCognome());
-    when(request.getParameter("dataNascita")).thenReturn("2222/2/2");
-    when(request.getParameter("luogoNascita")).thenReturn(unStudente.getLuogoNascita());
-    when(request.getRequestDispatcher("/registrazione.jsp?errore="
-        + "Data di nascita successiva alla data odierna"))
-        .thenReturn(dispatcher);
-
-    try {
-      new RegistrazioneStudente().doPost(request, response);
-    } catch (NullPointerException e) {
-      fail("Non doveva capitare");
-    }
-  }
-  
-  /**
-   * Test case con id TC_GU_1.1_21
-   * 
-   * @throws ServletException Eccezzione lanciata dalla servlet
-   * @throws IOException Eccezione lanciata per errore di IO
-   */
-  @Test
   public void test21_Successo() throws ServletException, IOException {
     when(request.getParameter("matricola")).thenReturn(unStudente.getMatricola());
     when(request.getParameter("email")).thenReturn(unStudente.getUser());
