@@ -13,7 +13,7 @@
     <meta name="description" content="Home page del sito">
     <meta name="author" content="Caggiano Gianluca">
 
-    <title>Home</title>
+    <title>Tirocinio Smart</title>
 
 	<%@ include file="headImport.html" %>
 	
@@ -39,9 +39,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="section-heading">Section Heading</h1>
-                    <p class="lead section-lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <p class="section-paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
+                    <h1 class="section-heading">Tirocinio Smart</h1>
+                    <p class="lead section-lead">Benvenuto sul Sito per la Gestione dei Tirocini Esterni per il dipartimento di Informatica dell'Università degli Studi di Salerno.</p>
+                    <p class="section-paragraph" style="font-size: 17px;">Se non sei ancora registrato, <a href="registrazione.jsp">Registrati Ora.</a></br>
+                    Se invece hai un account Studente allora effettua il <a href="login.jsp">Login </a> e comincia da subito la tua esperienza.</br>
+                    Hai qualche perplessità o dubbio? Clicca su <a href="infoTirocinio.jsp">Info Tirocinio</a> per saperne di più.</br>
+                    Ancora dubbi? <a href="contatti.jsp">Contatti</a>, risponderemo a tutte le tue domande.</p>
                 </div>
             </div>
         </div>
