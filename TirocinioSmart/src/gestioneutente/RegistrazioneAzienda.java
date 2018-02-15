@@ -213,7 +213,7 @@ public class RegistrazioneAzienda extends HttpServlet {
     if ((!via.matches(Utente.ALFANUMERIC)) 
         || (via.length() < Utente.MIN_LUNGHEZZA_DUE)
         || (via.length() > Utente.MAX_LUNGHEZZA_TRENTA)) {
-      errore = "la strada inserita non è valida";
+      errore = "la strada inserita non e' valida";
     }
     
     String cap = request.getParameter("cap");

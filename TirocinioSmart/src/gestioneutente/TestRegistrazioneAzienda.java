@@ -428,7 +428,7 @@ public class TestRegistrazioneAzienda {
     when(request.getParameter("cognome")).thenReturn("");
     when(request.getParameter("dataNascita")).thenReturn("");
     when(request.getParameter("luogoNascita")).thenReturn("");
-    when(request.getRequestDispatcher("/registrazione.jsp?errore=la strada inserita non � valida"))
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=la strada inserita non e' valida"))
       .thenReturn(dispatcher);
     
     try {
@@ -459,12 +459,13 @@ public class TestRegistrazioneAzienda {
     when(request.getParameter("cognome")).thenReturn("");
     when(request.getParameter("dataNascita")).thenReturn("");
     when(request.getParameter("luogoNascita")).thenReturn("");
-    when(request.getRequestDispatcher("/registrazione.jsp?errore=la strada inserita non � valida"))
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=la strada inserita non e' valida"))
       .thenReturn(dispatcher);
     
     try {
       new RegistrazioneAzienda().doPost(request, response);
     } catch (NullPointerException e) {
+      e.printStackTrace();
       fail("Non doveva capitare");
     }    
   }

@@ -175,7 +175,7 @@ public class TestDatabaseGu {
       String atteso = "gestioneutente.Studente "
           + "[user= ciccio@studenti.unisa.it, password= 987654321, nome=Ciccio, cognome=Pasticcio] "
           + "[matricola= 0512105879, data di nascita= 1995-07-08, luogo di nascita=Bari, "
-          + "richiesta di tirocinio=null abilitato=false]";
+          + "richiesta di tirocinio=null abilitato=true]";
       String test = DatabaseGu.getStudenteByEmail(email).toString();
       assertEquals(atteso, test);
     } catch (SQLException e) {
@@ -228,7 +228,7 @@ public class TestDatabaseGu {
       String atteso = "gestioneutente.Studente "
           + "[user= ciccio@studenti.unisa.it, password= 987654321, nome=Ciccio, cognome=Pasticcio] "
           + "[matricola= 0512105879, data di nascita= 1995-07-08, luogo di nascita=Bari, "
-          + "richiesta di tirocinio=null abilitato=false]";
+          + "richiesta di tirocinio=null abilitato=true]";
       String test = DatabaseGu.getStudenteByMatricola(matricola).toString();
       assertEquals(atteso, test);
     } catch (SQLException e) {

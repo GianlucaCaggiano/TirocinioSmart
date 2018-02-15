@@ -511,6 +511,7 @@ public class DatabasePf {
         s.setMatricola(rs.getString("Matricola"));
         s.setDataNascita(rs.getString("DataNascita"));
         s.setLuogoNascita(rs.getString("LuogoNascita"));
+        s.setAbilitato(rs.getBoolean("abilitato"));
       }
       rs.close();
       preparedStatement.close();
