@@ -49,7 +49,6 @@ public class AbilitaRichiestaRegistrazioneAzienda extends HttpServlet {
           .getRequestDispatcher("/ListaRichiestaRegistrazione.jsp?success=" + success);
       dispatcher.forward(request, response);
     } catch (NumberFormatException | SQLException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
