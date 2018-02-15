@@ -157,10 +157,6 @@ public class RegistrazioneStudente extends HttpServlet {
         errore = "Mi sembri un pochino troppo grande :-P";
       }
       
-      if (cal.after(oggi)) {
-        errore = "Data di nascita successiva alla data odierna";
-      }
-
     } catch (ParseException e) {
       errore = "Data di nascita errata";
     }

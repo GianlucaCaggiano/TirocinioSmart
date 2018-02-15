@@ -171,11 +171,7 @@ public class RegistrazioneAzienda extends HttpServlet {
       if (oggi.getTimeInMillis() - centenario.getTimeInMillis() >= 0) {
         errore = "Mi sembri un pochino troppo grande :-P";
       }
-      
-      if (cal.after(oggi)) {
-        errore = "Data di nascita successiva alla data odierna";
-      }
-
+  
     } catch (ParseException e) {
       errore = "Data di nascita errata";
     }
