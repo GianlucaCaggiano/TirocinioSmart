@@ -358,6 +358,7 @@ public class DatabaseGu {
           studente
               .setRichiestaTirocinio(DatabasePf.getRichiestaById(Integer.parseInt(idRichiesta)));
         }
+        
         studente.setAbilitato(rs.getBoolean("abilitato"));
       }
       rs.close();

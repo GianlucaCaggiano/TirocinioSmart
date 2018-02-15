@@ -91,7 +91,7 @@ public class Login extends HttpServlet {
               p.setAutenticato(true);
               HttpSession session = request.getSession();
               session.setAttribute("professore", p);
-              request.getRequestDispatcher("areaPersonaleProfessore.jsp").forward(request,
+              request.getRequestDispatcher("/areaPersonaleProfessore.jsp").forward(request,
                   response);
             } else {
               String e = "L'account a cui si sta tentanto di accedere e' disabilitato.";
