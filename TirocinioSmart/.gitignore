@@ -12,6 +12,9 @@
 # ObjectAid project
 *.ucls
 
+# ObjectAid project
+*.checkstyle
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
