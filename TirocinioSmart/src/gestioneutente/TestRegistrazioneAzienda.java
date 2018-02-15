@@ -291,7 +291,7 @@ public class TestRegistrazioneAzienda {
    * 
    */
   @Test
-  public void test10_Città() throws ServletException, IOException {
+  public void test10_Citta() throws ServletException, IOException {
     when(request.getParameter("email")).thenReturn(azienda.getUser());
     when(request.getParameter("password")).thenReturn(unAzienda.getPassword());
     when(request.getParameter("denominazione")).thenReturn(unAzienda.getDenominazione());
@@ -322,7 +322,7 @@ public class TestRegistrazioneAzienda {
    * 
    */
   @Test
-  public void test11_Città() throws ServletException, IOException {
+  public void test11_Citta() throws ServletException, IOException {
     when(request.getParameter("email")).thenReturn(azienda.getUser());
     when(request.getParameter("password")).thenReturn(unAzienda.getPassword());
     when(request.getParameter("denominazione")).thenReturn(unAzienda.getDenominazione());
@@ -428,7 +428,7 @@ public class TestRegistrazioneAzienda {
     when(request.getParameter("cognome")).thenReturn("");
     when(request.getParameter("dataNascita")).thenReturn("");
     when(request.getParameter("luogoNascita")).thenReturn("");
-    when(request.getRequestDispatcher("/registrazione.jsp?errore=la strada inserita non è valida"))
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=la strada inserita non ï¿½ valida"))
       .thenReturn(dispatcher);
     
     try {
@@ -459,7 +459,7 @@ public class TestRegistrazioneAzienda {
     when(request.getParameter("cognome")).thenReturn("");
     when(request.getParameter("dataNascita")).thenReturn("");
     when(request.getParameter("luogoNascita")).thenReturn("");
-    when(request.getRequestDispatcher("/registrazione.jsp?errore=la strada inserita non è valida"))
+    when(request.getRequestDispatcher("/registrazione.jsp?errore=la strada inserita non ï¿½ valida"))
       .thenReturn(dispatcher);
     
     try {
