@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 /**
- * Classe per i test di unità DatabaseGU.
+ * Classe per i test di unitï¿½ DatabaseGU.
  * 
  * @author Caggiano Gianluca
  *
@@ -67,7 +67,7 @@ public class TestDatabaseGu {
         "Nocera", "1956/2/8", "Test Azienda s.r.l.", "Napoli", "80100", "Via Pioppi, 10", false);
     a.setTelefono("0825477958");
     a.setSitoWeb("www.aziendatest.it");
-    a.setChiSiamo("Questo è un test");
+    a.setChiSiamo("Questo ï¿½ un test");
     try {
       
       Boolean done = DatabaseGu.addUser(a);
@@ -153,7 +153,7 @@ public class TestDatabaseGu {
    */
   @Test
   public void testGetUtenteById() {
-    // Testa il caso in cui l'utente non è presente nel database
+    // Testa il caso in cui l'utente non ï¿½ presente nel database
     String user = "s.ciao@unisa.it";
     try {
       Utente u = DatabaseGu.getUtenteById(user);
@@ -315,7 +315,7 @@ public class TestDatabaseGu {
     String name = "segreteriaUnisa";
     try {
       String atteso = "gestioneutente.Segreteria [user= segreteriaUnisa, password= 1234567891,"
-          + " nome=Michele, cognome=Pasquale]Segreteria [telefono=null,"
+          + " nome=Michele, cognome=Pasquale]Segreteria [telefono=089961111,"
           + " email=carrierestudenti.di@unisa.it]";
       String test = DatabaseGu.getSegreteriaByUser(name).toString();
       assertEquals(atteso, test);
@@ -414,12 +414,12 @@ public class TestDatabaseGu {
     try {
       ArrayList<Utente> aziende = DatabaseGu.doRetriveAllNonAbilitatiAziende();
       for (int i = 0; i < test.size(); i++) {
-        //Testa il caso in cui l'oggetto passato al metodo equals è null
+        //Testa il caso in cui l'oggetto passato al metodo equals ï¿½ null
         assertFalse(test.get(i).equals(null));
-        //Testa il caso in cui l'oggetto passato al metodo equals è di un'altra classe
+        //Testa il caso in cui l'oggetto passato al metodo equals ï¿½ di un'altra classe
         Utente s = new Studente();
         assertFalse(test.get(i).equals(s));
-        //Testa il caso in cui l'oggetto passato al metodo equals è uguale
+        //Testa il caso in cui l'oggetto passato al metodo equals ï¿½ uguale
         assertTrue(test.get(i).equals(aziende.get(i)));
       }
     } catch (SQLException e) {
