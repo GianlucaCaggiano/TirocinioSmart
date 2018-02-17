@@ -33,11 +33,11 @@
     <header class="image-bg-fluid-height">
         <img style="width: 75%;" src="images/logo-di.png" alt="Logo"> <!-- Logo del dipartimento di informatica dell'Unisa -->
     </header>
-	</br></br>
+	<br/><br/>
 	<div class="container text-center">
 		<h1>Contatti</h1>
 		<h3>Segreteria Unisa Informatica</h3>
-		</br></br>
+		<br/><br/>
 		
 		<%Segreteria segre = DatabaseGu.getSegreteriaByUser(Segreteria.USERNAME);%>
 		
@@ -45,7 +45,7 @@
 		<p style="font-size: 20px;">Telefono: <%=segre.getTelefono()%> </p>
 		
   	</div>
-	</br></br></br></br></br></br>
+	<br/><br/><br/><br/><br/>
 
    <%@ include file="footer.html" %>
 

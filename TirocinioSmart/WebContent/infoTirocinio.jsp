@@ -33,21 +33,21 @@
     <header class="image-bg-fluid-height">
         <img style="width: 75%;" src="images/logo-di.png" alt="Logo"> <!-- Logo del dipartimento di informatica dell'Unisa -->
     </header>
-	</br></br>
+	<br/><br/>
 	
 	<div class="container text-center">
 		<h1>Info Tirocinio</h1>
 		<h3>Presentazione</h3>
-		</br></br>
+		<br/><br/>
 		
-		<p style="font-size: 17px; text-align: left;"> Il Dipartimento di Informatica promuove e gestisce l'offerta e l'attivazione di tirocini curriculari per i propri studenti.</br>
+		<p style="font-size: 17px; text-align: left;"> Il Dipartimento di Informatica promuove e gestisce l'offerta e l'attivazione di tirocini curriculari per i propri studenti.<br/>
 		Il tirocinio viene svolto presso Aziende o Enti accreditati previa stipula di convenzione tra il Dipartimento di Informatica (soggetto promotore) e l'Azienda/Ente 
-		(soggetto ospitante). <a href="listaAziende.jsp">Consulta l'Elenco delle Aziende convenzionate.</a> </br>
+		(soggetto ospitante). <a href="listaAziende.jsp">Consulta l'Elenco delle Aziende convenzionate.</a> <br/>
 		Per ogni tirocinio è previsto un progetto formativo che riporta gli obiettivi formativi, i riferimenti del tirocinante, del tutor didattico e del tutor aziendale, e 
-		definisce la tipologia, la durata e le modalità del tirocinio. </br>
+		definisce la tipologia, la durata e le modalità del tirocinio. <br/>
 		La procedura per l'attivazione e lo svolgimento dei tirocini formativi prevede:</p>
 		
-		</br>
+		<br/>
 		<ol style="font-size: 17px; text-align: left;">
 			<li><a href="registrazione.jsp">Registrazione</a> presso la Piattaforma Tirocinio Smart</li>
 			<li>Scelta da parte dello studente <a href="listaAziende.jsp">dall'elenco delle aziende già convenzionate</a> con il Dipartimento di Informatica.</li>

@@ -41,9 +41,9 @@
                 <div class="col-lg-12">
                     <h1 class="section-heading">Tirocinio Smart</h1>
                     <p class="lead section-lead">Benvenuto sul Sito per la Gestione dei Tirocini Esterni per il dipartimento di Informatica dell'Università degli Studi di Salerno.</p>
-                    <p class="section-paragraph" style="font-size: 17px;">Se non sei ancora registrato, <a href="registrazione.jsp">Registrati Ora.</a></br>
-                    Se invece hai un account Studente allora effettua il <a href="login.jsp">Login </a> e comincia da subito la tua esperienza.</br>
-                    Hai qualche perplessità o dubbio? Clicca su <a href="infoTirocinio.jsp">Info Tirocinio</a> per saperne di più.</br>
+                    <p class="section-paragraph" style="font-size: 17px;">Se non sei ancora registrato, <a href="registrazione.jsp">Registrati Ora.</a><br/>
+                    Se invece hai un account Studente allora effettua il <a href="login.jsp">Login </a> e comincia da subito la tua esperienza.<br/>
+                    Hai qualche perplessità o dubbio? Clicca su <a href="infoTirocinio.jsp">Info Tirocinio</a> per saperne di più.<br/>
                     Ancora dubbi? <a href="contatti.jsp">Contatti</a>, risponderemo a tutte le tue domande.</p>
                 </div>
             </div>
